@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:background="@drawable/gradient"
         android:weightSum="1"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -51,9 +51,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:textSize="15sp"
-
-                    android:text="Sign In"/>
+                    android:text="Sign In"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/TextLoginColor"/>
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_sign_up"
                     android:background="@drawable/button_rounded"
@@ -61,8 +62,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:textSize="15sp"
                     android:text="Sign Up"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/TextLoginColor"
                     android:layout_marginTop="20dp"
                     android:layout_below="@+id/button_sign_in"/>
         </RelativeLayout>

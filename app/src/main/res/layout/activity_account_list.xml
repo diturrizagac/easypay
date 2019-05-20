@@ -5,13 +5,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AccountListActivity">
+        tools:context=".ui.AccountListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/account_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_account_list">
+            tools:listitem="@layout/item_account">
     </androidx.recyclerview.widget.RecyclerView>
 
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/navigation_home"
+            android:title="Cuentas"
+            android:icon="@drawable/icon_account_18dp"/>
+    <item
+            android:id="@+id/navigation_add"
+            android:title="Agregar"
+            android:icon="@drawable/icon_add_18dp"/>
+    <item
+            android:id="@+id/navigation_recent"
+            android:title="Recientes"
+            android:icon="@drawable/icon_recent_18dp"/>
+</menu>

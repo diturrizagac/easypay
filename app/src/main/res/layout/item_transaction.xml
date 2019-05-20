@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:cardview="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#8A000000"
+        cardview:cardCornerRadius="4dp">
+    <RelativeLayout
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:id="@+id/transaction_creditor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/creditor3"/>
+        <TextView
+                android:id="@+id/transaction_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transaction_creditor"
+                android:layout_alignLeft="@+id/transaction_creditor"
+                android:layout_alignStart="@+id/transaction_creditor"
+                android:text="@string/date2"/>
+
+        <TextView
+                android:id="@+id/transaction_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="40dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="50dp"
+                android:text="@string/balance_value_3"/>
+        <TextView
+                android:id="@+id/transaction_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/transaction_amount"
+                android:layout_alignLeft="@+id/transaction_amount"
+                android:layout_alignStart="@+id/transaction_amount"
+                android:text="@string/transaction_status_2"
+                />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

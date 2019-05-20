@@ -1,7 +1,8 @@
-package com.diturrizaga.easypay
+package com.diturrizaga.easypay.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.diturrizaga.easypay.R
 
 class MainActivity : AppCompatActivity() {
 
