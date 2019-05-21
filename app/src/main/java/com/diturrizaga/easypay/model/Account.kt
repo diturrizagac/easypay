@@ -1,4 +1,6 @@
 package com.diturrizaga.easypay.model
 
-class Account {
+import java.io.Serializable
+
+class Account : Serializable{
 }

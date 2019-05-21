@@ -1,4 +1,6 @@
 package com.diturrizaga.easypay.model
 
-class Transaction {
+import java.io.Serializable
+
+class Transaction : Serializable{
 }

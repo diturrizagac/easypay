@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return loadFragment(fragment)
    }
 
-   fun loadFragment(fragment:Fragment):Boolean {
+   private fun loadFragment(fragment:Fragment):Boolean {
       if (fragment != null) {
          supportFragmentManager
             .beginTransaction()
