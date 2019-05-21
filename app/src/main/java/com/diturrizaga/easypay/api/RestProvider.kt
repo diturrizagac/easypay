@@ -11,15 +11,18 @@ import retrofit2.http.Query
 
 interface RestProvider {
 
+
+
    /**
     * USER, ACCOUNT AND TRANSACTIONS CRUD
     */
 
+   @GET("data/user")
+   fun getUsers(): Call<AccountResponse>
+
    /**
     * USER
     */
-   @GET("data/user")
-   fun getUsers(): Call<AccountResponse>
 
    @GET("data/user/{id_user}")
    fun getUser(
@@ -40,7 +43,21 @@ interface RestProvider {
       //account
    ) : Call<AccountResponse>
 
+   @PUT("data/user/{id_user}")
+   fun putUserAccounts(
+      @Query("loadRelations") loadRelations: String
+      //account
+   ) : Call<AccountResponse>
 
+   @POST("data/user/{id_user}")
+   fun postUserAccounts(
+      @Query("loadRelations") loadRelations: String
+      //account
+   ) : Call<AccountResponse>
+
+   /**
+    * TRANSACTIONS
+     */
 
    @GET("data/user/{id_user}")
    fun getUserTransactions(
@@ -48,34 +65,11 @@ interface RestProvider {
       //account.transaction
    ) : Call<TransactionResponse>
 
-   /**
-   * UPDATE TRANSACTIONS
-   * */
-
-
-
-
-   @PUT("data/user/{id_user}")
-   fun putUserAccounts(
-      @Query("loadRelations") loadRelations: String
-      //account
-   ) : Call<AccountResponse>
-
    @PUT("data/user/{id_user}")
    fun putUserTransactions(
       @Query("loadRelations") loadRelations: String
       //account.transaction
    ) : Call<TransactionResponse>
-
-
-   /**
-    * CREATE TRANSACTIONS
-    */
-   @POST("data/user/{id_user}")
-   fun postUserAccounts(
-      @Query("loadRelations") loadRelations: String
-      //account
-   ) : Call<AccountResponse>
 
    @POST("data/user/{id_user}")
    fun postUserTransactions(
