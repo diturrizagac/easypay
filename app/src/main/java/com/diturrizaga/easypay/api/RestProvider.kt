@@ -4,10 +4,7 @@ import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.model.response.TransactionResponse
 import com.diturrizaga.easypay.model.response.UserResponse
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RestProvider {
 
@@ -17,8 +14,11 @@ interface RestProvider {
     * USER, ACCOUNT AND TRANSACTIONS CRUD
     */
 
-   @GET("data/user")
-   fun getUsers(): Call<AccountResponse>
+   @GET("{bl_key}/{api_key}/data/user")
+   fun getUsers(
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String
+   ): Call<List<UserResponse>>
 
    /**
     * USER
@@ -27,21 +27,24 @@ interface RestProvider {
    @GET("data/user/{id_user}")
    fun getUser(
       @Query("objectId") objectId: String
-   ) : Call<UserResponse>
+   ) : Call<List<UserResponse>>
 
    @PUT("data/user/{id_user}")
    fun putUser(
       @Query("objectId") objectId: String
-   ) : Call<UserResponse>
+   ) : Call<List<UserResponse>>
 
    /**
     * ACCOUNT
      */
-   @GET("data/user/{id_user}")
+   @GET("{bl_key}/{api_key}/data/user/{id_user}")
    fun getUserAccounts(
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String,
+      @Path("id_user") id_user : String,
       @Query("loadRelations") loadRelations: String
       //account
-   ) : Call<AccountResponse>
+   ) : Call<UserResponse>
 
    @PUT("data/user/{id_user}")
    fun putUserAccounts(

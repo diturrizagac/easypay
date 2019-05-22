@@ -17,10 +17,10 @@ class AccountResponse : Serializable {
    val account_name : String? = null
    @SerializedName("created")
    @Expose
-   val created : Int? = null
+   val created : Long? = null
    @SerializedName("updated")
    @Expose
-   val updated : Int? = null
+   val updated : Long? = null
    @SerializedName("status")
    @Expose
    val status : String? = null
@@ -44,5 +44,5 @@ class AccountResponse : Serializable {
    val ___class : String? = null
    @SerializedName("transaction")
    @Expose
-   val transaction : List<Transaction>? = null
+   val transaction : List<TransactionResponse>? = null
 }

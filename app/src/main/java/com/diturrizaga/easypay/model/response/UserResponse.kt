@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 class UserResponse {
    @SerializedName("created")
    @Expose
-   val created: Int? = null
+   val created: Long? = null
    @SerializedName("id")
    @Expose
    val id: Int? = null
@@ -16,7 +16,7 @@ class UserResponse {
    val nickname: String? = null
    @SerializedName("updated")
    @Expose
-   val updated: Int? = null
+   val updated: Long? = null
    @SerializedName("objectId")
    @Expose
    val objectId: String? = null
@@ -34,5 +34,5 @@ class UserResponse {
    val ___class: String? = null
    @SerializedName("account")
    @Expose
-   val account: List<Account>? = null
+   val account: List<AccountResponse>? = null
 }

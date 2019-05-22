@@ -20,6 +20,4 @@ class TransactionRepository : Repository {
       }
    }
 
-   fun getUserAccounts(callback)
-
 }
