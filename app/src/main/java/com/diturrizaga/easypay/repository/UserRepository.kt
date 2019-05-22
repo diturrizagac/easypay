@@ -42,7 +42,7 @@ class UserRepository : Repository{
       call.enqueue(
          object : Callback<List<UserResponse>> {
             override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
-               Log.v("ERROR", t.toString())
+               Log.v("ERROR $TAG", t.toString())
             }
 
             override fun onResponse(call: Call<List<UserResponse>>, response: Response<List<UserResponse>>) {
