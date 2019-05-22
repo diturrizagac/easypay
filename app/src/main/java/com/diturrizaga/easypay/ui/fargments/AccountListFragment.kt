@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.diturrizaga.easypay.OnGetItemCallback
+import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
@@ -19,10 +19,7 @@ class AccountListFragment : Fragment() {
    private lateinit var accountRecyclerView : RecyclerView
    private var accountRepository = AccountRepository.getInstance()
    private var layoutManager = LinearLayoutManager(context)
-
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-   }
+   private var id : Int? = null
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +32,7 @@ class AccountListFragment : Fragment() {
    }
 
    private fun showAccounts() {
-      accountRepository.getAccounts(object : OnGetItemCallback<AccountResponse> {
+      accountRepository.getAccounts(object : OnGetItemsCallback<AccountResponse> {
          override fun onSuccess(items: List<AccountResponse>) {
             setAdapter(AccountAdapter(items, context!!))
          }
@@ -43,11 +40,12 @@ class AccountListFragment : Fragment() {
          override fun onError() {
             Log.v("ERROR", "tan mal pe :v")
          }
-      })
+      },id!!)
    }
 
    private fun setupRecycler(view : View) {
       accountRecyclerView = view.findViewById(R.id.account_list)
+      accountRecyclerView.layoutManager = layoutManager
       showAccounts()
    }
 

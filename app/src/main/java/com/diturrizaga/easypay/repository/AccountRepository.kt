@@ -1,7 +1,7 @@
 package com.diturrizaga.easypay.repository
 
 import android.util.Log
-import com.diturrizaga.easypay.OnGetItemCallback
+import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.api.Api.API_KEY
 import com.diturrizaga.easypay.api.Api.BL_KEY
@@ -16,12 +16,12 @@ class AccountRepository : Repository {
    private var restProvider : RestProvider? = null
    private val TAG = "AccountRepository"
 
-   constructor(restProvider: RestProvider){
+   constructor(restProvider: RestProvider) {
       this.restProvider = restProvider
    }
 
    companion object {
-      var repository: AccountRepository? = null
+      private var repository: AccountRepository? = null
       fun getInstance(): AccountRepository {
          if (repository == null) {
             repository = AccountRepository(Api.getRestProvider())
@@ -29,20 +29,20 @@ class AccountRepository : Repository {
          return repository as AccountRepository
       }
    }
-   fun getAccounts(callback: OnGetItemCallback<AccountResponse>){
-      val user = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,"269C6C28-D52E-2BB8-FF5F-0A69D9C38B00", "account")
-      requestAccounts(user,callback)
+   fun getAccounts(callback: OnGetItemsCallback<AccountResponse>, id: Int){
+      val accounts = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,"269C6C28-D52E-2BB8-FF5F-0A69D9C38B00", "account")
+      requestAccounts(accounts,callback)
    }
 
-   fun getAccount(callback: OnGetItemCallback<AccountResponse>, id : String){
+   fun getAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){
       val user = Api.getRestProvider().getUser(id)
    }
 
-   fun updateAccount(callback: OnGetItemCallback<AccountResponse>,id : String){
+   fun updateAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){
       val user = Api.getRestProvider().putUser(id)
    }
 
-   private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemCallback<AccountResponse>){
+   private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<AccountResponse>){
       call.enqueue(
          object : Callback<UserResponse> {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {

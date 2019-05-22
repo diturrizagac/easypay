@@ -43,6 +43,10 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return false
    }
 
+   private fun loadAccounts(){
+
+   }
+
 
    /*private fun initializeUI() {
       main_viewpager.adapter = HomePagerAdapter(supportFragmentManager)

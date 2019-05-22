@@ -1,6 +1,5 @@
 package com.diturrizaga.easypay.model.response
 
-import com.diturrizaga.easypay.model.Account
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
