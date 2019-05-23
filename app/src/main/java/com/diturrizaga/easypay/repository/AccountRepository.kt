@@ -29,8 +29,8 @@ class AccountRepository : Repository {
          return repository as AccountRepository
       }
    }
-   fun getAccounts(callback: OnGetItemsCallback<AccountResponse>, id: Int){
-      val accounts = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,"269C6C28-D52E-2BB8-FF5F-0A69D9C38B00", "account")
+   fun getAccounts(callback: OnGetItemsCallback<AccountResponse>, id: String){
+      val accounts = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,id, "account")
       requestAccounts(accounts,callback)
    }
 

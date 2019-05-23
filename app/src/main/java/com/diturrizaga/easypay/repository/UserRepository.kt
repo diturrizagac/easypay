@@ -10,16 +10,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserRepository : Repository{
-   private var restProvider : RestProvider? = null
+class UserRepository : Repository {
+   private var restProvider: RestProvider? = null
    private val TAG = "UserRepository"
 
-   constructor(restProvider: RestProvider){
+   constructor(restProvider: RestProvider) {
       this.restProvider = restProvider
    }
 
    companion object {
       var repository: UserRepository? = null
+      @JvmStatic
       fun getInstance(): UserRepository {
          if (repository == null) {
             repository = UserRepository(getRestProvider())
@@ -28,17 +29,17 @@ class UserRepository : Repository{
       }
    }
 
-   fun getUser(callback : OnGetItemsCallback<UserResponse>){
+   fun getUser(callback: OnGetItemsCallback<UserResponse>) {
 
    }
 
-   fun getUsers(callback: OnGetItemsCallback<UserResponse>){
+   fun getUsers(callback: OnGetItemsCallback<UserResponse>) {
       val users = Api.getRestProvider().getUsers(Api.BL_KEY, Api.API_KEY)
       requestUsers(users, callback)
 
    }
 
-   private fun requestUsers(call: Call<List<UserResponse>>, callback: OnGetItemsCallback<UserResponse>){
+   private fun requestUsers(call: Call<List<UserResponse>>, callback: OnGetItemsCallback<UserResponse>) {
       call.enqueue(
          object : Callback<List<UserResponse>> {
             override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {

@@ -14,7 +14,7 @@ interface RestProvider {
     * USER, ACCOUNT AND TRANSACTIONS CRUD
     */
 
-   @GET("{bl_key}/{api_key}/data/user")
+   @GET("{bl_key}/{api_key}/data/Users")
    fun getUsers(
       @Path("bl_key") bl_key : String,
       @Path("api_key") api_key : String
