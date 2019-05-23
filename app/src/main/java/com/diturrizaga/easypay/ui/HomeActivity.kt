@@ -12,6 +12,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
+   private lateinit var id : String
+   var listener : OnIdSendListener? = null
+
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -19,6 +22,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       loadFragment(AccountListFragment())
       val navigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
       navigationView.setOnNavigationItemSelectedListener(this)
+      retrieveData()
       //initializeUI()
    }
 
@@ -43,10 +47,15 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return false
    }
 
-   private fun loadAccounts(){
-
+   private fun retrieveData(){
+      id = intent.extras!!.getSerializable("id") as String
+      listener!!.sendId(id)
    }
 
+
+   interface OnIdSendListener {
+      fun sendId(id:String)
+   }
 
    /*private fun initializeUI() {
       main_viewpager.adapter = HomePagerAdapter(supportFragmentManager)

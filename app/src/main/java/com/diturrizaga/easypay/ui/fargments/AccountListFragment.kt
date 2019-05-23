@@ -1,5 +1,6 @@
 package com.diturrizaga.easypay.ui.fargments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,11 +13,13 @@ import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
+import com.diturrizaga.easypay.ui.HomeActivity
 import com.diturrizaga.easypay.ui.LogInActivity
 import com.diturrizaga.easypay.ui.MainActivity
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 
-class AccountListFragment : Fragment(), LogInActivity.OnGetCurrentUser {
+class AccountListFragment : Fragment(), LogInActivity.OnGetCurrentUser, HomeActivity.OnIdSendListener {
+
 
    private lateinit var accountRecyclerView : RecyclerView
    private var accountRepository = AccountRepository.getInstance()
@@ -55,8 +58,14 @@ class AccountListFragment : Fragment(), LogInActivity.OnGetCurrentUser {
       accountRecyclerView.adapter = adapter
    }
 
+   override fun sendId(id: String) {
+      this.id = id
+   }
+
    override fun getCurrentUser(id: String) {
       this.id = id
    }
+
+
 
 }

@@ -26,6 +26,7 @@ class LogInActivity : AppCompatActivity() {
    private var userRepository = UserRepository.getInstance()
    private var username : String? = null
    private var password : String? = null
+   private var id : String? = null
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -59,11 +60,12 @@ class LogInActivity : AppCompatActivity() {
             }
 
             override fun handleResponse(response: BackendlessUser?) {
-               //getId(response!!.objectId)
-               getCurrentUserListener!!.getCurrentUser(response!!.objectId)
+               val id = response!!.properties.getValue("objectId")
+               getId(id.toString())
+               //getCurrentUserListener!!.getCurrentUser(id.toString())
                Toast.makeText(applicationContext,"User has been logged in", Toast.LENGTH_LONG).show()
-               intent = Intent(this@LogInActivity,HomeActivity::class.java)
-               startActivity(intent)
+               //intent = Intent(this@LogInActivity,HomeActivity::class.java)
+               //startActivity(intent)
             }
 
          }
@@ -72,7 +74,7 @@ class LogInActivity : AppCompatActivity() {
 
    fun setUpUI(){
       usernameEditText = findViewById(R.id.nicknameEt)
-      passwordEditText = findViewById(R.id.button_sign_up)
+      passwordEditText = findViewById(R.id.passwordEt)
       enterButton = findViewById(R.id.enterButton)
 
    }
@@ -82,8 +84,9 @@ class LogInActivity : AppCompatActivity() {
       enterButton!!.setOnClickListener {
          setFields()
          setUpAccount()
-         //val intent = Intent( this,HomeActivity::class.java)
-         //this.startActivity(intent)
+         val intent = Intent( this,HomeActivity::class.java)
+         intent.putExtra("id",id)
+         this.startActivity(intent)
       }
    }
 
@@ -93,8 +96,7 @@ class LogInActivity : AppCompatActivity() {
    }
 
    fun getId(id : String){
-      //this.id = id
-
+      this.id = id
    }
 
 
