@@ -2,6 +2,7 @@ package com.diturrizaga.easypay.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.diturrizaga.easypay.R
@@ -10,8 +11,9 @@ import com.diturrizaga.easypay.ui.fargments.AddTransactionFragment
 import com.diturrizaga.easypay.ui.fargments.RecentListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, LogInActivity.LogInActivityListener{
 
+   private val TAG = "HomeActivity"
    private lateinit var id : String
    var listener : OnIdSendListener? = null
 
@@ -19,10 +21,11 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_home)
+
+      retrieveData()
       loadFragment(AccountListFragment())
       val navigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
       navigationView.setOnNavigationItemSelectedListener(this)
-      retrieveData()
       //initializeUI()
    }
 
@@ -47,9 +50,23 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return false
    }
 
+
+
+
+
    private fun retrieveData(){
       id = intent.extras!!.getSerializable("id") as String
-      listener!!.sendId(id)
+      if (listener != null) {
+         listener!!.sendId(id)
+         Log.v(TAG, "listener prueba")
+      } else {
+         Log.v("LISTENER", "  NO ETNTRO AL LISTENER")
+      }
+
+   }
+
+   override fun sendUser(user_id: String) {
+      id = user_id
    }
 
 
@@ -57,8 +74,4 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       fun sendId(id:String)
    }
 
-   /*private fun initializeUI() {
-      main_viewpager.adapter = HomePagerAdapter(supportFragmentManager)
-      main_viewpager.offscreenPageLimit = 3
-   }*/
 }

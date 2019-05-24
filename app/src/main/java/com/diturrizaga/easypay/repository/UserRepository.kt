@@ -35,6 +35,7 @@ class UserRepository : Repository {
 
    fun getUsers(callback: OnGetItemsCallback<UserResponse>) {
       val users = Api.getRestProvider().getUsers(Api.BL_KEY, Api.API_KEY)
+      Log.i("GET", users.request().url().toString())
       requestUsers(users, callback)
 
    }

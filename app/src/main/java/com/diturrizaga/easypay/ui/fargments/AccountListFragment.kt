@@ -1,6 +1,5 @@
 package com.diturrizaga.easypay.ui.fargments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,17 +13,15 @@ import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.ui.HomeActivity
-import com.diturrizaga.easypay.ui.LogInActivity
-import com.diturrizaga.easypay.ui.MainActivity
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 
-class AccountListFragment : Fragment(), LogInActivity.OnGetCurrentUser, HomeActivity.OnIdSendListener {
-
+class AccountListFragment : Fragment(), HomeActivity.OnIdSendListener {
 
    private lateinit var accountRecyclerView : RecyclerView
    private var accountRepository = AccountRepository.getInstance()
    private var layoutManager = LinearLayoutManager(context)
-   private var id : String? = ""
+   private val TAG = "AccountListFragment"
+   private var userId : String? = null
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
@@ -33,20 +30,21 @@ class AccountListFragment : Fragment(), LogInActivity.OnGetCurrentUser, HomeActi
       // Inflate the layout for this fragment
       val rootView = inflater.inflate(R.layout.fragment_account_list, container, false)
       setupRecycler(rootView)
+
       showAccounts()
       return rootView
    }
 
    private fun showAccounts() {
-      accountRepository.getAccounts(object : OnGetItemsCallback<AccountResponse> {
+      accountRepository.getAccounts(userId!!, object : OnGetItemsCallback<AccountResponse> {
          override fun onSuccess(items: List<AccountResponse>) {
             setAdapter(AccountAdapter(items, context!!))
          }
 
          override fun onError() {
-            Log.v("ERROR", "tan mal pe :v")
+            Log.v("TAG", "ERROR")
          }
-      },id!!)
+      })
    }
 
    private fun setupRecycler(view : View) {
@@ -59,13 +57,8 @@ class AccountListFragment : Fragment(), LogInActivity.OnGetCurrentUser, HomeActi
    }
 
    override fun sendId(id: String) {
-      this.id = id
+      Log.v("LISTENER" , id)
+      userId = id
    }
-
-   override fun getCurrentUser(id: String) {
-      this.id = id
-   }
-
-
 
 }
