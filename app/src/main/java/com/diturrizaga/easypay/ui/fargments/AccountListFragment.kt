@@ -12,10 +12,9 @@ import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
-import com.diturrizaga.easypay.ui.HomeActivity
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 
-class AccountListFragment : Fragment(), HomeActivity.OnIdSendListener {
+class AccountListFragment : Fragment() {
 
    private lateinit var accountRecyclerView : RecyclerView
    private var accountRepository = AccountRepository.getInstance()
@@ -29,8 +28,8 @@ class AccountListFragment : Fragment(), HomeActivity.OnIdSendListener {
    ): View? {
       // Inflate the layout for this fragment
       val rootView = inflater.inflate(R.layout.fragment_account_list, container, false)
-      setupRecycler(rootView)
 
+      setupRecycler(rootView)
       showAccounts()
       return rootView
    }
@@ -42,9 +41,13 @@ class AccountListFragment : Fragment(), HomeActivity.OnIdSendListener {
          }
 
          override fun onError() {
-            Log.v("TAG", "ERROR")
+            Log.v(TAG, "ERROR")
          }
       })
+   }
+
+   override fun onResume() {
+      super.onResume()
    }
 
    private fun setupRecycler(view : View) {
@@ -56,8 +59,7 @@ class AccountListFragment : Fragment(), HomeActivity.OnIdSendListener {
       accountRecyclerView.adapter = adapter
    }
 
-   override fun sendId(id: String) {
-      Log.v("LISTENER" , id)
+   fun getIdFromActivity(id : String) {
       userId = id
    }
 

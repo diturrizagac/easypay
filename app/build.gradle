@@ -52,9 +52,10 @@ dependencies {
         exclude group: "com.android.support"
     }
 
-    //
+    // Lifecycle components
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 
     //QR scanner
     implementation 'com.budiyev.android:code-scanner:2.1.0'

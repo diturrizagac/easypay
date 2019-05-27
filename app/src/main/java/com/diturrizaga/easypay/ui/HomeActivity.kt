@@ -11,30 +11,29 @@ import com.diturrizaga.easypay.ui.fargments.AddTransactionFragment
 import com.diturrizaga.easypay.ui.fargments.RecentListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, LogInActivity.LogInActivityListener{
+class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
 
    private val TAG = "HomeActivity"
    private lateinit var id : String
-   var listener : OnIdSendListener? = null
-
+   private val accountListFragment = AccountListFragment()
+   private val addTransactionFragment = AddTransactionFragment()
+   private val recentListFragment = RecentListFragment()
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_home)
-
+      loadFragment(accountListFragment)
       retrieveData()
-      loadFragment(AccountListFragment())
       val navigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
       navigationView.setOnNavigationItemSelectedListener(this)
-      //initializeUI()
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {
       lateinit var fragment: Fragment
       when (item.itemId) {
-         R.id.navigation_home -> fragment = AccountListFragment()
-         R.id.navigation_add -> fragment = AddTransactionFragment()
-         R.id.navigation_recent -> fragment =  RecentListFragment()
+         R.id.navigation_home -> fragment = accountListFragment
+         R.id.navigation_add -> fragment = addTransactionFragment
+         R.id.navigation_recent -> fragment =  recentListFragment
       }
       return loadFragment(fragment)
    }
@@ -50,28 +49,13 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return false
    }
 
-
-
-
-
    private fun retrieveData(){
       id = intent.extras!!.getSerializable("id") as String
-      if (listener != null) {
-         listener!!.sendId(id)
-         Log.v(TAG, "listener prueba")
-      } else {
-         Log.v("LISTENER", "  NO ETNTRO AL LISTENER")
-      }
-
+      sendIdToFragment(id)
    }
 
-   override fun sendUser(user_id: String) {
-      id = user_id
-   }
-
-
-   interface OnIdSendListener {
-      fun sendId(id:String)
+   private fun sendIdToFragment(id:String){
+      accountListFragment.getIdFromActivity(id)
    }
 
 }
