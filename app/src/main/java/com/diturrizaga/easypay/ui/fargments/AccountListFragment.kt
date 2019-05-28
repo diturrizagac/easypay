@@ -16,11 +16,11 @@ import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 
 class AccountListFragment : Fragment() {
 
-   private lateinit var accountRecyclerView : RecyclerView
+   private lateinit var accountRecyclerView: RecyclerView
    private var accountRepository = AccountRepository.getInstance()
-   private var layoutManager = LinearLayoutManager(context)
+   private lateinit var layoutManager: RecyclerView.LayoutManager
    private val TAG = "AccountListFragment"
-   private var userId : String? = null
+   private var userId: String? = null
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +28,6 @@ class AccountListFragment : Fragment() {
    ): View? {
       // Inflate the layout for this fragment
       val rootView = inflater.inflate(R.layout.fragment_account_list, container, false)
-
       setupRecycler(rootView)
       showAccounts()
       return rootView
@@ -46,20 +45,17 @@ class AccountListFragment : Fragment() {
       })
    }
 
-   override fun onResume() {
-      super.onResume()
-   }
-
-   private fun setupRecycler(view : View) {
+   private fun setupRecycler(view: View) {
+      layoutManager = LinearLayoutManager(context)
       accountRecyclerView = view.findViewById(R.id.account_list)
       accountRecyclerView.layoutManager = layoutManager
    }
 
-   fun setAdapter(adapter : AccountAdapter) {
+   fun setAdapter(adapter: AccountAdapter) {
       accountRecyclerView.adapter = adapter
    }
 
-   fun getIdFromActivity(id : String) {
+   fun getIdFromActivity(id: String) {
       userId = id
    }
 

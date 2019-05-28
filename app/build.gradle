@@ -59,6 +59,8 @@ dependencies {
 
     //QR scanner
     implementation 'com.budiyev.android:code-scanner:2.1.0'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    //implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'

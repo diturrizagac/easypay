@@ -18,6 +18,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    private val accountListFragment = AccountListFragment()
    private val addTransactionFragment = AddTransactionFragment()
    private val recentListFragment = RecentListFragment()
+   private val FRAGTMENT_TAG = "used"
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -40,9 +41,10 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
    private fun loadFragment(fragment:Fragment):Boolean {
       if (fragment != null) {
+
          supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container, fragment,FRAGTMENT_TAG)
             .commit()
          return true
       }

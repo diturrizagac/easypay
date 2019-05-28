@@ -15,22 +15,45 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.LogInActivity">
+        <activity android:name=".ui.WithdrawalScannedActivity">
+        </activity>
+        <activity android:name=".ui.WithdrawalGenerateQrActivity">
+        </activity>
+        <activity android:name=".ui.WithdrawalRecentActivity">
+        </activity>
+        <activity android:name=".ui.PaymentRecentActivity">
+        </activity>
+        <activity android:name=".ui.PaymentAddActivity">
+        </activity>
+        <activity android:name=".ui.TransferAddActivity">
+        </activity>
+        <activity android:name=".ui.TransferRecentActivity">
+        </activity>
+        <activity android:name=".ui.SelectAccountActivity">
+        </activity>
+        <activity android:name=".ui.SelectAmountActivity">
+        </activity>
+        <activity android:name=".ui.WithdrawalAddActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+        </activity>
+        <activity android:name=".ui.WithdrawalScanQrActivity">
+
+        </activity>
+        <activity android:name=".ui.LogInActivity">
         </activity>
         <activity android:name=".ui.AccountDetailActivity">
         </activity>
         <activity android:name=".ui.AccountListActivity">
         </activity>
         <activity android:name=".ui.HomeActivity">
-
         </activity>
         <activity android:name=".ui.MainActivity">
-
         </activity>
     </application>
 

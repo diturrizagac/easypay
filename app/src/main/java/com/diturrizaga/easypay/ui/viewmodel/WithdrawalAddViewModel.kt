@@ -8,7 +8,7 @@ import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.model.response.UserResponse
 import com.diturrizaga.easypay.repository.UserRepository
 
-class UserViewModel : ViewModel() {
+class WithdrawalAddViewModel : ViewModel() {
    private var userList: MutableLiveData<List<UserResponse>>? = null
    private var repository = UserRepository.getInstance()
 
