@@ -35,4 +35,7 @@
     <string name="scanned_qr_code_result">Scanned Qr Code result</string>
     <string name="first_name">Fullname :</string>
     <string name="age">Age :</string>
+    <string name="add_transfer">Transfer</string>
+    <string name="add_payment">Payment</string>
+    <string name="add_withdrawal">Cardless Cash</string>
 </resources>

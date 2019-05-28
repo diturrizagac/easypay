@@ -26,13 +26,12 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
 
    var qrCodeScanner : ZXingScannerView? = null
    var barcodeBackImageView : ImageView? = null
-   var textView : TextView? = null
    var flashOnOff : ImageView? = null
 
    companion object {
       private const val HUAWEI = "huawei"
       private const val MY_CAMERA_REQUEST_CODE = 6515
-      fun getScanQrCodeActivity(callingClassContext: Context) = Intent(callingClassContext, WithdrawalScanQrActivity::class.java)
+      fun getScanQrCodeActivity(context: Context) = Intent(context, WithdrawalScanQrActivity::class.java)
    }
 
 
@@ -43,7 +42,7 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
          WindowManager.LayoutParams.FLAG_FULLSCREEN,
          WindowManager.LayoutParams.FLAG_FULLSCREEN)
       setContentView(R.layout.activity_withdrawal_scan1)
-      initiliazeUI()
+      initializeUI()
       setScannerProperties()
       barcodeBackImageView!!.setOnClickListener { onBackPressed() }
       flashOnOff!!.setOnClickListener {
@@ -58,19 +57,19 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
 
    }
 
-   private fun initiliazeUI() {
+   private fun initializeUI() {
       barcodeBackImageView = findViewById(R.id.barcodeBackImageView)
       flashOnOff = findViewById(R.id.flashOnOffImageView)
       qrCodeScanner = findViewById(R.id.qrCodeScanner)
    }
 
-   fun setScannerProperties() {
+   private fun setScannerProperties() {
       qrCodeScanner!!.setFormats(listOf(BarcodeFormat.QR_CODE))
       qrCodeScanner!!.setAutoFocus(true)
       qrCodeScanner!!.setLaserColor(R.color.colorAccent)
       qrCodeScanner!!.setMaskColor(R.color.colorAccent)
-      if (Build.MANUFACTURER.equals(HUAWEI, ignoreCase = true))
-         qrCodeScanner!!.setAspectTolerance(0.5f)
+      //if (Build.MANUFACTURER.equals(HUAWEI, ignoreCase = true))
+      //   qrCodeScanner!!.setAspectTolerance(0.5f)
    }
 
    override fun onResume() {

@@ -5,15 +5,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import com.diturrizaga.easypay.R
+import com.diturrizaga.easypay.ui.WithdrawalScanQrActivity
 
 class AddTransactionFragment : Fragment() {
+
+   private var transactionCardlessCash : CardView? = null
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?
    ): View? {
+
+      val rootView = inflater.inflate(R.layout.fragment_add_transaction, container, false)
+      initializeUI(rootView)
+      setListener()
       // Inflate the layout for this fragment
-      return inflater.inflate(R.layout.fragment_add_transaction, container, false)
+      return rootView
+   }
+
+   private fun initializeUI(rootView : View) {
+      transactionCardlessCash = rootView.findViewById(R.id.transaction_cardlesscash)
+   }
+
+   fun setListener() {
+      transactionCardlessCash!!.setOnClickListener {
+         startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(context!!))
+      }
+   }
+
+
+   fun goTo() {
+      startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(context!!))
    }
 }

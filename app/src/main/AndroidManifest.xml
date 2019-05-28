@@ -35,17 +35,14 @@
         </activity>
         <activity android:name=".ui.WithdrawalAddActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
 
         </activity>
         <activity android:name=".ui.WithdrawalScanQrActivity">
 
         </activity>
         <activity android:name=".ui.LogInActivity">
+
         </activity>
         <activity android:name=".ui.AccountDetailActivity">
         </activity>
@@ -54,6 +51,11 @@
         <activity android:name=".ui.HomeActivity">
         </activity>
         <activity android:name=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

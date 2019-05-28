@@ -11,7 +11,7 @@ class AccountResponse : Serializable {
    val owner : String? = null
    @SerializedName("balance")
    @Expose
-   val balance : Int? = null
+   val balance : Double? = null
    @SerializedName("account_name")
    @Expose
    val account_name : String? = null

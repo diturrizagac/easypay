@@ -46,7 +46,7 @@ class AccountListFragment : Fragment() {
    }
 
    private fun setupRecycler(view: View) {
-      layoutManager = LinearLayoutManager(context)
+      layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager
       accountRecyclerView = view.findViewById(R.id.account_list)
       accountRecyclerView.layoutManager = layoutManager
    }

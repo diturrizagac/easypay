@@ -17,9 +17,21 @@ class AccountViewHolder(itemvView : View) : RecyclerView.ViewHolder(itemvView) {
     * TODO: IMPLEMENT SET ON CLICK LISTENER
     */
 
+   fun amountFormatter(number : String) : String {
+      return "%.2f".format(number)
+   }
+
+   fun amountToDouble(number: String) : Double {
+      return number.toDouble()
+   }
+
+   private fun amountToMoneyFormat(number : Double) : String{
+      return "$ $number"
+   }
+
    fun bind(account: AccountResponse) {
       account_name.text = account.account_name
-      account_balance.text = account.balance.toString()
+      account_balance.text = amountToMoneyFormat(account.balance!!)
       account_type.text = account.type
    }
 
