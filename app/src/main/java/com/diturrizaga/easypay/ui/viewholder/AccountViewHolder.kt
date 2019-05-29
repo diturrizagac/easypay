@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
+import util.UtilFormatter
+import util.UtilFormatter.Companion.amountToMoneyFormat
 
 class AccountViewHolder(itemvView : View) : RecyclerView.ViewHolder(itemvView) {
    private var account_name = itemView.findViewById<TextView>(R.id.account_name)
@@ -17,17 +19,7 @@ class AccountViewHolder(itemvView : View) : RecyclerView.ViewHolder(itemvView) {
     * TODO: IMPLEMENT SET ON CLICK LISTENER
     */
 
-   fun amountFormatter(number : String) : String {
-      return "%.2f".format(number)
-   }
 
-   fun amountToDouble(number: String) : Double {
-      return number.toDouble()
-   }
-
-   private fun amountToMoneyFormat(number : Double) : String{
-      return "$ $number"
-   }
 
    fun bind(account: AccountResponse) {
       account_name.text = account.account_name

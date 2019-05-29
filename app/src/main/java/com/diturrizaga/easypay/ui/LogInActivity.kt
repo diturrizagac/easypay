@@ -3,7 +3,6 @@ package com.diturrizaga.easypay.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -25,8 +24,6 @@ class LogInActivity : AppCompatActivity() {
    private var userId : String? = null
    private val TAG = "LogInActivity"
 
-   var logInActivityListener : LogInActivityListener? = null
-
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_log_in)
@@ -45,12 +42,12 @@ class LogInActivity : AppCompatActivity() {
             }
 
             override fun handleResponse(response: BackendlessUser?) {
-               val id = response!!.properties.getValue("objectId").toString()
+               val userId = response!!.properties.getValue("objectId").toString()
                //Log.v(TAG,response.properties.)
-               getId(id)
+               getId(userId)
                Toast.makeText(applicationContext,"User has been logged in", Toast.LENGTH_LONG).show()
                val intent = Intent(this@LogInActivity,HomeActivity::class.java)
-               intent.putExtra("id",id)
+               intent.putExtra("userId",userId)
                this@LogInActivity.startActivity(intent)
             }
          }
@@ -78,10 +75,5 @@ class LogInActivity : AppCompatActivity() {
 
    fun getId(id : String){
       userId = id
-      //logInActivityListener!!.sendUser(userId!!)
-   }
-
-   interface LogInActivityListener{
-      fun sendUser(user_id : String)
    }
 }

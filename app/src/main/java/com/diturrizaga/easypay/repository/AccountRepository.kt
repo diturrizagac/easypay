@@ -30,10 +30,10 @@ class AccountRepository : Repository {
       }
    }
    fun getAccounts(id: String, callback: OnGetItemsCallback<AccountResponse>){
-      val accounts = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,id, "account")
-      Log.i("GET", accounts.request().url().toString())
+      val users = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,id, "account")
+      Log.i("GET--->", users.request().url().toString())
       //val accounts = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,"078D80EE-362A-8E2D-FF59-BF4620DA8B00", "account")
-      requestAccounts(accounts,callback)
+      requestAccounts(users,callback)
    }
 
    fun getAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){
@@ -41,8 +41,10 @@ class AccountRepository : Repository {
    }
 
    fun updateAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){
-      val user = Api.getRestProvider().putUser(id)
+      val user = Api.getRestProvider().updateUser(id)
    }
+
+
 
    private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<AccountResponse>){
       call.enqueue(
@@ -54,9 +56,9 @@ class AccountRepository : Repository {
 
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                if (response.isSuccessful) {
-                  val accountResponse = response.body()
-                  if (accountResponse != null) {
-                     callback.onSuccess(accountResponse.account!!)
+                  val userResponse = response.body()
+                  if (userResponse != null) {
+                     callback.onSuccess(userResponse.account!!)
                   } else {
                      callback.onError()
                   }
@@ -67,5 +69,4 @@ class AccountRepository : Repository {
          }
       )
    }
-
 }

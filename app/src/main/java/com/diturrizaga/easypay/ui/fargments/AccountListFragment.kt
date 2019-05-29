@@ -17,8 +17,8 @@ import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 class AccountListFragment : Fragment() {
 
    private lateinit var accountRecyclerView: RecyclerView
-   private var accountRepository = AccountRepository.getInstance()
    private lateinit var layoutManager: RecyclerView.LayoutManager
+   private var accountRepository = AccountRepository.getInstance()
    private val TAG = "AccountListFragment"
    private var userId: String? = null
 
@@ -34,15 +34,17 @@ class AccountListFragment : Fragment() {
    }
 
    private fun showAccounts() {
-      accountRepository.getAccounts(userId!!, object : OnGetItemsCallback<AccountResponse> {
-         override fun onSuccess(items: List<AccountResponse>) {
-            setAdapter(AccountAdapter(items, context!!))
-         }
+      accountRepository.getAccounts(
+         userId!!,
+         object : OnGetItemsCallback<AccountResponse> {
+            override fun onSuccess(items: List<AccountResponse>) {
+               setAdapter(AccountAdapter(items, context!!))
+            }
 
-         override fun onError() {
-            Log.v(TAG, "ERROR")
-         }
-      })
+            override fun onError() {
+               Log.v(TAG, "Couldn't bring data from URL")
+            }
+         })
    }
 
    private fun setupRecycler(view: View) {
@@ -58,5 +60,7 @@ class AccountListFragment : Fragment() {
    fun getIdFromActivity(id: String) {
       userId = id
    }
+
+
 
 }

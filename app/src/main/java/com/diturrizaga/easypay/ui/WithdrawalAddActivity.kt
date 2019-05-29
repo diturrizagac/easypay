@@ -7,23 +7,23 @@ import com.diturrizaga.easypay.R
 
 class WithdrawalAddActivity : AppCompatActivity() {
 
-   var generateButton : Button? = null
-   var scanButton : Button? = null
+   var generateQrButton : Button? = null
+   var scanQrButton : Button? = null
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_withdrawal_add)
       initializeUI()
-      generateButton!!.setOnClickListener {
+      generateQrButton!!.setOnClickListener {
          startActivity(WithdrawalGenerateQrActivity.getGenerateQrCodeActivity(this))
       }
-      scanButton!!.setOnClickListener {
+      scanQrButton!!.setOnClickListener {
          startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(this))
       }
    }
 
-   fun initializeUI() {
-      generateButton = findViewById(R.id.generateButton)
-      scanButton = findViewById(R.id.scanButton)
+   private fun initializeUI() {
+      generateQrButton = findViewById(R.id.generateButton)
+      scanQrButton = findViewById(R.id.scanButton)
    }
 }

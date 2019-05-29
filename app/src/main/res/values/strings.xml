@@ -12,7 +12,7 @@
     <string name="account_name_4">Visa-5632</string>
     <string name="account_type_1">Current Balance</string>
     <string name="account_type_2">Available Balance</string>
-    <string name="account_type_3">Super premium Balance</string>
+    <string name="account_type_3">Super Premium Balance</string>
     <string name="transaction_status_1">Successful</string>
     <string name="transaction_status_2">Pending</string>
     <string name="transaction_status_3">Scheduled</string>
@@ -38,4 +38,7 @@
     <string name="add_transfer">Transfer</string>
     <string name="add_payment">Payment</string>
     <string name="add_withdrawal">Cardless Cash</string>
+    <string name="accounts">Accounts</string>
+    <string name="add">Add</string>
+    <string name="recent">Recent</string>
 </resources>

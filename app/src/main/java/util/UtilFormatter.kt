@@ -10,6 +10,13 @@ import java.text.ParseException;
 
 class UtilFormatter {
 
+   companion object {
+      fun amountToMoneyFormat(number : Double) : String{
+         return "$ number"
+      }
+   }
+
+
    fun phoneNumberFormatter(phoneString: String?): String {
       var phoneString = phoneString
       if (phoneString != null) {

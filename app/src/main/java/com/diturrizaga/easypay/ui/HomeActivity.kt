@@ -14,11 +14,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
 
    private val TAG = "HomeActivity"
-   private lateinit var id : String
+   private lateinit var userId : String
    private val accountListFragment = AccountListFragment()
    private val addTransactionFragment = AddTransactionFragment()
    private val recentListFragment = RecentListFragment()
-   private val FRAGTMENT_TAG = "used"
+
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -41,10 +41,9 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
    private fun loadFragment(fragment:Fragment):Boolean {
       if (fragment != null) {
-
          supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, fragment,FRAGTMENT_TAG)
+            .replace(R.id.fragment_container, fragment)
             .commit()
          return true
       }
@@ -52,8 +51,8 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    }
 
    private fun retrieveData(){
-      id = intent.extras!!.getSerializable("id") as String
-      sendIdToFragment(id)
+      userId = intent.extras!!.getSerializable("userId") as String
+      sendIdToFragment(userId)
    }
 
    private fun sendIdToFragment(id:String){

@@ -20,7 +20,7 @@ class WithdrawalAddViewModel : ViewModel() {
       return userList as MutableLiveData<List<UserResponse>>
    }
 
-   fun loadUsers() {
+   private fun loadUsers() {
       repository.getUsers(object : OnGetItemsCallback<UserResponse>{
          override fun onSuccess(items: List<UserResponse>) {
 

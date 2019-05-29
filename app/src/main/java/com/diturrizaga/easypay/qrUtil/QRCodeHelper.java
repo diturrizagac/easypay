@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Ahsen Saeed on 1/10/2018.
- * <p>
+ *
+ *
  * This class generate the user qrcode.It is also implemented using builder pattern.
  */
 

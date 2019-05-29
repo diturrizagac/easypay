@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/navigation_home"
-            android:title="Cuentas"
+            android:title="@string/accounts"
             android:icon="@drawable/icon_account_18dp"/>
     <item
             android:id="@+id/navigation_add"
-            android:title="Agregar"
+            android:title="@string/add"
             android:icon="@drawable/icon_add_18dp"/>
     <item
             android:id="@+id/navigation_recent"
-            android:title="Recientes"
+            android:title="@string/recent"
             android:icon="@drawable/icon_recent_18dp"/>
 </menu>

@@ -29,12 +29,11 @@ class AddTransactionFragment : Fragment() {
       transactionCardlessCash = rootView.findViewById(R.id.transaction_cardlesscash)
    }
 
-   fun setListener() {
+   private fun setListener() {
       transactionCardlessCash!!.setOnClickListener {
          startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(context!!))
       }
    }
-
 
    fun goTo() {
       startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(context!!))
