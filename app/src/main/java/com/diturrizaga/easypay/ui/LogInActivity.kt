@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.backendless.Backendless
 import com.backendless.BackendlessUser
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.api.Api.API_KEY
-import com.diturrizaga.easypay.api.Api.BL_KEY
+import com.diturrizaga.easypay.api.Api.APP_ID
+import com.diturrizaga.easypay.ui.viewmodel.LogInViewModel
 
 class LogInActivity : AppCompatActivity() {
 
@@ -22,12 +25,15 @@ class LogInActivity : AppCompatActivity() {
    private var username : String? = null
    private var password : String? = null
    private var userId : String? = null
+
+   var viewModel : LogInViewModel? = null
    private val TAG = "LogInActivity"
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_log_in)
-      Backendless.initApp(this, BL_KEY, API_KEY)
+      Backendless.initApp(this, APP_ID, API_KEY)
+      //viewModel = ViewModelProviders.of(this).get(LogInViewModel::class.java)
       initializeUI()
       setListener()
    }
@@ -42,8 +48,8 @@ class LogInActivity : AppCompatActivity() {
             }
 
             override fun handleResponse(response: BackendlessUser?) {
+               //val currentUser = response!!.properties
                val userId = response!!.properties.getValue("objectId").toString()
-               //Log.v(TAG,response.properties.)
                getId(userId)
                Toast.makeText(applicationContext,"User has been logged in", Toast.LENGTH_LONG).show()
                val intent = Intent(this@LogInActivity,HomeActivity::class.java)

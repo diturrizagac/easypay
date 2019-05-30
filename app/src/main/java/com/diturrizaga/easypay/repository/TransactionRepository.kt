@@ -4,7 +4,7 @@ import android.util.Log
 import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.api.Api.API_KEY
-import com.diturrizaga.easypay.api.Api.BL_KEY
+import com.diturrizaga.easypay.api.Api.APP_ID
 import com.diturrizaga.easypay.api.RestProvider
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.model.response.TransactionResponse
@@ -31,7 +31,7 @@ class TransactionRepository : Repository {
    }
 
    fun getTransactions(id: String, callback: OnGetItemsCallback<TransactionResponse>) {
-      val transactions = Api.getRestProvider().getAccountTransactions(BL_KEY,API_KEY,id,"transaction")
+      val transactions = Api.getRestProvider().getAccountTransactions(APP_ID,API_KEY,id,"transaction")
       Log.i("GET--->", transactions.request().url().toString())
       requestTransactions(transactions,callback)
    }

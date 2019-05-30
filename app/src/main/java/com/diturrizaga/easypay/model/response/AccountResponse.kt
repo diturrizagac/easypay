@@ -1,6 +1,5 @@
 package com.diturrizaga.easypay.model.response
 
-import com.diturrizaga.easypay.model.Transaction
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

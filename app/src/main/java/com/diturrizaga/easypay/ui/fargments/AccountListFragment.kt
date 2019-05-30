@@ -14,13 +14,14 @@ import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 
-class AccountListFragment : Fragment() {
+class AccountListFragment : Fragment(), AccountAdapter.OnGetAccountListener {
 
    private lateinit var accountRecyclerView: RecyclerView
    private lateinit var layoutManager: RecyclerView.LayoutManager
    private var accountRepository = AccountRepository.getInstance()
    private val TAG = "AccountListFragment"
    private var userId: String? = null
+   private var positionAccount : Int? = null
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +32,12 @@ class AccountListFragment : Fragment() {
       setupRecycler(rootView)
       showAccounts()
       return rootView
+   }
+
+   private fun setListener() {
+      accountRecyclerView.setOnClickListener {
+
+      }
    }
 
    private fun showAccounts() {
@@ -61,6 +68,7 @@ class AccountListFragment : Fragment() {
       userId = id
    }
 
-
-
+   override fun setCurrentAccount(account: AccountResponse) {
+      Log.i("ACOUNT", account.account_name)
+   }
 }

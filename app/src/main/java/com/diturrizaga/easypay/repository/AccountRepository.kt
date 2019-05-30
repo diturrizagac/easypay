@@ -4,7 +4,7 @@ import android.util.Log
 import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.api.Api.API_KEY
-import com.diturrizaga.easypay.api.Api.BL_KEY
+import com.diturrizaga.easypay.api.Api.APP_ID
 import com.diturrizaga.easypay.api.RestProvider
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.model.response.UserResponse
@@ -30,9 +30,9 @@ class AccountRepository : Repository {
       }
    }
    fun getAccounts(id: String, callback: OnGetItemsCallback<AccountResponse>){
-      val users = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,id, "account")
+      val users = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,id, "account")
       Log.i("GET--->", users.request().url().toString())
-      //val accounts = Api.getRestProvider().getUserAccounts(BL_KEY,API_KEY,"078D80EE-362A-8E2D-FF59-BF4620DA8B00", "account")
+      //val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,"078D80EE-362A-8E2D-FF59-BF4620DA8B00", "account")
       requestAccounts(users,callback)
    }
 
