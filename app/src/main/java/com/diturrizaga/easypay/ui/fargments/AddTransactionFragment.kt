@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.ui.WithdrawalScanQrActivity
+import com.diturrizaga.easypay.ui.WithdrawalSelectAmountActivity
 
 class AddTransactionFragment : Fragment() {
 
@@ -31,11 +32,7 @@ class AddTransactionFragment : Fragment() {
 
    private fun setListener() {
       transactionCardlessCash!!.setOnClickListener {
-         startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(context!!))
+         startActivity(WithdrawalSelectAmountActivity.getWithdrawalSelectAmountActivity(activity!!))
       }
-   }
-
-   fun goTo() {
-      startActivity(WithdrawalScanQrActivity.getScanQrCodeActivity(context!!))
    }
 }

@@ -8,10 +8,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
-/**
- * Created by Ahsen Saeed on 1/10/2018.
- */
-
 public class EncryptionHelper {
 
     private static EncryptionHelper encryptionHelper = null;

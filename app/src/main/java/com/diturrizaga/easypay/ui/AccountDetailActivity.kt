@@ -1,5 +1,7 @@
 package com.diturrizaga.easypay.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +28,10 @@ class AccountDetailActivity : AppCompatActivity() {
    private val TAG = "AccountDetailActivity"
    private var account : AccountResponse? = null
    private var accountId: String? = null
+
+   companion object {
+      fun getAccountDetailActivity(context: Context) = Intent(context, AccountDetailActivity::class.java)
+   }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)

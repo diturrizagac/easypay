@@ -8,16 +8,16 @@ class TransactionResponse :Serializable {
 
    @SerializedName("created")
    @Expose
-   val created: Int? = null
+   val created: Long? = null
    @SerializedName("from_account")
    @Expose
    val from_account: String? = null
    @SerializedName("activity_date")
    @Expose
-   val activity_date: Int? = null
+   val activity_date: Long? = null
    @SerializedName("updated")
    @Expose
-   val updated: Int? = null
+   val updated: Long? = null
    @SerializedName("status")
    @Expose
    val status: String? = null

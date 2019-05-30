@@ -19,19 +19,19 @@ import com.diturrizaga.easypay.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.google.android.material.snackbar.*
-import kotlinx.android.synthetic.main.activity_withdrawal_scan1.*
+import kotlinx.android.synthetic.main.activity_withdrawal_scan.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
-   var qrCodeScanner : ZXingScannerView? = null
-   var barcodeBackImageView : ImageView? = null
-   var flashOnOff : ImageView? = null
+   private var qrCodeScanner : ZXingScannerView? = null
+   private var barcodeBackImageView : ImageView? = null
+   private var flashOnOff : ImageView? = null
 
    companion object {
       private const val HUAWEI = "huawei"
       private const val MY_CAMERA_REQUEST_CODE = 6515
-      fun getScanQrCodeActivity(context: Context) = Intent(context, WithdrawalScanQrActivity::class.java)
+      fun getWithdrawalScanQrActivity(context: Context) = Intent(context, WithdrawalScanQrActivity::class.java)
    }
 
 
@@ -41,7 +41,7 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
       window.setFlags(
          WindowManager.LayoutParams.FLAG_FULLSCREEN,
          WindowManager.LayoutParams.FLAG_FULLSCREEN)
-      setContentView(R.layout.activity_withdrawal_scan1)
+      setContentView(R.layout.activity_withdrawal_scan)
       initializeUI()
       setScannerProperties()
       barcodeBackImageView!!.setOnClickListener { onBackPressed() }

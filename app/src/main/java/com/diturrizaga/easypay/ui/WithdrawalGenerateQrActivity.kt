@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import com.diturrizaga.easypay.R
+import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.qrUtil.EncryptionHelper
 import com.diturrizaga.easypay.qrUtil.QRCodeHelper
 import com.google.gson.Gson
@@ -18,7 +19,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
 class WithdrawalGenerateQrActivity : AppCompatActivity() {
 
-   var button : Button? = null
+   var generateQrButton : Button? = null
    var nameEditText : AppCompatEditText? = null
    var ageEditText : AppCompatEditText? = null
    var qrImageView : ImageView? = null
@@ -32,24 +33,28 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
       setContentView(R.layout.activity_withdrawal_generate_qr)
       initializeUI()
       setListener()
+
+      //initializeTestUI()
+      //setListenerTest()
    }
 
-   private fun initializeUI() {
-      button = findViewById(R.id.generateQrCodeButton)
-      nameEditText = findViewById(R.id.fullNameEditText)
-      ageEditText = findViewById(R.id.ageEditText)
-      qrImageView = findViewById(R.id.qrCodeImageView)
 
+
+   private fun initializeUI() {
+      generateQrButton = findViewById(R.id.generateQrCodeButton)
+      qrImageView = findViewById(R.id.qrCodeImageView)
    }
 
    private fun setListener() {
-      button!!.setOnClickListener {
+      generateQrButton!!.setOnClickListener {
          if (checkEditText()) {
             hideKeyboard()
-            val user = UserObject(
-               fullName = nameEditText!!.text.toString(),
-               age = Integer.parseInt(ageEditText!!.text.toString()))
-            val serializeString = Gson().toJson(user)
+            /**
+             * fill transaction object
+             */
+            val transaction = Transaction()
+
+            val serializeString = Gson().toJson(transaction)
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
             setImageBitmap(encryptedString)
          }
@@ -70,8 +75,13 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
       }
    }
 
-
    private fun checkEditText(): Boolean {
+
+      return true
+   }
+
+
+   private fun checkTestEditText(): Boolean {
       if (TextUtils.isEmpty(nameEditText!!.text.toString())) {
          Toast.makeText(this, "fullName field cannot be empty!", Toast.LENGTH_SHORT).show()
          return false
@@ -81,4 +91,28 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
       }
       return true
    }
+
+
+   private fun initializeTestUI() {
+      nameEditText = findViewById(R.id.fullNameEditText)
+      ageEditText = findViewById(R.id.ageEditText)
+   }
+
+   private fun setListenerTest() {
+      generateQrButton!!.setOnClickListener {
+         if (checkEditText()) {
+            hideKeyboard()
+            val user = UserObject(
+               fullName = nameEditText!!.text.toString(),
+               age = Integer.parseInt(ageEditText!!.text.toString()))
+            val serializeString = Gson().toJson(user)
+            val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
+            setImageBitmap(encryptedString)
+         }
+      }
+   }
+
+
+
+
 }

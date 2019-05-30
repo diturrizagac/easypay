@@ -1,5 +1,6 @@
 package com.diturrizaga.easypay.ui.fargments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,15 +13,17 @@ import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
+import com.diturrizaga.easypay.ui.AccountDetailActivity
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 
-class AccountListFragment : Fragment(), AccountAdapter.OnGetAccountListener {
+class AccountListFragment : Fragment() {
 
    private lateinit var accountRecyclerView: RecyclerView
    private lateinit var layoutManager: RecyclerView.LayoutManager
    private var accountRepository = AccountRepository.getInstance()
    private val TAG = "AccountListFragment"
    private var userId: String? = null
+   private var accounts : List<AccountResponse>? = null
    private var positionAccount : Int? = null
 
    override fun onCreateView(
@@ -31,12 +34,13 @@ class AccountListFragment : Fragment(), AccountAdapter.OnGetAccountListener {
       val rootView = inflater.inflate(R.layout.fragment_account_list, container, false)
       setupRecycler(rootView)
       showAccounts()
+      //setListener()
       return rootView
    }
 
    private fun setListener() {
       accountRecyclerView.setOnClickListener {
-
+         startActivity(AccountDetailActivity.getAccountDetailActivity(activity!!))
       }
    }
 
@@ -45,6 +49,7 @@ class AccountListFragment : Fragment(), AccountAdapter.OnGetAccountListener {
          userId!!,
          object : OnGetItemsCallback<AccountResponse> {
             override fun onSuccess(items: List<AccountResponse>) {
+               accounts = items
                setAdapter(AccountAdapter(items, context!!))
             }
 
@@ -66,9 +71,5 @@ class AccountListFragment : Fragment(), AccountAdapter.OnGetAccountListener {
 
    fun getIdFromActivity(id: String) {
       userId = id
-   }
-
-   override fun setCurrentAccount(account: AccountResponse) {
-      Log.i("ACOUNT", account.account_name)
    }
 }

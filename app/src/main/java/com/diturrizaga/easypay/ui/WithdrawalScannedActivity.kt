@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.diturrizaga.easypay.R
+import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.qrUtil.EncryptionHelper
 import com.google.gson.Gson
 import java.lang.RuntimeException
@@ -30,13 +31,23 @@ class WithdrawalScannedActivity : AppCompatActivity() {
       if (intent.getSerializableExtra(SCANNED_STRING) == null)
          throw RuntimeException("No encrypted String found in intent")
       val decryptedString = EncryptionHelper.getInstance().getDecryptionString(intent.getStringExtra(SCANNED_STRING))
+      val transaction = Gson().fromJson(decryptedString, Transaction::class.java)
+
+
+
+
+
+
+
       val userObject = Gson().fromJson(decryptedString, UserObject::class.java)
       scannedFullNameTextView!!.text = userObject.fullName
       scannedAgeTextView!!.text = userObject.age.toString()
    }
 
    private fun initializeUI() {
-      scannedFullNameTextView = findViewById(R.id.scannedFullNameTextView)
-      scannedAgeTextView = findViewById(R.id.scannedAgeTextView)
+
+
+      //scannedFullNameTextView = findViewById(R.id.scannedFullNameTextView)
+      //scannedAgeTextView = findViewById(R.id.scannedAgeTextView)
    }
 }

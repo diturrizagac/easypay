@@ -7,20 +7,20 @@
         android:orientation="vertical"
         tools:context=".ui.LogInActivity">
     <EditText
-            android:id="@+id/nicknameEt"
+            android:id="@+id/login_nickname_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="diturrizagac@gmail.com"
             android:hint="user"/>
     <EditText
-            android:id="@+id/passwordEt"
+            android:id="@+id/login_password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="diego"
             android:inputType="textPassword"
             android:hint="password"/>
     <Button
-            android:id="@+id/enterButton"
+            android:id="@+id/login_continue_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ENTER"/>

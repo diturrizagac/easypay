@@ -33,6 +33,12 @@
     <string name="barcode_reader">QrCode Reader</string>
     <string name="app_needs_your_camera_permission_in_order_to_scan_qr_code">App needs your camera permission in order to scan qr code.</string>
     <string name="scanned_qr_code_result">Scanned Qr Code result</string>
+
+    <string name="successful_operation">Successful operation, Congrats!</string>
+    <string name="cca_amount">$ 2,000.00</string>
+    <string name="successful_message_cca">Your new balance is $ 6,000.00 </string>
+
+
     <string name="first_name">Fullname :</string>
     <string name="age">Age :</string>
     <string name="add_transfer">Transfer</string>

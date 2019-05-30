@@ -3,11 +3,19 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/colorPrimary"
               android:orientation="vertical"
               tools:context=".ui.WithdrawalScannedActivity">
-
     <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="OPERATION SUCCESSFUL"
+            android:gravity="center"/>
+
+
+
+
+
+    <!--TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -71,7 +79,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-    </LinearLayout>
+    </LinearLayout-->
 
 
 </LinearLayout>

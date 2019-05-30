@@ -3,17 +3,20 @@ package com.diturrizaga.easypay.ui.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.ui.AccountDetailActivity
-import com.diturrizaga.easypay.ui.viewholder.AccountViewHolder
+import util.UtilFormatter
 
 
-class AccountAdapter(private val accounts: List<AccountResponse>, private val mContext: Context) :RecyclerView.Adapter<AccountViewHolder>(){
+class AccountAdapter(private val accounts: List<AccountResponse>, private val mContext: Context) :RecyclerView.Adapter<AccountAdapter.AccountViewHolder>(){
 
-   private var adapterLister : OnGetAccountListener? = null
+   private var adapterListener : OnAccountRecyclerListener? = null
 
    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_account,parent,false)
@@ -30,7 +33,31 @@ class AccountAdapter(private val accounts: List<AccountResponse>, private val mC
       holder.bind(account)
    }
 
-   interface OnGetAccountListener {
+   inner class AccountViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+      private var accountName = itemView.findViewById<TextView>(R.id.account_name)
+      private var accountBalance = itemView.findViewById<TextView>(R.id.account_balance)
+      private var accountType = itemView.findViewById<TextView>(R.id.account_type)
+      private var imageArrow = itemView.findViewById<ImageView>(R.id.image_arrow)
+
+      val myView = itemView.setOnClickListener {
+         val position = adapterPosition
+         if (position != RecyclerView.NO_POSITION) {
+            val accountSelected = accounts[position]
+            val intent = Intent(mContext, AccountDetailActivity::class.java)
+            intent.putExtra("account",accountSelected)
+            mContext.startActivity(intent)
+         }
+      }
+
+      fun bind(account: AccountResponse) {
+         accountName.text = account.account_name
+         accountBalance.text = UtilFormatter.amountToMoneyFormat(account.balance!!)
+         accountType.text = account.type
+      }
+   }
+
+   interface OnAccountRecyclerListener {
+      fun onAccountClick(position : Int)
       fun setCurrentAccount(account : AccountResponse)
    }
 }

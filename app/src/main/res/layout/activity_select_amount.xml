@@ -1,10 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SelectAmountActivity">
+        android:orientation="vertical"
+        tools:context=".ui.WithdrawalSelectAmountActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/transaction_cca_account_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp">
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/transaction_cca_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/account_name_1"
+                android:gravity="center"
+                android:textSize="30sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/accounts_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineProvider="bounds"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/transaction_cca_amount_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/transaction_cca_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:inputType="number"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+            android:id="@+id/scan_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SCAN"/>
+
+
+    <!--com.google.android.material.button.MaterialButton
+            android:id="@+id/continue_transaction_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go"/-->
+
+
+    <!--com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fullNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp">
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/fullNameEditText"
+                android:layout_width="match_parent"
+                android:hint="Amount"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:inputType="textCapSentences"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout-->
+
+</LinearLayout>

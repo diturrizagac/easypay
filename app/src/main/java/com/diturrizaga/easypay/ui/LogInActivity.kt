@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.backendless.Backendless
 import com.backendless.BackendlessUser
 import com.backendless.async.callback.AsyncCallback
@@ -62,9 +60,9 @@ class LogInActivity : AppCompatActivity() {
 
 
    private fun initializeUI(){
-      usernameEditText = findViewById(R.id.nicknameEt)
-      passwordEditText = findViewById(R.id.passwordEt)
-      enterButton = findViewById(R.id.enterButton)
+      usernameEditText = findViewById(R.id.login_nickname_et)
+      passwordEditText = findViewById(R.id.login_password_et)
+      enterButton = findViewById(R.id.login_continue_button)
    }
 
    private fun setListener(){

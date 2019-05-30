@@ -11,7 +11,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
 
-    <!--com.google.android.material.button.MaterialButton
+    <!--com.google.android.material.generateQrButton.MaterialButton
             android:id="@+id/button_sign_in"
             android:background="@drawable/button_rounded"
             android:layout_width="match_parent"

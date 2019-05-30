@@ -16,7 +16,6 @@ import java.util.Map;
 
 /**
  *
- *
  * This class generate the user qrcode.It is also implemented using builder pattern.
  */
 

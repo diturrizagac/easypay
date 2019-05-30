@@ -12,7 +12,7 @@ class UtilFormatter {
 
    companion object {
       fun amountToMoneyFormat(number : Double) : String{
-         return "$ number"
+         return "$ $number"
       }
    }
 
