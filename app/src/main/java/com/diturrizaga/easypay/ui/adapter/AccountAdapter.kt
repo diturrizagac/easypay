@@ -14,9 +14,8 @@ import com.diturrizaga.easypay.ui.AccountDetailActivity
 import util.UtilFormatter
 
 
-class AccountAdapter(private val accounts: List<AccountResponse>, private val mContext: Context) :RecyclerView.Adapter<AccountAdapter.AccountViewHolder>(){
-
-   private var adapterListener : OnAccountRecyclerListener? = null
+class AccountAdapter(private val accounts: List<AccountResponse>, private val mContext: Context) :
+   RecyclerView.Adapter<AccountAdapter.AccountViewHolder>(){
 
    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_account,parent,false)
@@ -56,8 +55,4 @@ class AccountAdapter(private val accounts: List<AccountResponse>, private val mC
       }
    }
 
-   interface OnAccountRecyclerListener {
-      fun onAccountClick(position : Int)
-      fun setCurrentAccount(account : AccountResponse)
-   }
 }
