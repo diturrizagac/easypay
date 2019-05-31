@@ -8,7 +8,6 @@ import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
-
     private var signInButton : MaterialButton? = null
     private var signUpButton : MaterialButton? = null
 
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListener(){
         signInButton!!.setOnClickListener {
-            val intent = Intent( this,LogInActivity::class.java)
+            val intent = Intent( this,LoginActivity::class.java)
             this.startActivity(intent)
         }
     }

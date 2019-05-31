@@ -50,11 +50,18 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return false
    }
 
+
+   /**
+    * Info retrieved from LoginActivity by Intent
+    */
    private fun retrieveData(){
       userId = intent.extras!!.getSerializable("userId") as String
       sendIdToFragment(userId)
    }
 
+   /**
+    * Method to send Id of current user from HomeActivity to Fragment
+    */
    private fun sendIdToFragment(id:String){
       accountListFragment.getIdFromActivity(id)
    }

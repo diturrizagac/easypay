@@ -8,35 +8,35 @@ class TransactionResponse :Serializable {
 
    @SerializedName("created")
    @Expose
-   val created: Long? = null
+   var created: Long? = null
    @SerializedName("from_account")
    @Expose
-   val from_account: String? = null
+   var from_account: String? = null
    @SerializedName("activity_date")
    @Expose
-   val activity_date: Long? = null
+   var activity_date: Long? = null
    @SerializedName("updated")
    @Expose
-   val updated: Long? = null
+   var updated: Long? = null
    @SerializedName("status")
    @Expose
-   val status: String? = null
+   var status: String? = null
    @SerializedName("amount")
    @Expose
-   val amount: Double? = null
+   var amount: Double? = null
    @SerializedName("objectId")
    @Expose
-   val objectId: String? = null
+   var objectId: String? = null
    @SerializedName("to_account")
    @Expose
-   val to_account: String? = null
+   var to_account: String? = null
    @SerializedName("type")
    @Expose
-   val type: String? = null
+   var type: String? = null
    @SerializedName("ownerId")
    @Expose
-   val ownerId: String? = null
+   var ownerId: String? = null
    @SerializedName("___class")
    @Expose
-   val ___class: String? = null
+   var ___class: String? = null
 }

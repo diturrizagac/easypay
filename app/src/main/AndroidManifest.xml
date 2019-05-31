@@ -41,7 +41,7 @@
         <activity android:name=".ui.WithdrawalScanQrActivity">
 
         </activity>
-        <activity android:name=".ui.LogInActivity">
+        <activity android:name=".ui.LoginActivity">
 
         </activity>
         <activity android:name=".ui.AccountDetailActivity">

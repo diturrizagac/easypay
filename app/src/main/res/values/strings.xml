@@ -3,9 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="balance_value_1">$ 2,3321.00</string>
-    <string name="balance_value_2">$ 2,5435.00</string>
-    <string name="balance_value_3">$ 2,4235.00</string>
+    <string name="balance_value_1">$ 2,332.00</string>
+    <string name="balance_value_2">$ 2,545.00</string>
+    <string name="balance_value_3">$ 2,435.00</string>
     <string name="account_name_1">Checking-1342</string>
     <string name="account_name_2">Checking-4456</string>
     <string name="account_name_3">Savings-4568</string>

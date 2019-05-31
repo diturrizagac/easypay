@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.OnGetItemsCallback
@@ -15,6 +16,7 @@ import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.model.response.TransactionResponse
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.adapter.TransactionAdapter
+import com.diturrizaga.easypay.ui.viewmodel.AccountListViewModel
 import util.UtilFormatter.Companion.amountToMoneyFormat
 
 class AccountDetailActivity : AppCompatActivity() {
@@ -28,14 +30,14 @@ class AccountDetailActivity : AppCompatActivity() {
    private val TAG = "AccountDetailActivity"
    private var account : AccountResponse? = null
    private var accountId: String? = null
+   private var userId: String? = null
+   private var viewModel : AccountListViewModel? = null
 
-   companion object {
-      fun getAccountDetailActivity(context: Context) = Intent(context, AccountDetailActivity::class.java)
-   }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_account_detail)
+      viewModel = ViewModelProviders.of(this).get(AccountListViewModel::class.java)
       initializeUI()
       setupRecycler()
       retrieveData()
@@ -45,7 +47,10 @@ class AccountDetailActivity : AppCompatActivity() {
 
    private fun retrieveData() {
       account = intent.extras!!.getSerializable("account") as AccountResponse
+      userId = intent.extras!!.getString("userId")
       accountId = account!!.objectId
+      viewModel!!.accountId = accountId
+      viewModel!!.userId = userId
    }
 
    private fun showDetails() {
@@ -83,10 +88,4 @@ class AccountDetailActivity : AppCompatActivity() {
    fun setAdapter(adapter : TransactionAdapter) {
       transactionRecyclerView.adapter = adapter
    }
-
-   fun getIdFromFragment(id : String) {
-      accountId = id
-   }
-
-
 }

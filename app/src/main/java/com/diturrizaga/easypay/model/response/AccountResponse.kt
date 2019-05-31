@@ -7,41 +7,41 @@ import java.io.Serializable
 class AccountResponse : Serializable {
    @SerializedName("owner")
    @Expose
-   val owner : String? = null
+   var owner : String? = null
    @SerializedName("balance")
    @Expose
-   val balance : Double? = null
+   var balance : Double? = null
    @SerializedName("account_name")
    @Expose
-   val account_name : String? = null
+   var account_name : String? = null
    @SerializedName("created")
    @Expose
-   val created : Long? = null
+   var created : Long? = null
    @SerializedName("updated")
    @Expose
-   val updated : Long? = null
+   var updated : Long? = null
    @SerializedName("status")
    @Expose
-   val status : String? = null
+   var status : String? = null
    @SerializedName("objectId")
    @Expose
-   val objectId : String? = null
+   var objectId : String? = null
    @SerializedName("token")
    @Expose
-   val token : Int? = null
+   var token : Int? = null
    @SerializedName("ownerId")
    @Expose
-   val ownerId : String? = null
+   var ownerId : String? = null
    @SerializedName("type")
    @Expose
-   val type : String? = null
+   var type : String? = null
    @SerializedName("interested_earned")
    @Expose
-   val interested_earned : String? = null
+   var interested_earned : String? = null
    @SerializedName("___class")
    @Expose
-   val ___class : String? = null
+   var ___class : String? = null
    @SerializedName("transaction")
    @Expose
-   val transaction : List<TransactionResponse>? = null
+   var transaction : List<TransactionResponse>? = null
 }

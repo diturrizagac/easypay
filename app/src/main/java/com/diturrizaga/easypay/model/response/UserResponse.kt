@@ -6,32 +6,32 @@ import com.google.gson.annotations.SerializedName
 class UserResponse {
    @SerializedName("created")
    @Expose
-   val created: Long? = null
+   var created: Long? = null
    @SerializedName("id")
    @Expose
-   val id: Int? = null
+   var id: Int? = null
    @SerializedName("nickname")
    @Expose
-   val nickname: String? = null
+   var nickname: String? = null
    @SerializedName("updated")
    @Expose
-   val updated: Long? = null
+   var updated: Long? = null
    @SerializedName("objectId")
    @Expose
-   val objectId: String? = null
+   var objectId: String? = null
    @SerializedName("last_name")
    @Expose
-   val last_name: String? = null
+   var last_name: String? = null
    @SerializedName("first_name")
    @Expose
-   val first_name: String? = null
+   var first_name: String? = null
    @SerializedName("ownerId")
    @Expose
-   val ownerId: String? = null
+   var ownerId: String? = null
    @SerializedName("___class")
    @Expose
-   val ___class: String? = null
+   var ___class: String? = null
    @SerializedName("account")
    @Expose
-   val account: List<AccountResponse>? = null
+   var account: List<AccountResponse>? = null
 }

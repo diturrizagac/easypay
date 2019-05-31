@@ -1,5 +1,6 @@
 package com.diturrizaga.easypay.ui.fargments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.ui.AccountDetailActivity
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
+import java.lang.RuntimeException
 
 class AccountListFragment : Fragment() {
 
@@ -24,7 +26,8 @@ class AccountListFragment : Fragment() {
    private val TAG = "AccountListFragment"
    private var userId: String? = null
    private var accounts : List<AccountResponse>? = null
-   private var positionAccount : Int? = null
+   var userListener : OnCurrentUserListener? = null
+
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +42,7 @@ class AccountListFragment : Fragment() {
    }
 
    private fun setListener() {
-      accountRecyclerView.setOnClickListener {
-         startActivity(AccountDetailActivity.getAccountDetailActivity(activity!!))
-      }
+
    }
 
    private fun showAccounts() {
@@ -51,6 +52,7 @@ class AccountListFragment : Fragment() {
             override fun onSuccess(items: List<AccountResponse>) {
                accounts = items
                setAdapter(AccountAdapter(items, context!!))
+               sendUserIdToDetails()
             }
 
             override fun onError() {
@@ -59,17 +61,39 @@ class AccountListFragment : Fragment() {
          })
    }
 
+   /**
+    * Initializing recyclerView and layout manager
+    */
    private fun setupRecycler(view: View) {
       layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager
       accountRecyclerView = view.findViewById(R.id.account_list)
       accountRecyclerView.layoutManager = layoutManager
    }
 
+   /**
+    * Set recyclerView adapter with AccountAdapterClass to draw on recyclerView
+    */
    fun setAdapter(adapter: AccountAdapter) {
       accountRecyclerView.adapter = adapter
    }
 
+   /**
+    * Initialize userId property of currentUser
+    *
+    */
    fun getIdFromActivity(id: String) {
       userId = id
+   }
+
+   fun sendUserIdToDetails() {
+      if (userListener != null) {
+         userListener!!.getCurrentUserId(userId!!)
+      } else {
+         throw RuntimeException("NULL LISTENER")
+      }
+   }
+
+   interface OnCurrentUserListener {
+      fun getCurrentUserId(id : String)
    }
 }

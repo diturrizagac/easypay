@@ -18,7 +18,7 @@ class TransferAddActivity : AppCompatActivity() {
    }
 
    fun filter(){
-      filteredList = filterBy(lista!!,filtro!!)
+      //filteredList = filterBy(lista!!,filtro!!)
    }
 }
 
