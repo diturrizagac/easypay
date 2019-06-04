@@ -53,6 +53,10 @@ class AccountListFragment : Fragment(){
       return rootView
    }
 
+   /**
+    *
+    */
+
    private fun setListener() {
       accountRvAdapter.setOnItemClickListener(adapterListener)
    }

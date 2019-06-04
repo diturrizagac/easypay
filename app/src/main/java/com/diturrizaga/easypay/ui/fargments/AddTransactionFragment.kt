@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.ui.WithdrawalScanQrActivity
+import com.diturrizaga.easypay.ui.PaymentAddActivity
+import com.diturrizaga.easypay.ui.TransferAddActivity
 import com.diturrizaga.easypay.ui.WithdrawalSelectAmountActivity
 
 class AddTransactionFragment : Fragment() {
 
+   private var transactionTransfer : CardView? = null
+   private var transactionPayment : CardView? = null
    private var transactionCardlessCash : CardView? = null
 
    override fun onCreateView(
@@ -27,12 +30,22 @@ class AddTransactionFragment : Fragment() {
    }
 
    private fun initializeUI(rootView : View) {
-      transactionCardlessCash = rootView.findViewById(R.id.transaction_cardlesscash)
+      transactionTransfer = rootView.findViewById(R.id.transaction_add_transfer)
+      transactionPayment = rootView.findViewById(R.id.transaction_add_payment)
+      transactionCardlessCash = rootView.findViewById(R.id.transaction_add_cardlesscash)
    }
 
    private fun setListener() {
       transactionCardlessCash!!.setOnClickListener {
          startActivity(WithdrawalSelectAmountActivity.getWithdrawalSelectAmountActivity(activity!!))
+      }
+
+      transactionTransfer!!.setOnClickListener {
+         startActivity(TransferAddActivity.getTransferAddActivity(activity!!))
+      }
+
+      transactionPayment!!.setOnClickListener {
+         startActivity(PaymentAddActivity.getPaymentAddActivity(activity!!))
       }
    }
 }

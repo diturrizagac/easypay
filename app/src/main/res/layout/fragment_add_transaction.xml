@@ -10,7 +10,7 @@
         tools:context=".ui.fargments.AddTransactionFragment">
 
     <androidx.cardview.widget.CardView
-            android:id="@+id/transaction_add"
+            android:id="@+id/transaction_add_transfer"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             app:cardElevation="8dp"
@@ -42,7 +42,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-            android:id="@+id/transaction_payment"
+            android:id="@+id/transaction_add_payment"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_weight="1"
@@ -74,7 +74,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-            android:id="@+id/transaction_cardlesscash"
+            android:id="@+id/transaction_add_cardlesscash"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_weight="1"

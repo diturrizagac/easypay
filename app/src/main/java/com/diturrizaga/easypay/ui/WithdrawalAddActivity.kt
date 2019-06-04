@@ -13,7 +13,7 @@ class WithdrawalAddActivity : AppCompatActivity() {
    var scanQrButton : Button? = null
 
    companion object{
-      fun getScanQrCodeActivity(context: Context) = Intent(context, WithdrawalAddActivity::class.java)
+      fun getWithdrawalAddActivity(context: Context) = Intent(context, WithdrawalAddActivity::class.java)
    }
 
    override fun onCreate(savedInstanceState: Bundle?) {

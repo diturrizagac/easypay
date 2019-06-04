@@ -10,37 +10,37 @@ import java.util.Arrays;
 
 public class EncryptionHelper {
 
-    private static EncryptionHelper encryptionHelper = null;
-    private String encryptionKey;
+   private static EncryptionHelper encryptionHelper = null;
+   private String encryptionKey;
 
-    private EncryptionHelper() {
+   private EncryptionHelper() {
 
-    }
+   }
 
-    public static EncryptionHelper getInstance() {
-        if (encryptionHelper == null) {
-            encryptionHelper = new EncryptionHelper();
-        }
-        return encryptionHelper;
-    }
+   public static EncryptionHelper getInstance() {
+      if (encryptionHelper == null) {
+         encryptionHelper = new EncryptionHelper();
+      }
+      return encryptionHelper;
+   }
 
-    public SecretKey getSecreteKey(String secretKey) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] digestOfPassword = md.digest(secretKey.getBytes("UTF-8"));
-        byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
-        return new SecretKeySpec(keyBytes, "AES");
-    }
+   public SecretKey getSecreteKey(String secretKey) throws Exception {
+      MessageDigest md = MessageDigest.getInstance("SHA-1");
+      byte[] digestOfPassword = md.digest(secretKey.getBytes("UTF-8"));
+      byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+      return new SecretKeySpec(keyBytes, "AES");
+   }
 
-    public String encryptMsg() {
-        return Base64.encodeToString(encryptionKey.getBytes(), Base64.DEFAULT);
-    }
+   public String encryptMsg() {
+      return Base64.encodeToString(encryptionKey.getBytes(), Base64.DEFAULT);
+   }
 
-    public EncryptionHelper encryptionString(String encryptionKey) {
-        this.encryptionKey = encryptionKey;
-        return encryptionHelper;
-    }
+   public EncryptionHelper encryptionString(String encryptionKey) {
+      this.encryptionKey = encryptionKey;
+      return encryptionHelper;
+   }
 
-    public String getDecryptionString(String encryptedText) {
-        return new String(Base64.decode(encryptedText.getBytes(), Base64.DEFAULT));
-    }
+   public String getDecryptionString(String encryptedText) {
+      return new String(Base64.decode(encryptedText.getBytes(), Base64.DEFAULT));
+   }
 }
