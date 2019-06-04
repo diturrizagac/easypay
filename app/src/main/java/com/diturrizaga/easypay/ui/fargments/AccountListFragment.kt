@@ -1,6 +1,5 @@
 package com.diturrizaga.easypay.ui.fargments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,19 +13,32 @@ import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.AccountResponse
 import com.diturrizaga.easypay.repository.AccountRepository
-import com.diturrizaga.easypay.ui.AccountDetailActivity
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
-import java.lang.RuntimeException
+import com.diturrizaga.easypay.ui.AccountDetailActivity
 
-class AccountListFragment : Fragment() {
+
+class AccountListFragment : Fragment(){
 
    private lateinit var accountRecyclerView: RecyclerView
    private lateinit var layoutManager: RecyclerView.LayoutManager
    private var accountRepository = AccountRepository.getInstance()
    private val TAG = "AccountListFragment"
    private var userId: String? = null
+   private var accountSelected : AccountResponse? = null
    private var accounts : List<AccountResponse>? = null
-   var userListener : OnCurrentUserListener? = null
+   private lateinit var accountRvAdapter : AccountAdapter
+
+   var adapterListener = object : View.OnClickListener{
+      override fun onClick(view: View?) {
+         val viewHolder = view!!.tag as RecyclerView.ViewHolder
+         val position = viewHolder.adapterPosition
+         accountSelected = accounts!!.get(position)
+         val intent = Intent(context, AccountDetailActivity::class.java)
+         intent.putExtra("userId", userId)
+         intent.putExtra("account",accountSelected)
+         context!!.startActivity(intent)
+      }
+   }
 
 
    override fun onCreateView(
@@ -37,12 +49,12 @@ class AccountListFragment : Fragment() {
       val rootView = inflater.inflate(R.layout.fragment_account_list, container, false)
       setupRecycler(rootView)
       showAccounts()
-      //setListener()
+
       return rootView
    }
 
    private fun setListener() {
-
+      accountRvAdapter.setOnItemClickListener(adapterListener)
    }
 
    private fun showAccounts() {
@@ -51,8 +63,10 @@ class AccountListFragment : Fragment() {
          object : OnGetItemsCallback<AccountResponse> {
             override fun onSuccess(items: List<AccountResponse>) {
                accounts = items
-               setAdapter(AccountAdapter(items, context!!))
-               sendUserIdToDetails()
+               accountRvAdapter = AccountAdapter(items, context!!)
+               setAdapter(accountRvAdapter)
+               //sendUserIdToDetails()
+               setListener()
             }
 
             override fun onError() {
@@ -85,15 +99,4 @@ class AccountListFragment : Fragment() {
       userId = id
    }
 
-   fun sendUserIdToDetails() {
-      if (userListener != null) {
-         userListener!!.getCurrentUserId(userId!!)
-      } else {
-         throw RuntimeException("NULL LISTENER")
-      }
-   }
-
-   interface OnCurrentUserListener {
-      fun getCurrentUserId(id : String)
-   }
 }

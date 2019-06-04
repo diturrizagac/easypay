@@ -77,6 +77,9 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
 
    private fun checkEditText(): Boolean {
 
+      /**
+       * implement checkEditTextHere
+       */
       return true
    }
 
