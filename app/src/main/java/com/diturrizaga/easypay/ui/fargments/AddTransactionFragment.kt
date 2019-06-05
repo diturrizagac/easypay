@@ -1,5 +1,6 @@
 package com.diturrizaga.easypay.ui.fargments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +11,11 @@ import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.ui.PaymentAddActivity
 import com.diturrizaga.easypay.ui.TransferAddActivity
 import com.diturrizaga.easypay.ui.WithdrawalSelectAmountActivity
+import com.diturrizaga.easypay.util.NavigationTo.goTo
 
 class AddTransactionFragment : Fragment() {
 
+   private var userId: String? = null
    private var transactionTransfer : CardView? = null
    private var transactionPayment : CardView? = null
    private var transactionCardlessCash : CardView? = null
@@ -37,15 +40,28 @@ class AddTransactionFragment : Fragment() {
 
    private fun setListener() {
       transactionCardlessCash!!.setOnClickListener {
-         startActivity(WithdrawalSelectAmountActivity.getWithdrawalSelectAmountActivity(activity!!))
+         goTo(WithdrawalSelectAmountActivity::class.java,context!!,userId!!)
       }
 
       transactionTransfer!!.setOnClickListener {
-         startActivity(TransferAddActivity.getTransferAddActivity(activity!!))
+         goTo(TransferAddActivity::class.java,context!!,userId!!)
       }
 
       transactionPayment!!.setOnClickListener {
-         startActivity(PaymentAddActivity.getPaymentAddActivity(activity!!))
+         goTo(PaymentAddActivity::class.java,context!!,userId!!)
       }
    }
+
+   fun getIdFromHomeActivity(id: String) {
+      userId = id
+   }
+
+
+   @Deprecated("Use goTo method from NavigationTo object in util package")
+   private fun goTo(activity: Class<*>) {
+      val intent = Intent(context,activity)
+      intent.putExtra("userId", userId)
+      context!!.startActivity(intent)
+   }
+
 }

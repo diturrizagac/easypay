@@ -40,7 +40,6 @@ class AccountListFragment : Fragment(){
       }
    }
 
-
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?
@@ -49,17 +48,12 @@ class AccountListFragment : Fragment(){
       val rootView = inflater.inflate(R.layout.fragment_account_list, container, false)
       setupRecycler(rootView)
       showAccounts()
-
       return rootView
    }
 
    /**
     *
     */
-
-   private fun setListener() {
-      accountRvAdapter.setOnItemClickListener(adapterListener)
-   }
 
    private fun showAccounts() {
       accountRepository.getAccounts(
@@ -69,14 +63,18 @@ class AccountListFragment : Fragment(){
                accounts = items
                accountRvAdapter = AccountAdapter(items, context!!)
                setAdapter(accountRvAdapter)
-               //sendUserIdToDetails()
                setListener()
             }
 
             override fun onError() {
                Log.v(TAG, "Couldn't bring data from URL")
             }
-         })
+         }
+      )
+   }
+
+   private fun setListener() {
+      accountRvAdapter.setOnItemClickListener(adapterListener)
    }
 
    /**
@@ -99,7 +97,7 @@ class AccountListFragment : Fragment(){
     * Initialize userId property of currentUser
     *
     */
-   fun getIdFromActivity(id: String) {
+   fun getIdFromHomeActivity(id: String) {
       userId = id
    }
 

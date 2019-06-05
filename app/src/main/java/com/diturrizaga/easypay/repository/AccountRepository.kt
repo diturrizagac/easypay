@@ -29,11 +29,11 @@ class AccountRepository : Repository {
          return repository as AccountRepository
       }
    }
-   fun getAccounts(id: String, callback: OnGetItemsCallback<AccountResponse>){
-      val users = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,id, "account")
-      Log.i("GET--->", users.request().url().toString())
+   fun getAccounts(userId: String, callback: OnGetItemsCallback<AccountResponse>){
+      val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,userId, "account")
+      Log.i(TAG, "GET---> ${accounts.request().url()}")
       //val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,"078D80EE-362A-8E2D-FF59-BF4620DA8B00", "account")
-      requestAccounts(users,callback)
+      requestAccounts(accounts,callback)
    }
 
    fun getAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){

@@ -8,8 +8,13 @@ import com.diturrizaga.easypay.R
 
 class PaymentAddActivity : AppCompatActivity() {
 
+   var userId : String? = null
+
    companion object{
       fun getPaymentAddActivity(context: Context) = Intent(context, PaymentAddActivity::class.java)
+      fun getPaymentAddActivity(context: Context, id:String): Intent {
+         return Intent(context, PaymentAddActivity::class.java)
+      }
    }
 
    override fun onCreate(savedInstanceState: Bundle?) {

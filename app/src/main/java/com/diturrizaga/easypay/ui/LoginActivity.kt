@@ -15,6 +15,7 @@ import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.api.Api.API_KEY
 import com.diturrizaga.easypay.api.Api.APP_ID
 import com.diturrizaga.easypay.model.response.User
+import com.diturrizaga.easypay.model.response.UserResponse
 import com.diturrizaga.easypay.ui.viewmodel.LogInViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -63,14 +64,14 @@ class LoginActivity : AppCompatActivity() {
    }
 
 
-   private fun parseToUser(user : BackendlessUser) {
+   private fun parseToUser(backendlessUser : BackendlessUser) {
       val mUser = User()
-      mUser.objectId = user.properties!!.getValue("objectId").toString()
-      mUser.last_name = user.properties!!.getValue("last_name").toString()
-      mUser.nickname = user.properties!!.getValue("nickname").toString()
-      mUser.first_name = user.properties!!.getValue("first_name").toString()
-      mUser.email = user.properties!!.getValue("email").toString()
-      mUser.objectId = user.properties!!.getValue("objectId").toString()
+      mUser.objectId = backendlessUser.properties!!.getValue("objectId").toString()
+      mUser.last_name = backendlessUser.properties!!.getValue("last_name").toString()
+      mUser.nickname = backendlessUser.properties!!.getValue("nickname").toString()
+      mUser.first_name = backendlessUser.properties!!.getValue("first_name").toString()
+      mUser.email = backendlessUser.properties!!.getValue("email").toString()
+      mUser.objectId = backendlessUser.properties!!.getValue("objectId").toString()
       viewModel!!.currentUser = mUser
    }
 

@@ -34,9 +34,29 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       when (item.itemId) {
          R.id.navigation_home -> fragment = accountListFragment
          R.id.navigation_add -> fragment = addTransactionFragment
-         R.id.navigation_recent -> fragment =  recentListFragment
+         R.id.navigation_recent -> fragment = recentListFragment
       }
-      return loadFragment(fragment)
+      return loadFragment(fragment,userId)
+   }
+
+   private fun loadFragment(fragment:Fragment,id:String) : Boolean {
+      if (fragment != null) {
+         supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+         if (fragment is AccountListFragment) {
+            accountListFragment.getIdFromHomeActivity(id)
+         } else {
+            if (fragment is AddTransactionFragment) {
+               addTransactionFragment.getIdFromHomeActivity(id)
+            } else {
+               recentListFragment.getIdFromHomeActivity(id)
+            }
+         }
+         return true
+      }
+      return false
    }
 
    private fun loadFragment(fragment:Fragment):Boolean {
@@ -56,14 +76,17 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     */
    private fun retrieveData(){
       userId = intent.extras!!.getSerializable("userId") as String
-      sendIdToFragment(userId)
+      accountListFragment.getIdFromHomeActivity(userId)
+      //sendIdToFragment(userId)
    }
 
    /**
     * Method to send Id of current user from HomeActivity to Fragment
     */
    private fun sendIdToFragment(id:String){
-      accountListFragment.getIdFromActivity(id)
+      accountListFragment.getIdFromHomeActivity(id)
+      addTransactionFragment.getIdFromHomeActivity(id)
+      recentListFragment.getIdFromHomeActivity(id)
    }
 
 }
