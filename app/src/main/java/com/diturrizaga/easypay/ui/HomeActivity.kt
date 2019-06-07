@@ -75,7 +75,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     * Info retrieved from LoginActivity by Intent
     */
    private fun retrieveData(){
-      userId = intent.extras!!.getSerializable("userId") as String
+      userId = intent.extras!!.getString("userId") as String
       accountListFragment.getIdFromHomeActivity(userId)
       //sendIdToFragment(userId)
    }
@@ -83,6 +83,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    /**
     * Method to send Id of current user from HomeActivity to Fragment
     */
+   @Deprecated("unnecesary method, it's been deprecated")
    private fun sendIdToFragment(id:String){
       accountListFragment.getIdFromHomeActivity(id)
       addTransactionFragment.getIdFromHomeActivity(id)

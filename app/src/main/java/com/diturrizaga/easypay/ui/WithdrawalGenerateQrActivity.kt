@@ -11,7 +11,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.Transaction
+import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.TransactionResponse
 import com.diturrizaga.easypay.qrUtil.EncryptionHelper
 import com.diturrizaga.easypay.qrUtil.QRCodeHelper
 import com.google.gson.Gson
@@ -23,21 +24,39 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
    var nameEditText : AppCompatEditText? = null
    var ageEditText : AppCompatEditText? = null
    var qrImageView : ImageView? = null
+   var account : AccountResponse? = null
+   var transaction : TransactionResponse? = null
 
    companion object {
-      fun getGenerateQrCodeActivity(context : Context) = Intent(context,WithdrawalGenerateQrActivity::class.java)
+      fun getWithdrawalGenerateQrActivity(context: Context) = Intent(context, WithdrawalGenerateQrActivity::class.java)
+      fun getWithdrawalGenerateQrActivity(context: Context, account: AccountResponse): Intent =
+         Intent(context, WithdrawalGenerateQrActivity::class.java).putExtra("account", account)
+
+      fun getWithdrawalGenerateQrActivity(
+         context: Context,
+         account: AccountResponse,
+         transaction: TransactionResponse
+      ): Intent =
+         Intent(context, WithdrawalGenerateQrActivity::class.java)
+            .putExtra("account", account)
+            .putExtra("transaction", transaction)
    }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_withdrawal_generate_qr)
       initializeUI()
+      retrieveData()
       setListener()
 
       //initializeTestUI()
       //setListenerTest()
    }
 
+   private fun retrieveData() {
+      account = intent.extras!!.getSerializable("account") as AccountResponse
+      transaction = intent.extras!!.getSerializable("transaction") as TransactionResponse
+   }
 
 
    private fun initializeUI() {
@@ -52,7 +71,8 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
             /**
              * fill transaction object
              */
-            val transaction = Transaction()
+            val transaction = TransactionResponse()
+
 
             val serializeString = Gson().toJson(transaction)
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()

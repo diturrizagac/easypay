@@ -15,6 +15,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.GenerateQrTestActivity">
+        </activity>
         <activity android:name=".ui.WithdrawalScannedActivity">
         </activity>
         <activity android:name=".ui.WithdrawalGenerateQrActivity">
@@ -34,15 +36,10 @@
         <activity android:name=".ui.WithdrawalSelectAmountActivity">
         </activity>
         <activity android:name=".ui.WithdrawalAddActivity">
-
-
-
         </activity>
         <activity android:name=".ui.WithdrawalScanQrActivity">
-
         </activity>
         <activity android:name=".ui.LoginActivity">
-
         </activity>
         <activity android:name=".ui.AccountDetailActivity">
         </activity>

@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.diturrizaga.easypay.R
+import com.diturrizaga.easypay.model.response.AccountResponse
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.google.android.material.snackbar.*
@@ -28,10 +29,14 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
    private var barcodeBackImageView : ImageView? = null
    private var flashOnOff : ImageView? = null
 
+   private var account : AccountResponse? = null
+
    companion object {
       private const val HUAWEI = "huawei"
       private const val MY_CAMERA_REQUEST_CODE = 6515
       fun getWithdrawalScanQrActivity(context: Context) = Intent(context, WithdrawalScanQrActivity::class.java)
+      fun getWithdrawalScanQrActivity(context: Context, account : AccountResponse) : Intent
+              = Intent(context, WithdrawalScanQrActivity::class.java).putExtra("account", account)
    }
 
 
@@ -43,6 +48,7 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
          WindowManager.LayoutParams.FLAG_FULLSCREEN)
       setContentView(R.layout.activity_withdrawal_scan)
       initializeUI()
+      retrieveCurrentAccount()
       setScannerProperties()
       barcodeBackImageView!!.setOnClickListener { onBackPressed() }
       flashOnOff!!.setOnClickListener {
@@ -54,7 +60,10 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
             flashOnOff!!.background = ContextCompat.getDrawable(this, R.drawable.flash_on_vector_icon)
          }
       }
+   }
 
+   private fun retrieveCurrentAccount(){
+      account = intent.extras!!.getSerializable("account") as AccountResponse
    }
 
    private fun initializeUI() {
@@ -98,9 +107,9 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
    private fun showCameraSnackBar() {
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
          val snackbar = Snackbar.make(scanQrCodeRootView, resources.getString(R.string.app_needs_your_camera_permission_in_order_to_scan_qr_code), Snackbar.LENGTH_LONG)
-         val view1 = snackbar.view
-         view1.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-         val textView = view1.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+         val myView = snackbar.view
+         myView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+         val textView = myView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
          //val textView = view1.findViewById<TextView>(android.support.design.R.id.snackbar_text)
          textView.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
          snackbar.show()
@@ -112,9 +121,9 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
       qrCodeScanner!!.setResultHandler(this)
    }
 
-   override fun handleResult(p0: Result?) {
-      if (p0 != null) {
-         startActivity(WithdrawalScannedActivity.getScannedActivity(this, p0.text))
+   override fun handleResult(result: Result?) {
+      if (result != null) {
+         startActivity(WithdrawalScannedActivity.getScannedActivity(this, result.text,account!!))
          resumeCamera()
       }
    }

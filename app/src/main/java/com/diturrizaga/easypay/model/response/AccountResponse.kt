@@ -43,5 +43,5 @@ class AccountResponse : Serializable {
    var ___class : String? = null
    @SerializedName("transaction")
    @Expose
-   var transaction : List<TransactionResponse>? = null
+   var transactions : List<TransactionResponse>? = null
 }

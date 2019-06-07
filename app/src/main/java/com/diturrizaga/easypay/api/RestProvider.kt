@@ -77,10 +77,10 @@ interface RestProvider {
       //account.transaction
    ) : Call<TransactionResponse>
 
-   @POST("data/user/{id_user}")
+   //@POST("data/user/{id_user}")
+   @POST("/data/transaction")
    fun createUserTransaction(
-      @Query("loadRelations") loadRelations: String
-      //account.transaction
+      @Body transaction : TransactionResponse
    ) : Call<TransactionResponse>
 
    @DELETE("")

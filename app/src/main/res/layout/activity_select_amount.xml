@@ -19,7 +19,7 @@
                 android:id="@+id/transaction_cca_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/account_name_1"
+                android:hint="What's up Diego?"
                 android:gravity="center"
                 android:textSize="30sp"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -27,8 +27,7 @@
     <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/accounts_spinner"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            />
+            android:layout_height="50dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transaction_cca_amount_layout"
@@ -56,6 +55,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SCAN"/>
+
+    <Button
+            android:id="@+id/generate_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GENERATE"/>
 
 
     <!--com.google.android.material.button.MaterialButton

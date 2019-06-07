@@ -23,9 +23,9 @@ class WithdrawalAddActivity : AppCompatActivity() {
       setListeners()
    }
 
-   fun setListeners() {
+   private fun setListeners() {
       generateQrButton!!.setOnClickListener {
-         startActivity(WithdrawalGenerateQrActivity.getGenerateQrCodeActivity(this))
+         startActivity(WithdrawalGenerateQrActivity.getWithdrawalGenerateQrActivity(this))
       }
       scanQrButton!!.setOnClickListener {
          startActivity(WithdrawalScanQrActivity.getWithdrawalScanQrActivity(this))
