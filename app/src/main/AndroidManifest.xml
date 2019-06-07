@@ -14,7 +14,7 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme2">
         <activity android:name=".ui.GenerateQrTestActivity">
         </activity>
         <activity android:name=".ui.WithdrawalScannedActivity">
@@ -40,6 +40,11 @@
         <activity android:name=".ui.WithdrawalScanQrActivity">
         </activity>
         <activity android:name=".ui.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".ui.AccountDetailActivity">
         </activity>
@@ -48,11 +53,7 @@
         <activity android:name=".ui.HomeActivity">
         </activity>
         <activity android:name=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 

@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:background="@drawable/gradient"
         android:weightSum="1"
-        tools:context=".ui.MainActivity">
+        >
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -19,6 +19,11 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/main_background"
                 android:alpha=".2"/>
+        <!--ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/main_background"
+                android:alpha=".2"/-->
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +50,7 @@
                 android:layout_height="wrap_content"
                 >
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_sign_in"
+                    android:id="@+id/button_sign_in2"
                     android:background="@drawable/button_rounded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,7 +62,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/TextLoginColor"/>
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_sign_up"
+                    android:id="@+id/button_sign_up2"
                     android:background="@drawable/button_rounded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +74,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/TextLoginColor"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/button_sign_in"/>
+                    android:layout_below="@+id/button_sign_in2"/>
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

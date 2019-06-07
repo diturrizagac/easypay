@@ -213,6 +213,4 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
          }
       )
    }
-
-
 }

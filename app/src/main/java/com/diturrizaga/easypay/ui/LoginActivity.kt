@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.backendless.Backendless
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
    private var usernameEditText : EditText? = null
    private var passwordEditText : EditText? = null
+   private var arrowButton: ImageButton? = null
    private var enterButton: Button? = null
    private var username : String? = null
    private var password : String? = null
@@ -33,7 +35,8 @@ class LoginActivity : AppCompatActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      setContentView(R.layout.activity_login)
+      //setContentView(R.layout.activity_login)
+      setContentView(R.layout.activity_main2)
       Backendless.initApp(this, APP_ID, API_KEY)
       viewModel = ViewModelProviders.of(this).get(LogInViewModel::class.java)
       initializeUI()
@@ -76,13 +79,16 @@ class LoginActivity : AppCompatActivity() {
    }
 
    private fun initializeUI(){
-      usernameEditText = findViewById(R.id.login_nickname_et)
-      passwordEditText = findViewById(R.id.login_password_et)
-      enterButton = findViewById(R.id.login_continue_button)
+      usernameEditText = findViewById(R.id.email_et)
+      passwordEditText = findViewById(R.id.password_et)
+      arrowButton = findViewById(R.id.button_sign_in)
+      //usernameEditText = findViewById(R.id.login_nickname_et)
+      //passwordEditText = findViewById(R.id.login_password_et)
+      //enterButton = findViewById(R.id.login_continue_button)
    }
 
    private fun setListener(){
-      enterButton!!.setOnClickListener {
+      arrowButton!!.setOnClickListener {
          setFields()
          setUpAccount()
       }
