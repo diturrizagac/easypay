@@ -147,9 +147,9 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       // Initialize a new instance of
       val builder = AlertDialog.Builder(this)
       // Set the alert dialog title
-      builder.setTitle("App background color")
+      builder.setTitle("Confirm your transaction")
       // Display a message on alert dialog
-      builder.setMessage("Do you want to confirm this operation?")
+      builder.setMessage("Do you want to confirm this transaction?")
       // Set a positive button and its click listener on alert dialog
       builder.setPositiveButton("Yes"){dialog, which ->
          // Do something when user press the positive button
@@ -265,6 +265,11 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       currentTransaction!!.___class = "transaction"
    }
 
+   override fun onSupportNavigateUp(): Boolean {
+      finish()
+      return true
+   }
+
    private fun setCurrentTransaction() {
       currentTransaction!!.created = null
       currentTransaction!!.from_account = currentAccount!!.account_name
@@ -277,30 +282,5 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       currentTransaction!!.type = Type.PAYMENT.name
       currentTransaction!!.ownerId = null
       currentTransaction!!.___class = CLASS
-   }
-
-   /**
-    * not working yet, we have to bring account.transactions data, because it's bringing a list of accounts
-    */
-   inner class SaveTransactionTask : AsyncTask<Account,Any, Account>() {
-      override fun doInBackground(vararg accounts: Account?): Account {
-         val account = accounts[0]
-
-         val transactionItemList = account!!.transactions
-         val savedTransactionsItems = ArrayList<Transaction>()
-
-         for (transaction in transactionItemList!!) {
-            val savedTransactionsItem = Backendless.Data.of(Transaction::class.java).save(transaction)
-            savedTransactionsItems.add(savedTransactionsItem)
-         }
-
-         val savedAccount = Backendless.Data.of(Account::class.java).save(account)
-         Backendless.Data.of(Account::class.java).addRelation(
-            savedAccount,
-            "account:account:n",
-            savedTransactionsItems
-         )
-         return savedAccount
-      }
    }
 }

@@ -1,11 +1,11 @@
-package util
+package com.diturrizaga.easypay.util
 
 import java.util.*
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
-
+import kotlin.math.round
 
 
 class UtilFormatter {
@@ -13,6 +13,14 @@ class UtilFormatter {
    companion object {
       fun amountToMoneyFormat(number : Double) : String{
          return "$ $number"
+      }
+
+      fun Double.round(decimals: Int) : Double {
+         var multiplier = 1.0
+         repeat(decimals) {
+            multiplier *= 10
+         }
+         return round(this * multiplier) / multiplier
       }
    }
 

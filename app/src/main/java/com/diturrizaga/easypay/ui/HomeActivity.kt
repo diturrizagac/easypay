@@ -90,4 +90,9 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       recentListFragment.getIdFromHomeActivity(id)
    }
 
+   override fun onSupportNavigateUp(): Boolean {
+      finish()
+      return true
+   }
+
 }
