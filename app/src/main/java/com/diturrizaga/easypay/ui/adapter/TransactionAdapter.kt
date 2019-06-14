@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.TransactionResponse
+import com.diturrizaga.easypay.model.response.Transaction
 import util.UtilFormatter
 
-class TransactionAdapter(private val transactions: List<TransactionResponse>, private val context: Context) :
+class TransactionAdapter(private val transactions: List<Transaction>, private val context: Context) :
    RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_transaction,parent,false)
@@ -32,7 +32,7 @@ class TransactionAdapter(private val transactions: List<TransactionResponse>, pr
       private var transactionAmount = itemView.findViewById<TextView>(R.id.transaction_amount)
       private var transactionStatus = itemView.findViewById<TextView>(R.id.transaction_status)
 
-      fun bind(transaction : TransactionResponse) {
+      fun bind(transaction : Transaction) {
          transactionCreditor.text = transaction.to_account
          transactionDate.text = transaction.activity_date.toString()
          transactionAmount.text = UtilFormatter.amountToMoneyFormat(transaction.amount!!)

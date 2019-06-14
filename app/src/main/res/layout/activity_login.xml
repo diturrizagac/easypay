@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.LoginActivity">
+        tools:context=".ui.launcher.LoginActivity">
     <EditText
             android:id="@+id/login_nickname_et"
             android:layout_width="match_parent"

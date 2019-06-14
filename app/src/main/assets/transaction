@@ -1,0 +1,13 @@
+{
+  "created": null,
+  "from_account": "Savings-1303",
+  "activity_date": null,
+  "updated": null,
+  "status": "Done",
+  "amount": 113.90,
+  "objectId": "",
+  "to_account": "Current Balance-1502",
+  "type": "transfer",
+  "ownerId": "078D80EE-362A-8E2D-FF59-BF4620DA8B00",
+  "___class": "transaction"
+}

@@ -1,10 +1,10 @@
 package com.diturrizaga.easypay.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.Account
 
 class AccountDetailViewModel : ViewModel() {
-   var account : AccountResponse? = null
+   var account : Account? = null
    var userId : String? = null
    var accountId : String? = null
    

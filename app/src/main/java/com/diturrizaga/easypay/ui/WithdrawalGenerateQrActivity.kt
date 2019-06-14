@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.AccountResponse
-import com.diturrizaga.easypay.model.response.TransactionResponse
+import com.diturrizaga.easypay.model.response.Account
+import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.qrUtil.EncryptionHelper
 import com.diturrizaga.easypay.qrUtil.QRCodeHelper
 import com.google.gson.Gson
@@ -24,18 +24,18 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
    var nameEditText : AppCompatEditText? = null
    var ageEditText : AppCompatEditText? = null
    var qrImageView : ImageView? = null
-   var account : AccountResponse? = null
-   var transaction : TransactionResponse? = null
+   var account : Account? = null
+   var transaction : Transaction? = null
 
    companion object {
       fun getWithdrawalGenerateQrActivity(context: Context) = Intent(context, WithdrawalGenerateQrActivity::class.java)
-      fun getWithdrawalGenerateQrActivity(context: Context, account: AccountResponse): Intent =
+      fun getWithdrawalGenerateQrActivity(context: Context, account: Account): Intent =
          Intent(context, WithdrawalGenerateQrActivity::class.java).putExtra("account", account)
 
       fun getWithdrawalGenerateQrActivity(
          context: Context,
-         account: AccountResponse,
-         transaction: TransactionResponse
+         account: Account,
+         transaction: Transaction
       ): Intent =
          Intent(context, WithdrawalGenerateQrActivity::class.java)
             .putExtra("account", account)
@@ -54,8 +54,8 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
    }
 
    private fun retrieveData() {
-      account = intent.extras!!.getSerializable("account") as AccountResponse
-      transaction = intent.extras!!.getSerializable("transaction") as TransactionResponse
+      account = intent.extras!!.getSerializable("account") as Account
+      transaction = intent.extras!!.getSerializable("transaction") as Transaction
    }
 
 
@@ -71,7 +71,7 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
             /**
              * fill transaction object
              */
-            val transaction = TransactionResponse()
+            val transaction = Transaction()
 
 
             val serializeString = Gson().toJson(transaction)

@@ -8,9 +8,8 @@ import android.util.Log
 import android.widget.TextView
 import com.diturrizaga.easypay.OnPostItemCallback
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
-import com.diturrizaga.easypay.model.response.TransactionResponse
 import com.diturrizaga.easypay.qrUtil.EncryptionHelper
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.google.gson.Gson
@@ -27,11 +26,11 @@ class WithdrawalScannedActivity : AppCompatActivity() {
    private var  scannedAmountName : TextView? = null
    private var  scannedBalanceName : TextView? = null
 
-   private var currentAccount : AccountResponse? = null
-   private var currentTransaction : TransactionResponse? = null
+   private var currentAccount : Account? = null
+   private var currentTransaction : Transaction? = null
    private var valueScanned : String? = null
    private var transactionRepository = TransactionRepository.getInstance()
-   private var transaction : TransactionResponse? = null
+   private var transaction : Transaction? = null
 
 
    companion object {
@@ -41,7 +40,7 @@ class WithdrawalScannedActivity : AppCompatActivity() {
             .putExtra(SCANNED_STRING, encryptedString)
       }
 
-      fun getScannedActivity(callingClassContext: Context, encryptedString: String, account : AccountResponse): Intent {
+      fun getScannedActivity(callingClassContext: Context, encryptedString: String, account : Account): Intent {
          return Intent(callingClassContext, WithdrawalScannedActivity::class.java)
             .putExtra(SCANNED_STRING, encryptedString)
             .putExtra("account", account)
@@ -56,6 +55,12 @@ class WithdrawalScannedActivity : AppCompatActivity() {
       setData()
    }
 
+
+   /**
+    *
+    * RETRIEVE SCANNED DATA FROM CAMERA
+    */
+
    private fun retrieveData() {
       if (intent.getSerializableExtra(SCANNED_STRING) == null)
          throw RuntimeException("No encrypted String found in intent")
@@ -67,14 +72,18 @@ class WithdrawalScannedActivity : AppCompatActivity() {
       if (valueScanned == null) {
          throw RuntimeException("No encrypted String found in intent")
       }
-      currentAccount = intent.extras!!.getSerializable("account") as AccountResponse
+      currentAccount = intent.extras!!.getSerializable("account") as Account
    }
+
+   /**
+    * CALLING SERVER TO SAVE DATA
+    */
 
    private fun createTransaction() {
       transactionRepository.createTransaction(
          currentTransaction!!,
-         object : OnPostItemCallback<TransactionResponse> {
-            override fun onSuccess(item: TransactionResponse) {
+         object : OnPostItemCallback<Transaction> {
+            override fun onSuccess(item: Transaction) {
                transaction = item
                Log.v(TAG, transaction!!.from_account)
             }
@@ -82,7 +91,6 @@ class WithdrawalScannedActivity : AppCompatActivity() {
             override fun onError() {
                Log.v(TAG, "Couldn't bring data from URL")
             }
-
          }
       )
    }
@@ -90,7 +98,7 @@ class WithdrawalScannedActivity : AppCompatActivity() {
    private fun setData() {
       //val decryptedString = EncryptionHelper.getInstance().getDecryptionString(intent.getStringExtra(SCANNED_STRING))
       val decryptedString = EncryptionHelper.getInstance().getDecryptionString(valueScanned)
-      currentTransaction = Gson().fromJson(decryptedString, TransactionResponse::class.java)
+      currentTransaction = Gson().fromJson(decryptedString, Transaction::class.java)
 
 
       scannedAccountName!!.text = currentTransaction!!.from_account

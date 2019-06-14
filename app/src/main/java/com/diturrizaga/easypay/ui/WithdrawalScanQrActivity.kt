@@ -16,7 +16,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.Account
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.google.android.material.snackbar.*
@@ -29,13 +29,13 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
    private var barcodeBackImageView : ImageView? = null
    private var flashOnOff : ImageView? = null
 
-   private var account : AccountResponse? = null
+   private var account : Account? = null
 
    companion object {
       private const val HUAWEI = "huawei"
       private const val MY_CAMERA_REQUEST_CODE = 6515
       fun getWithdrawalScanQrActivity(context: Context) = Intent(context, WithdrawalScanQrActivity::class.java)
-      fun getWithdrawalScanQrActivity(context: Context, account : AccountResponse) : Intent
+      fun getWithdrawalScanQrActivity(context: Context, account : Account) : Intent
               = Intent(context, WithdrawalScanQrActivity::class.java).putExtra("account", account)
    }
 
@@ -63,7 +63,7 @@ class WithdrawalScanQrActivity : AppCompatActivity(), ZXingScannerView.ResultHan
    }
 
    private fun retrieveCurrentAccount(){
-      account = intent.extras!!.getSerializable("account") as AccountResponse
+      account = intent.extras!!.getSerializable("account") as Account
    }
 
    private fun initializeUI() {

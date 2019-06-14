@@ -1,4 +1,4 @@
-package com.diturrizaga.easypay.ui
+package com.diturrizaga.easypay.ui.launcher
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +15,8 @@ import com.backendless.exceptions.BackendlessFault
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.api.Api.API_KEY
 import com.diturrizaga.easypay.api.Api.APP_ID
-import com.diturrizaga.easypay.model.response.User
-import com.diturrizaga.easypay.model.response.UserResponse
+import com.diturrizaga.easypay.model.response.UserAux
+import com.diturrizaga.easypay.ui.HomeActivity
 import com.diturrizaga.easypay.ui.viewmodel.LogInViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -57,8 +57,8 @@ class LoginActivity : AppCompatActivity() {
                //getId(userId)
                parseToUser(response!!)
                getId(response.properties.getValue("objectId").toString())
-               Toast.makeText(applicationContext,"User has been logged in", Toast.LENGTH_LONG).show()
-               val intent = Intent(this@LoginActivity,HomeActivity::class.java)
+               Toast.makeText(applicationContext,"user has been logged in", Toast.LENGTH_LONG).show()
+               val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                intent.putExtra("userId",userId)
                this@LoginActivity.startActivity(intent)
             }
@@ -68,14 +68,14 @@ class LoginActivity : AppCompatActivity() {
 
 
    private fun parseToUser(backendlessUser : BackendlessUser) {
-      val mUser = User()
+      val mUser = UserAux()
       mUser.objectId = backendlessUser.properties!!.getValue("objectId").toString()
       mUser.last_name = backendlessUser.properties!!.getValue("last_name").toString()
       mUser.nickname = backendlessUser.properties!!.getValue("nickname").toString()
       mUser.first_name = backendlessUser.properties!!.getValue("first_name").toString()
       mUser.email = backendlessUser.properties!!.getValue("email").toString()
       mUser.objectId = backendlessUser.properties!!.getValue("objectId").toString()
-      viewModel!!.currentUser = mUser
+      viewModel!!.currentUserAux = mUser
    }
 
    private fun initializeUI(){

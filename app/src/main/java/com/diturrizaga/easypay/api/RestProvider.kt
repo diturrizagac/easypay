@@ -1,7 +1,7 @@
 package com.diturrizaga.easypay.api
 
-import com.diturrizaga.easypay.model.response.AccountResponse
-import com.diturrizaga.easypay.model.response.TransactionResponse
+import com.diturrizaga.easypay.model.response.Account
+import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.model.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -23,12 +23,12 @@ interface RestProvider {
     * USER
     */
 
-   @GET("data/user/{id_user}")
+   @GET("data/User/{id_user}")
    fun getUser(
       @Query("objectId") objectId: String
    ) : Call<List<UserResponse>>
 
-   @PUT("data/user/{id_user}")
+   @PUT("data/User/{id_user}")
    fun updateUser(
       @Query("objectId") objectId: String
    ) : Call<List<UserResponse>>
@@ -46,45 +46,47 @@ interface RestProvider {
       //account
    ) : Call<UserResponse>
 
-   @PUT("data/user/{id_user}")
+   @PUT("data/User/{id_user}")
    fun updateUserAccounts(
       @Query("loadRelations") loadRelations: String
       //account
-   ) : Call<AccountResponse>
+   ) : Call<Account>
 
-   @POST("data/user/{id_user}")
+   @POST("data/User/{id_user}")
    fun createUserAccounts(
       @Query("loadRelations") loadRelations: String
       //account
-   ) : Call<AccountResponse>
+   ) : Call<Account>
 
    /**
     * TRANSACTIONS
      */
 
-   @GET("{bl_key}/{api_key}/data/account/{id_account}")
+   @GET("{bl_key}/{api_key}/data/Account/{id_account}")
    fun getAccountTransactions(
       @Path("bl_key") bl_key : String,
       @Path("api_key") api_key : String,
       @Path("id_account") id_user : String,
       @Query("loadRelations") loadRelations: String
       //account.transaction
-   ) : Call<AccountResponse>
+   ) : Call<Account>
 
-   @PUT("data/user/{id_user}")
+   @PUT("data/User/{id_user}")
    fun updateUserTransaction(
       @Query("loadRelations") loadRelations: String
       //account.transaction
-   ) : Call<TransactionResponse>
+   ) : Call<Transaction>
 
    //@POST("data/user/{id_user}")
-   @POST("/data/transaction")
+   @POST("{bl_key}/{api_key}/data/Transaction")
    fun createUserTransaction(
-      @Body transaction : TransactionResponse
-   ) : Call<TransactionResponse>
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String,
+      @Body transaction : Transaction
+   ) : Call<Transaction>
 
    @DELETE("")
    fun cancelUserTransaction(
       @Query("loadRelations   ") loadRelations : String
-   ) : Call<TransactionResponse>
+   ) : Call<Transaction>
 }

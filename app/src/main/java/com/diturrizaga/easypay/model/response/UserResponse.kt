@@ -31,7 +31,7 @@ class UserResponse {
    @SerializedName("___class")
    @Expose
    var ___class: String? = null
-   @SerializedName("account")
+   @SerializedName("accounts")
    @Expose
-   var account: List<AccountResponse>? = null
+   var accounts: List<Account>? = null
 }

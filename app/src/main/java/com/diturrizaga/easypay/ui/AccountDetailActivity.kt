@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.AccountResponse
-import com.diturrizaga.easypay.model.response.TransactionResponse
+import com.diturrizaga.easypay.model.response.Account
+import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.adapter.TransactionAdapter
 import com.diturrizaga.easypay.ui.viewmodel.AccountListViewModel
@@ -25,7 +25,7 @@ class AccountDetailActivity : AppCompatActivity() {
    private lateinit var layoutManager : RecyclerView.LayoutManager
    private var transactionRepository = TransactionRepository.getInstance()
    private val TAG = "AccountDetailActivity"
-   private var account : AccountResponse? = null
+   private var account : Account? = null
    private var accountId: String? = null
    private var userId: String? = null
    private var viewModel : AccountListViewModel? = null
@@ -43,7 +43,7 @@ class AccountDetailActivity : AppCompatActivity() {
    }
 
    private fun retrieveData() {
-      account = intent.extras!!.getSerializable("account") as AccountResponse
+      account = intent.extras!!.getSerializable("account") as Account
       userId = intent.extras!!.getString("userId")
 
       accountId = account!!.objectId
@@ -61,8 +61,8 @@ class AccountDetailActivity : AppCompatActivity() {
    private fun showTransactions() {
       transactionRepository.getTransactions(
          accountId!!,
-         object : OnGetItemsCallback<TransactionResponse> {
-            override fun onSuccess(items: List<TransactionResponse>) {
+         object : OnGetItemsCallback<Transaction> {
+            override fun onSuccess(items: List<Transaction>) {
                setAdapter(TransactionAdapter(items,applicationContext))
             }
 

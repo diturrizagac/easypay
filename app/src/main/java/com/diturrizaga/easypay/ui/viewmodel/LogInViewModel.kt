@@ -1,8 +1,8 @@
 package com.diturrizaga.easypay.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.diturrizaga.easypay.model.response.User
+import com.diturrizaga.easypay.model.response.UserAux
 
 class LogInViewModel : ViewModel(){
-   var currentUser : User? = null
+   var currentUserAux : UserAux? = null
 }

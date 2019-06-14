@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.ui.adapter.AccountAdapter
 import com.diturrizaga.easypay.ui.AccountDetailActivity
@@ -24,15 +24,15 @@ class AccountListFragment : Fragment(){
    private var accountRepository = AccountRepository.getInstance()
    private val TAG = "AccountListFragment"
    private var userId: String? = null
-   private var accountSelected : AccountResponse? = null
-   private var accounts : List<AccountResponse>? = null
+   private var accountSelected : Account? = null
+   private var accounts : List<Account>? = null
    private lateinit var accountRvAdapter : AccountAdapter
 
    var adapterListener = object : View.OnClickListener{
       override fun onClick(view: View?) {
          val viewHolder = view!!.tag as RecyclerView.ViewHolder
          val position = viewHolder.adapterPosition
-         accountSelected = accounts!!.get(position)
+         accountSelected = accounts!![position]
          val intent = Intent(context, AccountDetailActivity::class.java)
          intent.putExtra("userId", userId)
          intent.putExtra("account",accountSelected)
@@ -58,8 +58,8 @@ class AccountListFragment : Fragment(){
    private fun showAccounts() {
       accountRepository.getAccounts(
          userId!!,
-         object : OnGetItemsCallback<AccountResponse> {
-            override fun onSuccess(items: List<AccountResponse>) {
+         object : OnGetItemsCallback<Account> {
+            override fun onSuccess(items: List<Account>) {
                accounts = items
                accountRvAdapter = AccountAdapter(items, context!!)
                setAdapter(accountRvAdapter)
@@ -94,7 +94,7 @@ class AccountListFragment : Fragment(){
    }
 
    /**
-    * Initialize userId property of currentUser
+    * Initialize userId property of currentUserAux
     *
     */
    fun getIdFromHomeActivity(id: String) {

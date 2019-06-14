@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.Account
 import util.UtilFormatter
 
 
-class AccountAdapter(private val accounts: List<AccountResponse>, private val mContext: Context) :
+class AccountAdapter(private val accounts: List<Account>, private val mContext: Context) :
    RecyclerView.Adapter<AccountAdapter.AccountViewHolder>(){
 
    var mOnItemClickListener : View.OnClickListener? = null
@@ -47,7 +47,7 @@ class AccountAdapter(private val accounts: List<AccountResponse>, private val mC
          itemView.setOnClickListener(mOnItemClickListener)
       }
 
-      fun bind(account: AccountResponse) {
+      fun bind(account: Account) {
          accountName.text = account.account_name
          accountBalance.text = UtilFormatter.amountToMoneyFormat(account.balance!!)
          accountType.text = account.type

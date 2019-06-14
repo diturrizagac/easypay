@@ -6,7 +6,7 @@ import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.api.Api.API_KEY
 import com.diturrizaga.easypay.api.Api.APP_ID
 import com.diturrizaga.easypay.api.RestProvider
-import com.diturrizaga.easypay.model.response.AccountResponse
+import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,24 +29,24 @@ class AccountRepository : Repository {
          return repository as AccountRepository
       }
    }
-   fun getAccounts(userId: String, callback: OnGetItemsCallback<AccountResponse>){
-      val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,userId, "account")
+   fun getAccounts(userId: String, callback: OnGetItemsCallback<Account>){
+      val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,userId, "accounts")
       Log.i(TAG, "GET---> ${accounts.request().url()}")
       //val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,"078D80EE-362A-8E2D-FF59-BF4620DA8B00", "account")
       requestAccounts(accounts,callback)
    }
 
-   fun getAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){
+   fun getAccount(callback: OnGetItemsCallback<Account>, id : String){
       val user = Api.getRestProvider().getUser(id)
    }
 
-   fun updateAccount(callback: OnGetItemsCallback<AccountResponse>, id : String){
+   fun updateAccount(callback: OnGetItemsCallback<Account>, id : String){
       val user = Api.getRestProvider().updateUser(id)
    }
 
 
 
-   private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<AccountResponse>){
+   private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<Account>){
       call.enqueue(
          object : Callback<UserResponse> {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -58,7 +58,7 @@ class AccountRepository : Repository {
                if (response.isSuccessful) {
                   val userResponse = response.body()
                   if (userResponse != null) {
-                     callback.onSuccess(userResponse.account!!)
+                     callback.onSuccess(userResponse.accounts!!)
                   } else {
                      callback.onError()
                   }

@@ -5,16 +5,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.model.response.Transaction
+import com.diturrizaga.easypay.model.response.TransactionAux
 import com.diturrizaga.easypay.repository.TransactionRepository
 
 class TransferAddActivity : AppCompatActivity() {
 
    private var transactionRepository : TransactionRepository? = null
 
-   var lista : List<Transaction>? = null
+   var lista : List<TransactionAux>? = null
    var filtro : String? = null
-   var filteredList : List<Transaction>? = null
+   var filteredList : List<TransactionAux>? = null
 
    companion object{
       fun getTransferAddActivity(context: Context) = Intent(context, TransferAddActivity::class.java)

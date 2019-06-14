@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class AccountResponse : Serializable {
+class Account : Serializable {
    @SerializedName("owner")
    @Expose
    var owner : String? = null
@@ -43,5 +43,5 @@ class AccountResponse : Serializable {
    var ___class : String? = null
    @SerializedName("transaction")
    @Expose
-   var transactions : List<TransactionResponse>? = null
+   var transactions : List<Transaction>? = null
 }

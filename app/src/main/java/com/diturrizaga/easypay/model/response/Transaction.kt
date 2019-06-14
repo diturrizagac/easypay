@@ -1,26 +1,42 @@
 package com.diturrizaga.easypay.model.response
 
-class Transaction {
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-   val created: Long? = null
+class Transaction :Serializable {
 
-   val from_account: String? = null
-
-   val activity_date: Long? = null
-
-   val updated: Long? = null
-
-   val status: String? = null
-
-   val amount: Double? = null
-
-   val objectId: String? = null
-
-   val to_account: String? = null
-
-   val type: String? = null
-
-   val ownerId: String? = null
-
-   val ___class: String? = null
+   @SerializedName("created")
+   @Expose
+   var created: Long? = null
+   @SerializedName("from_account")
+   @Expose
+   var from_account: String? = null
+   @SerializedName("activity_date")
+   @Expose
+   var activity_date: Long? = null
+   @SerializedName("updated")
+   @Expose
+   var updated: Long? = null
+   @SerializedName("status")
+   @Expose
+   var status: String? = null
+   @SerializedName("amount")
+   @Expose
+   var amount: Double? = null
+   @SerializedName("objectId")
+   @Expose
+   var objectId: String? = null
+   @SerializedName("to_account")
+   @Expose
+   var to_account: String? = null
+   @SerializedName("type")
+   @Expose
+   var type: String? = null
+   @SerializedName("ownerId")
+   @Expose
+   var ownerId: String? = null
+   @SerializedName("___class")
+   @Expose
+   var ___class: String? = null
 }
