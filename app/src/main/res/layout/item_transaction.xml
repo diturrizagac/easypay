@@ -4,9 +4,13 @@
         xmlns:cardview="http://schemas.android.com/apk/res-auto"
         android:id="@+id/item_transaction"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#8A000000"
-        cardview:cardCornerRadius="4dp">
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_item_list"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        cardview:cardCornerRadius="15dp">
     <RelativeLayout
             android:orientation="vertical"
             android:gravity="center_vertical"

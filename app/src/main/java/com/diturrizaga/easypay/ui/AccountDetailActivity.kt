@@ -14,7 +14,8 @@ import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.adapter.TransactionAdapter
 import com.diturrizaga.easypay.ui.viewmodel.AccountListViewModel
-import util.UtilFormatter.Companion.amountToMoneyFormat
+import com.diturrizaga.easypay.util.UtilFormatter.Companion.amountToMoneyFormat
+
 
 class AccountDetailActivity : AppCompatActivity() {
 

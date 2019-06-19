@@ -21,9 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="#7535AD"
+            android:background="@drawable/background_gradient"
             app:itemIconTint="@drawable/bottom_navigation_colors"
             app:itemTextColor="@drawable/bottom_navigation_colors"
             app:menu="@menu/navigation_bar_home" />
-
 </LinearLayout>

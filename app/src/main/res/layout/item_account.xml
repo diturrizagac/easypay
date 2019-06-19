@@ -2,14 +2,17 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:cardview="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/item_account"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#8A000000"
-        cardview:cardCornerRadius="4dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        cardview:cardCornerRadius="15dp">
     <RelativeLayout
             android:orientation="vertical"
             android:gravity="center_vertical"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <TextView

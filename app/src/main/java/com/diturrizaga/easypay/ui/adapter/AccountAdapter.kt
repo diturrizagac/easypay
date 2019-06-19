@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.Account
-import util.UtilFormatter
+import com.diturrizaga.easypay.util.UtilFormatter
 
 
 class AccountAdapter(private val accounts: List<Account>, private val mContext: Context) :

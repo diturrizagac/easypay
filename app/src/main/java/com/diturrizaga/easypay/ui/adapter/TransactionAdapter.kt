@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.Transaction
-import util.UtilFormatter
+import com.diturrizaga.easypay.util.UtilFormatter
+
 
 class TransactionAdapter(private val transactions: List<Transaction>, private val context: Context) :
    RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
