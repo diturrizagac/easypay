@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center"
-        tools:context=".ui.fargments.AddTransactionFragment">
+        tools:context=".ui.home.AddTransactionFragment">
 
     <androidx.cardview.widget.CardView
             android:id="@+id/transaction_add_transfer"

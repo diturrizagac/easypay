@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:context=".ui.HomeActivity">
+        tools:context=".ui.home.HomeActivity">
 
     <FrameLayout
             android:id="@+id/fragment_container"

@@ -15,33 +15,40 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme2">
-        <activity android:name=".ui.GenerateQrTestActivity">
+        <activity android:name=".ui.ProfileActivity">
         </activity>
-        <activity android:name=".ui.WithdrawalScannedActivity">
+        <activity android:name=".ui.LoadingActivity">
         </activity>
-        <activity android:name=".ui.WithdrawalGenerateQrActivity">
+        <activity android:name=".ui.AuthenticationActivity">
         </activity>
-        <activity android:name=".ui.WithdrawalRecentActivity">
+        <activity android:name=".ui.withdrawal.GenerateQrTestActivity">
         </activity>
-        <activity android:name=".ui.PaymentRecentActivity">
+        <activity android:name=".ui.withdrawal.WithdrawalScannedActivity">
         </activity>
-        <activity android:name=".ui.PaymentAddActivity">
+        <activity android:name=".ui.withdrawal.WithdrawalGenerateQrActivity">
         </activity>
-        <activity android:name=".ui.TransferAddActivity">
+        <activity android:name=".ui.withdrawal.WithdrawalRecentActivity">
         </activity>
-        <activity android:name=".ui.TransferRecentActivity">
+        <activity android:name=".ui.payment.PaymentRecentActivity">
+        </activity>
+        <activity android:name=".ui.payment.PaymentAddActivity">
+        </activity>
+        <activity android:name=".ui.transfer.TransferAddActivity">
+        </activity>
+        <activity android:name=".ui.transfer.TransferRecentActivity">
         </activity>
         <activity android:name=".ui.SelectAccountActivity">
         </activity>
-        <activity android:name=".ui.WithdrawalSelectAmountActivity">
+        <activity android:name=".ui.withdrawal.WithdrawalSelectAmountActivity">
         </activity>
-        <activity android:name=".ui.WithdrawalAddActivity">
+        <activity android:name=".ui.withdrawal.WithdrawalAddActivity">
         </activity>
-        <activity android:name=".ui.WithdrawalScanQrActivity">
+        <activity android:name=".ui.withdrawal.WithdrawalScanQrActivity">
         </activity>
         <activity android:name=".ui.launcher.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -49,10 +56,9 @@
         </activity>
         <activity android:name=".ui.AccountListActivity">
         </activity>
-        <activity android:name=".ui.HomeActivity">
+        <activity android:name=".ui.home.HomeActivity">
         </activity>
         <activity android:name=".ui.MainActivity">
-
         </activity>
     </application>
 

@@ -6,7 +6,7 @@
               android:orientation="vertical"
               android:gravity="center"
               android:layout_gravity="center"
-              tools:context=".ui.fargments.RecentListFragment">
+              tools:context=".ui.home.RecentListFragment">
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"

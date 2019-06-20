@@ -16,8 +16,8 @@ import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.api.Api.API_KEY
 import com.diturrizaga.easypay.api.Api.APP_ID
 import com.diturrizaga.easypay.model.response.UserAux
-import com.diturrizaga.easypay.ui.HomeActivity
-import com.diturrizaga.easypay.ui.viewmodel.LogInViewModel
+import com.diturrizaga.easypay.ui.home.HomeActivity
+import com.diturrizaga.easypay.ui.view.viewmodel.LogInViewModel
 
 class LoginActivity : AppCompatActivity() {
 

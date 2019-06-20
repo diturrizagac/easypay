@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".ui.GenerateQrTestActivity">
+        tools:context=".ui.withdrawal.GenerateQrTestActivity">
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/account_name"
             android:layout_width="match_parent"
