@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -26,9 +28,9 @@ import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.withdrawal.WithdrawalScanQrActivity.Companion.getWithdrawalScanQrActivity
 import com.google.android.material.button.MaterialButton
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import kotlin.collections.ArrayList
-
-
 
 class WithdrawalSelectAmountActivity : AppCompatActivity() {
 
@@ -36,13 +38,12 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
    private val CLASS = "transaction"
    var ccaAccountTitle : AppCompatTextView? = null
    var ccaSpinner : AppCompatSpinner? = null
-   var continueMDButton : MaterialButton? = null
-   var continueButton : Button? = null
-   var generateButton : Button? = null
-
    var ccaAmount : AppCompatEditText? = null
    var ccaToAccount : AppCompatEditText? = null
 
+   var continueMDButton : MaterialButton? = null
+   var continueButton : Button? = null
+   var generateButton : Button? = null
 
    private var accountRepository = AccountRepository.getInstance()
    private var transactionRepository = TransactionRepository.getInstance()
@@ -51,7 +52,6 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
    private var nameList = ArrayList<String>()
    private var currentAccount : Account? = null
    private var accountName : String? = null
-
 
    private var currentTransaction : Transaction? = null
 
@@ -134,6 +134,28 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
          showAlertDialog()
          //startActivity(getWithdrawalGenerateQrActivity(this, currentAccount!!, currentTransaction!!))
       }
+      /*ccaAmount!!.addTextChangedListener(object : TextWatcher{
+         var current : String = ""
+         override fun afterTextChanged(s: Editable?) {
+         }
+
+         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+         }
+
+         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if(s.toString() != current){
+               ccaAmount!!.removeTextChangedListener(this)
+               val cleanString = s.toString().replace("[$,.]", "")
+               val parsed : Double = cleanString.toDouble()
+               val formatted = NumberFormat.getCurrencyInstance().format(parsed/100)
+               current = formatted
+               current = NumberFormat.getCurrencyInstance().format(parsed/100)
+               ccaAmount!!.setText(formatted)
+               ccaAmount!!.setSelection(formatted.length)
+               ccaAmount!!.addTextChangedListener(this)
+            }
+         }
+      })*/
    }
 
    private fun postBackeless() {
@@ -270,6 +292,7 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
    }
 
    private fun setCurrentTransaction() {
+      currentTransaction = Transaction()
       currentTransaction!!.created = null
       currentTransaction!!.from_account = currentAccount!!.account_name
       currentTransaction!!.activity_date = null
@@ -278,7 +301,7 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       currentTransaction!!.amount = ccaAmount!!.text.toString().toDouble()
       currentTransaction!!.objectId = ""
       currentTransaction!!.to_account = ccaToAccount!!.text.toString()
-      currentTransaction!!.type = Type.PAYMENT.name
+      currentTransaction!!.type = Type.WITHDRAWAL.name
       currentTransaction!!.ownerId = null
       currentTransaction!!.___class = CLASS
    }

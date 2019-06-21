@@ -22,6 +22,8 @@ class UtilFormatter {
          }
          return round(this * multiplier) / multiplier
       }
+
+
    }
 
 

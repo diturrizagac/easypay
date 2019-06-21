@@ -54,8 +54,6 @@
         </activity>
         <activity android:name=".ui.AccountDetailActivity">
         </activity>
-        <activity android:name=".ui.AccountListActivity">
-        </activity>
         <activity android:name=".ui.home.HomeActivity">
         </activity>
         <activity android:name=".ui.MainActivity">

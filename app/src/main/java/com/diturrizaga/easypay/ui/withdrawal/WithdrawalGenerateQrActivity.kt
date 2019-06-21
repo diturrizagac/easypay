@@ -31,7 +31,6 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
       fun getWithdrawalGenerateQrActivity(context: Context) = Intent(context, WithdrawalGenerateQrActivity::class.java)
       fun getWithdrawalGenerateQrActivity(context: Context, account: Account): Intent =
          Intent(context, WithdrawalGenerateQrActivity::class.java).putExtra("account", account)
-
       fun getWithdrawalGenerateQrActivity(
          context: Context,
          account: Account,

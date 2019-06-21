@@ -70,7 +70,8 @@ class AccountDetailActivity : AppCompatActivity() {
             override fun onError() {
                Log.v(TAG, "Couldn't bring data from URL")
             }
-      })
+         }
+      )
    }
 
    private fun initializeUI() {

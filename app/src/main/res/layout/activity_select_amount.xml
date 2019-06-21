@@ -44,9 +44,9 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
                 android:inputType="number"
+                android:digits="1234567890."
                 android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:textSize="15sp" />
+                android:paddingStart="8dp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
