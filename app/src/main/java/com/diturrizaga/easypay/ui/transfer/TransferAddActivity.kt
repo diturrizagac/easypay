@@ -22,36 +22,40 @@ import com.diturrizaga.easypay.*
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
-import com.diturrizaga.easypay.model.response.TransactionAux
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.google.android.material.button.MaterialButton
 
 class TransferAddActivity : AppCompatActivity() {
 
+
    private val TAG = "TransferAddActivity"
    private val CLASS = "transaction"
+
+   private var accountRepository = AccountRepository.getInstance()
+   private var transactionRepository = TransactionRepository.getInstance()
+
    var transferAccountTitle: AppCompatTextView? = null
    var transferSpinner: AppCompatSpinner? = null
    var transferAmount: AppCompatEditText? = null
    var transferToAccount: AppCompatEditText? = null
-
    var continueMDButton: MaterialButton? = null
    var continueButton: Button? = null
 
-   private var accountRepository = AccountRepository.getInstance()
-   private var transactionRepository = TransactionRepository.getInstance()
-   private var userId: String? = null
-   private var userAccounts: List<Account>? = null
+   private var isSum: Boolean? = null
+
+   private var payerUserId: String? = null
+   private var payerUserAccounts: List<Account>? = null
    private var accountName: String? = null
-   private var nameList = ArrayList<String>()
+   private var payerNameAccountsSpinner = ArrayList<String>()
+   private var payerCurrentAccount: Account? = null
 
-   private var currentAccount: Account? = null
+   private var creditorUserId: String ? = null
+   private var creditorUserAccounts: List<Account>? = null
+   private var creditorCurrentAccount: Account? = null
+
    private var currentTransaction: Transaction? = null
-
-   var lista: List<TransactionAux>? = null
-   var filtro: String? = null
-   var trasnferList: List<TransactionAux>? = null
+   private var creditorCurrentTransaction: Transaction? = null
 
    companion object {
       fun getTransferAddActivity(context: Context) = Intent(context, TransferAddActivity::class.java)
@@ -60,13 +64,13 @@ class TransferAddActivity : AppCompatActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_transfer_add)
-      initializeUI()
-      retrieveData()
+      initializeUi()
+      retrieveDataFromIntent()
       setListener()
-      getAccounts()
+      getAccountsFromRepository()
    }
 
-   private fun initializeUI() {
+   private fun initializeUi() {
       transferAccountTitle = findViewById(R.id.transfer_account)
       transferSpinner = findViewById(R.id.transfer_accounts_spinner)
       transferToAccount = findViewById(R.id.transfer_send_to)
@@ -75,24 +79,24 @@ class TransferAddActivity : AppCompatActivity() {
       //continueMDButton = findViewById(R.id.transfer_continue_button_md)
    }
 
-   private fun retrieveData() {
-      userId = intent.extras!!.getString("userId")
+   private fun retrieveDataFromIntent() {
+      payerUserId = intent.extras!!.getString("userId")
    }
 
    private fun setListener() {
       continueButton!!.setOnClickListener {
-         saveOnBackendless()
+         postTransactionOnBackendless()
          showAlertDialog()
       }
    }
 
-   private fun getAccounts() {
+   private fun getAccountsFromRepository() {
       accountRepository.getAccounts(
-         userId!!,
+         payerUserId!!,
          object : OnGetItemsCallback<Account> {
             override fun onSuccess(items: List<Account>) {
-               userAccounts = items
-               setCurrentAccounts(userAccounts as MutableList<Account>)
+               payerUserAccounts = items
+               setCurrentAccounts(payerUserAccounts as MutableList<Account>)
                setSpinner()
             }
 
@@ -104,11 +108,12 @@ class TransferAddActivity : AppCompatActivity() {
       )
    }
 
-   private fun saveOnBackendless() {
+   private fun postTransactionOnBackendless() {
       Backendless.initApp(this, Api.APP_ID, Api.API_KEY)
       //populateTransaction()
-      setCurrentTransaction()
-      postTransaction()
+      populateCurrentTransaction()
+      createTransaction()
+      createCreditorTransaction()
    }
 
    private fun showAlertDialog() {
@@ -121,7 +126,8 @@ class TransferAddActivity : AppCompatActivity() {
       // Set a positive button and its click listener on alert dialog
       builder.setPositiveButton("Yes"){dialog, which ->
          // Do something when user press the positive button
-         postBackendless()
+         setRelationOnBackendless(payerCurrentAccount!!, currentTransaction!! )
+         setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
          Toast.makeText(applicationContext,"Ok, we're sending your transaction",Toast.LENGTH_SHORT).show()
       }
       // Display a negative button on alert dialog
@@ -138,7 +144,27 @@ class TransferAddActivity : AppCompatActivity() {
       dialog.show()
    }
 
-   private fun postTransaction() {
+   private fun createCreditorTransaction() {
+      transactionRepository.createTransaction(
+         creditorCurrentTransaction!!,
+         object  : OnPostItemCallback<Transaction> {
+            @SuppressLint("LongLogTag")
+            override fun onSuccess(item: Transaction) {
+               if (creditorCurrentTransaction != item) {
+                  creditorCurrentTransaction = item
+                  Log.v(TAG, "Data Creditor posted")
+               }
+            }
+
+            @SuppressLint("LongLogTag")
+            override fun onError() {
+               Log.v(TAG, "Couldn't bring data from URL of creditor")
+            }
+         }
+      )
+   }
+
+   private fun createTransaction() {
       transactionRepository.createTransaction(
          currentTransaction!!,
          object  : OnPostItemCallback<Transaction> {
@@ -146,13 +172,13 @@ class TransferAddActivity : AppCompatActivity() {
             override fun onSuccess(item: Transaction) {
                if (currentTransaction != item) {
                   currentTransaction = item
-                  Log.v(TAG, "Data posted")
+                  Log.v(TAG, "Data Payer posted")
                }
             }
 
             @SuppressLint("LongLogTag")
             override fun onError() {
-               Log.v(TAG, "Couldn't bring data from URL")
+               Log.v(TAG, "Couldn't bring data from URL of payer")
             }
          }
       )
@@ -160,7 +186,7 @@ class TransferAddActivity : AppCompatActivity() {
 
    @SuppressLint("ResourceType")
    private fun setSpinner() {
-      val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nameList)
+      val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, payerNameAccountsSpinner)
       dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
       transferSpinner!!.adapter = dataAdapter
       setSpinnerListener()
@@ -176,16 +202,16 @@ class TransferAddActivity : AppCompatActivity() {
          override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             accountName = parent!!.selectedItem as String
             //Toast.makeText(applicationContext,"$accountName selected", Toast.LENGTH_LONG).show()
-            currentAccount = getCurrentAccount(accountName!!)
-            Log.v(TAG,"${currentAccount!!.account_name} selected")
-            Toast.makeText(applicationContext,"${currentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
+            payerCurrentAccount = getCurrentAccount(accountName!!)
+            Log.v(TAG,"${payerCurrentAccount!!.account_name} selected")
+            Toast.makeText(applicationContext,"${payerCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
          }
       }
    }
 
    private fun getCurrentAccount(name : String) : Account{
       var account : Account? = null
-      val iterator = userAccounts!!.iterator()
+      val iterator = payerUserAccounts!!.iterator()
       while (iterator.hasNext()) {
          account = iterator.next()
          if (account.account_name == name){
@@ -202,14 +228,12 @@ class TransferAddActivity : AppCompatActivity() {
       val item = names.iterator()
       while (item.hasNext()){
          val accountName = item.next().account_name
-         nameList.add(accountName!!)
+         payerNameAccountsSpinner.add(accountName!!)
          Log.v(TAG,accountName)
       }
    }
 
-   private fun postBackendless() {
-      val account = currentAccount!!
-      val transaction = currentTransaction!!
+   private fun setRelationOnBackendless(account : Account, transaction : Transaction) {
       val transactionCollection = ArrayList<Transaction>()
       transactionCollection.add(transaction)
       Backendless.Data.of(Account::class.java).addRelation(
@@ -223,24 +247,32 @@ class TransferAddActivity : AppCompatActivity() {
             }
 
             override fun handleResponse(response: Int?) {
-               Toast.makeText(applicationContext,"Data ", Toast.LENGTH_LONG).show()
+               Toast.makeText(applicationContext,"Data  $response", Toast.LENGTH_LONG).show()
             }
          }
       )
    }
 
-   private fun setCurrentTransaction() {
+   private fun validateTransaction() {
+      createTransaction()
+
+   }
+
+
+
+   private fun populateCurrentTransaction() {
       currentTransaction = Transaction()
       currentTransaction!!.created = null
-      currentTransaction!!.from_account = currentAccount!!.account_name
+      currentTransaction!!.from_account = payerCurrentAccount!!.account_name
       currentTransaction!!.activity_date = null
       currentTransaction!!.updated = null
       currentTransaction!!.status = Status.DONE.name
       currentTransaction!!.amount = transferAmount!!.text.toString().toDouble()
       currentTransaction!!.objectId = ""
       currentTransaction!!.to_account = transferToAccount!!.text.toString()
-      currentTransaction!!.type = Type.WITHDRAWAL.name
+      currentTransaction!!.type = Type.TRANSFER.name
       currentTransaction!!.ownerId = null
       currentTransaction!!.___class = CLASS
+      creditorCurrentTransaction = currentTransaction
    }
 }
