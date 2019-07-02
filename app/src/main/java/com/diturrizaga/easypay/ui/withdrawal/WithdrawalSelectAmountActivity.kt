@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -26,10 +24,9 @@ import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
+import com.diturrizaga.easypay.ui.Status
 import com.diturrizaga.easypay.ui.withdrawal.WithdrawalScanQrActivity.Companion.getWithdrawalScanQrActivity
 import com.google.android.material.button.MaterialButton
-import java.text.DecimalFormat
-import java.text.NumberFormat
 import kotlin.collections.ArrayList
 
 class WithdrawalSelectAmountActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.diturrizaga.easypay
+package com.diturrizaga.easypay.ui
 
 enum class Status {
    DONE,

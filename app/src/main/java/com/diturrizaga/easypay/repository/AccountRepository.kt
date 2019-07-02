@@ -44,7 +44,10 @@ class AccountRepository : Repository {
       val user = Api.getRestProvider().updateUser(id)
    }
 
-
+   fun getAllAccounts(callback: OnGetItemsCallback<Account>) {
+      val accounts = Api.getRestProvider().getAllAccounts(APP_ID, API_KEY)
+      Log.i(TAG,"GET---> ${accounts.request().url()}")
+   }
 
    private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<Account>){
       call.enqueue(

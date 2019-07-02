@@ -36,6 +36,12 @@ interface RestProvider {
    /**
     * ACCOUNT
      */
+
+   @GET("{bl_key}/{api_key}/data/Account")
+   fun getAllAccounts(
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String
+   ) : Call<List<Account>>
    //@GET("{bl_key}/{api_key}/data/user/{id_user}")
    @GET("{bl_key}/{api_key}/data/Users/{id_user}")
    fun getUserAccounts(

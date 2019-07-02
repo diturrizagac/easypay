@@ -24,6 +24,7 @@ import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
+import com.diturrizaga.easypay.ui.Status
 import com.google.android.material.button.MaterialButton
 
 class TransferAddActivity : AppCompatActivity() {
@@ -106,6 +107,10 @@ class TransferAddActivity : AppCompatActivity() {
             }
          }
       )
+   }
+
+   private fun getAccountsFromBL() {
+
    }
 
    private fun postTransactionOnBackendless() {
