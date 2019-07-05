@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.diturrizaga.easypay.R
-import com.diturrizaga.easypay.ui.home.AccountListFragment
-import com.diturrizaga.easypay.ui.home.AddTransactionFragment
-import com.diturrizaga.easypay.ui.home.RecentListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
@@ -38,7 +35,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       return loadFragment(fragment,userId)
    }
 
-   private fun loadFragment(fragment:Fragment,id:String) : Boolean {
+   private fun loadFragment(fragment:Fragment, id:String) : Boolean {
       if (fragment != null) {
          supportFragmentManager
             .beginTransaction()
