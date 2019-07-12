@@ -36,17 +36,10 @@ class AccountRepository : Repository {
       requestAccounts(accounts,callback)
    }
 
-   fun getAccount(callback: OnGetItemsCallback<Account>, id : String){
-      val user = Api.getRestProvider().getUser(id)
-   }
-
-   fun updateAccount(callback: OnGetItemsCallback<Account>, id : String){
-      val user = Api.getRestProvider().updateUser(id)
-   }
-
    fun getAllAccounts(callback: OnGetItemsCallback<Account>) {
       val accounts = Api.getRestProvider().getAllAccounts(APP_ID, API_KEY)
       Log.i(TAG,"GET---> ${accounts.request().url()}")
+      requestAllAccounts(accounts,callback)
    }
 
    private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<Account>) {
@@ -73,7 +66,7 @@ class AccountRepository : Repository {
       )
    }
 
-   private fun requestAllAccounts(call: Call<List<Account>>, callback: OnGetItemsCallback<List<Account>>) {
+   private fun requestAllAccounts(call: Call<List<Account>>, callback: OnGetItemsCallback<Account>) {
       call.enqueue(
          object : Callback<List<Account>> {
             override fun onFailure(call: Call<List<Account>>, t: Throwable) {
@@ -83,9 +76,9 @@ class AccountRepository : Repository {
 
             override fun onResponse(call: Call<List<Account>>, response: Response<List<Account>>) {
                if (response.isSuccessful) {
-                  val userResponse = response.body()
-                  if (userResponse != null) {
-                     callback.onSuccess(userResponse.)
+                  val accountsResponse = response.body()
+                  if (accountsResponse != null) {
+                     callback.onSuccess(accountsResponse)
                   } else {
                      callback.onError()
                   }
@@ -96,5 +89,14 @@ class AccountRepository : Repository {
 
          }
       )
+   }
+
+
+   fun getAccount(callback: OnGetItemsCallback<Account>, id : String){
+      val user = Api.getRestProvider().getUser(id)
+   }
+
+   fun updateAccount(callback: OnGetItemsCallback<Account>, id : String){
+      val user = Api.getRestProvider().updateUser(id)
    }
 }

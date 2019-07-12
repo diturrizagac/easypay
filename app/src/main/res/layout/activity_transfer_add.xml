@@ -25,21 +25,41 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/transaction_transfer_amount_layout"
+            android:id="@+id/transaction_transfer_send_from_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Account"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp">
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Send From Account"/>
         <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/transfer_accounts_spinner"
+                android:id="@+id/transfer_from_accounts_spinner"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/transaction_transfer_send_to_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp">
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Send To Account"/>
+    <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/transfer_to_accounts_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <!--com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transaction_transfer_sent_to_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Send To"/>
-    </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout!-->
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transaction_cca_amount_layout"

@@ -22,6 +22,7 @@ import com.diturrizaga.easypay.*
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
+import com.diturrizaga.easypay.rabbitMQTest.RabbitMQApi
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.Status
@@ -38,7 +39,8 @@ class TransferAddActivity : AppCompatActivity() {
    private var transactionRepository = TransactionRepository.getInstance()
 
    private var transferAccountTitle: AppCompatTextView? = null
-   private var transferSpinner: AppCompatSpinner? = null
+   private var transferFromSpinner: AppCompatSpinner? = null
+   private var transferToSpinner: AppCompatSpinner? = null
    private var transferAmount: AppCompatEditText? = null
    private var transferToAccount: AppCompatEditText? = null
    private var continueMDButton: MaterialButton? = null
@@ -48,16 +50,20 @@ class TransferAddActivity : AppCompatActivity() {
 
    private var payerUserId: String? = null
    private var payerUserAccounts: List<Account>? = null
-   private var accountName: String? = null
+   private var accountNameFrom: String? = null
    private var payerNameAccountsSpinner = ArrayList<String>()
    private var payerCurrentAccount: Account? = null
 
    private var creditorUserId: String ? = null
    private var creditorUserAccounts: List<Account>? = null
+   private var accountNameTo: String? = null
+   private var creditorNameAccountsSpinner = ArrayList<String>()
    private var creditorCurrentAccount: Account? = null
+
 
    private var currentTransaction: Transaction? = null
    private var creditorCurrentTransaction: Transaction? = null
+   private var rabbitMQApi = RabbitMQApi()
 
    companion object {
       fun getTransferAddActivity(context: Context) = Intent(context, TransferAddActivity::class.java)
@@ -70,12 +76,14 @@ class TransferAddActivity : AppCompatActivity() {
       retrieveDataFromIntent()
       setListener()
       getAccountsFromRepository()
+      getAccountsFromBL()
    }
 
    private fun initializeUi() {
       transferAccountTitle = findViewById(R.id.transfer_account)
-      transferSpinner = findViewById(R.id.transfer_accounts_spinner)
-      transferToAccount = findViewById(R.id.transfer_send_to)
+      transferFromSpinner = findViewById(R.id.transfer_from_accounts_spinner)
+      transferToSpinner = findViewById(R.id.transfer_to_accounts_spinner)
+      //transferToAccount = findViewById(R.id.transfer_send_to)
       transferAmount = findViewById(R.id.transfer_amount)
       continueButton = findViewById(R.id.transfer_continue_button)
       //continueMDButton = findViewById(R.id.transfer_continue_button_md)
@@ -87,9 +95,11 @@ class TransferAddActivity : AppCompatActivity() {
 
    private fun setListener() {
       continueButton!!.setOnClickListener {
-         //postTransactionOnBackendless()
-         sendDataToRabbitMQ()
-         //showAlertDialog()
+         postTransactionOnBackendless()
+         showAlertDialog()
+         //rabbitMQApi.sendMessage(transferAmount!!.text.toString())
+         //val response = rabbitMQApi.receiveMessage()
+         //Toast.makeText(applicationContext,"El mensaje recibido es $response", Toast.LENGTH_LONG).show()
       }
    }
 
@@ -99,8 +109,8 @@ class TransferAddActivity : AppCompatActivity() {
          object : OnGetItemsCallback<Account> {
             override fun onSuccess(items: List<Account>) {
                payerUserAccounts = items
-               setCurrentAccounts(payerUserAccounts as MutableList<Account>)
-               setSpinner()
+               setCurrentAccounts(payerUserAccounts as MutableList<Account>, payerNameAccountsSpinner)
+               setSpinner(payerNameAccountsSpinner,transferFromSpinner!!)
             }
 
             @SuppressLint("LongLogTag")
@@ -115,13 +125,15 @@ class TransferAddActivity : AppCompatActivity() {
       accountRepository.getAllAccounts(
          object :OnGetItemsCallback<Account> {
             override fun onSuccess(items: List<Account>) {
-               TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+               creditorUserAccounts = items
+               setCurrentAccounts(creditorUserAccounts as MutableList<Account>, creditorNameAccountsSpinner)
+               setSpinner(creditorNameAccountsSpinner, transferToSpinner!!)
             }
 
+            @SuppressLint("LongLogTag")
             override fun onError() {
-               TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+               Log.v(TAG, "Couldn't bring data from URL")
             }
-
          }
       )
    }
@@ -145,7 +157,7 @@ class TransferAddActivity : AppCompatActivity() {
       builder.setPositiveButton("Yes"){dialog, which ->
          // Do something when user press the positive button
          setRelationOnBackendless(payerCurrentAccount!!, currentTransaction!! )
-         //setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
+         setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
          Toast.makeText(applicationContext,"Ok, we're sending your transaction",Toast.LENGTH_SHORT).show()
       }
       // Display a negative button on alert dialog
@@ -203,33 +215,53 @@ class TransferAddActivity : AppCompatActivity() {
    }
 
    @SuppressLint("ResourceType")
-   private fun setSpinner() {
-      val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, payerNameAccountsSpinner)
+   private fun setSpinner(nameList: ArrayList<String>, spinner: AppCompatSpinner ) {
+      val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nameList)
+      //val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, payerNameAccountsSpinner)
       dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-      transferSpinner!!.adapter = dataAdapter
+      spinner.adapter = dataAdapter
+      //transferFromSpinner!!.adapter = dataAdapter
       setSpinnerListener()
    }
 
    private fun setSpinnerListener() {
-      transferSpinner!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+      transferFromSpinner!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
          override fun onNothingSelected(parent: AdapterView<*>?) {
             val name = parent!!.getItemAtPosition(0)
          }
 
          @SuppressLint("LongLogTag")
          override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            accountName = parent!!.selectedItem as String
+            accountNameFrom = parent!!.selectedItem as String
             //Toast.makeText(applicationContext,"$accountName selected", Toast.LENGTH_LONG).show()
-            payerCurrentAccount = getCurrentAccount(accountName!!)
+            payerCurrentAccount = getCurrentAccount(accountNameFrom!!, payerUserAccounts!!)
             Log.v(TAG,"${payerCurrentAccount!!.account_name} selected")
             Toast.makeText(applicationContext,"${payerCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
          }
       }
+
+      transferToSpinner!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+         override fun onNothingSelected(parent: AdapterView<*>?) {
+            val name = parent!!.getItemAtPosition(0)
+         }
+
+         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            accountNameTo = parent!!.selectedItem as String
+            //Toast.makeText(applicationContext,"$accountName selected", Toast.LENGTH_LONG).show()
+            //Thread.sleep(2000)
+            creditorCurrentAccount = getCurrentAccount(accountNameTo!!, creditorUserAccounts!!)
+            creditorUserId = creditorCurrentAccount!!.ownerId
+            Log.v(TAG,"${creditorCurrentAccount!!.account_name} selected")
+            Log.v(TAG,"${creditorCurrentAccount!!.ownerId} owner ID")
+            Toast.makeText(applicationContext,"${creditorCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
+         }
+      }
    }
 
-   private fun getCurrentAccount(name : String) : Account{
+   private fun getCurrentAccount(name : String, accounts: List<Account>) : Account{
       var account : Account? = null
-      val iterator = payerUserAccounts!!.iterator()
+      val iterator = accounts.iterator()
+      //val iterator = payerUserAccounts!!.iterator()
       while (iterator.hasNext()) {
          account = iterator.next()
          if (account.account_name == name){
@@ -242,11 +274,12 @@ class TransferAddActivity : AppCompatActivity() {
    }
 
    @SuppressLint("LongLogTag")
-   private fun setCurrentAccounts(names : List<Account>) {
+   private fun setCurrentAccounts(names : List<Account>, spinnerArray : ArrayList<String>) {
       val item = names.iterator()
       while (item.hasNext()){
          val accountName = item.next().account_name
-         payerNameAccountsSpinner.add(accountName!!)
+         spinnerArray.add(accountName!!)
+         //payerNameAccountsSpinner.add(accountName!!)
          Log.v(TAG,accountName)
       }
    }
@@ -271,11 +304,6 @@ class TransferAddActivity : AppCompatActivity() {
       )
    }
 
-   private fun validateTransaction() {
-      createTransaction()
-
-   }
-
    private fun populateCurrentTransaction() {
       currentTransaction = Transaction()
       currentTransaction!!.created = null
@@ -285,33 +313,12 @@ class TransferAddActivity : AppCompatActivity() {
       currentTransaction!!.status = Status.DONE.name
       currentTransaction!!.amount = transferAmount!!.text.toString().toDouble()
       currentTransaction!!.objectId = ""
-      currentTransaction!!.to_account = transferToAccount!!.text.toString()
+      currentTransaction!!.to_account = creditorCurrentAccount!!.account_name
+      //currentTransaction!!.to_account = transferToAccount!!.text.toString()
       currentTransaction!!.type = Type.TRANSFER.name
       currentTransaction!!.ownerId = null
       currentTransaction!!.___class = CLASS
       creditorCurrentTransaction = currentTransaction
-   }
-
-   private fun sendDataToRabbitMQ() {
-      val factory = ConnectionFactory()
-      factory.username = "fisi"
-      factory.password = "fisi"
-      factory.host = "192.168.5.12"
-      factory.port = 5672
-      val message = "El monto de la transacción es : ${currentTransaction!!.amount}"
-      try {
-         factory.newConnection().use { connection ->
-            connection.createChannel().use { channel ->
-               channel.queueDeclare(QUEUE_NAME, false, false, false, null)
-
-               channel.basicPublish("", QUEUE_NAME, null, message.toByteArray(charset("UTF-8")))
-               println(" [x] Sent '$message'")
-            }
-         }
-      } catch (e: Exception) {
-         println("[f] $message")
-         throw e
-      }
 
    }
 }
