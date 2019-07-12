@@ -49,7 +49,7 @@ class AccountRepository : Repository {
       Log.i(TAG,"GET---> ${accounts.request().url()}")
    }
 
-   private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<Account>){
+   private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<Account>) {
       call.enqueue(
          object : Callback<UserResponse> {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -69,6 +69,31 @@ class AccountRepository : Repository {
                   callback.onError()
                }
             }
+         }
+      )
+   }
+
+   private fun requestAllAccounts(call: Call<List<Account>>, callback: OnGetItemsCallback<List<Account>>) {
+      call.enqueue(
+         object : Callback<List<Account>> {
+            override fun onFailure(call: Call<List<Account>>, t: Throwable) {
+               callback.onError()
+               Log.v(TAG,t.toString())
+            }
+
+            override fun onResponse(call: Call<List<Account>>, response: Response<List<Account>>) {
+               if (response.isSuccessful) {
+                  val userResponse = response.body()
+                  if (userResponse != null) {
+                     callback.onSuccess(userResponse.)
+                  } else {
+                     callback.onError()
+                  }
+               } else {
+                  callback.onError()
+               }
+            }
+
          }
       )
    }

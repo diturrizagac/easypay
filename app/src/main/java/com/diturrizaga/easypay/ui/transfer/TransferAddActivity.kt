@@ -37,12 +37,12 @@ class TransferAddActivity : AppCompatActivity() {
    private var accountRepository = AccountRepository.getInstance()
    private var transactionRepository = TransactionRepository.getInstance()
 
-   var transferAccountTitle: AppCompatTextView? = null
-   var transferSpinner: AppCompatSpinner? = null
-   var transferAmount: AppCompatEditText? = null
-   var transferToAccount: AppCompatEditText? = null
-   var continueMDButton: MaterialButton? = null
-   var continueButton: Button? = null
+   private var transferAccountTitle: AppCompatTextView? = null
+   private var transferSpinner: AppCompatSpinner? = null
+   private var transferAmount: AppCompatEditText? = null
+   private var transferToAccount: AppCompatEditText? = null
+   private var continueMDButton: MaterialButton? = null
+   private var continueButton: Button? = null
 
    private var isSum: Boolean? = null
 
@@ -112,7 +112,18 @@ class TransferAddActivity : AppCompatActivity() {
    }
 
    private fun getAccountsFromBL() {
+      accountRepository.getAllAccounts(
+         object :OnGetItemsCallback<Account> {
+            override fun onSuccess(items: List<Account>) {
+               TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
 
+            override fun onError() {
+               TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+         }
+      )
    }
 
    private fun postTransactionOnBackendless() {
@@ -264,8 +275,6 @@ class TransferAddActivity : AppCompatActivity() {
       createTransaction()
 
    }
-
-
 
    private fun populateCurrentTransaction() {
       currentTransaction = Transaction()

@@ -50,20 +50,24 @@ class LoginActivity : AppCompatActivity() {
          object : AsyncCallback<BackendlessUser> {
             override fun handleFault(fault: BackendlessFault?) {
                Toast.makeText(applicationContext,fault!!.message, Toast.LENGTH_LONG).show()
+               arrowButton!!.isEnabled = true
             }
 
             override fun handleResponse(response: BackendlessUser?) {
                //val userId = response.properties.getValue("objectId").toString()
                //getId(userId)
                parseToUser(response!!)
+               val name = response.properties.getValue("first_name").toString()
                getId(response.properties.getValue("objectId").toString())
-               Toast.makeText(applicationContext,"user has been logged in", Toast.LENGTH_LONG).show()
+               Toast.makeText(applicationContext,"$name has been logged in successfully", Toast.LENGTH_LONG).show()
                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                intent.putExtra("userId",userId)
                this@LoginActivity.startActivity(intent)
+               arrowButton!!.isEnabled = true
             }
          }
       )
+
    }
 
 
@@ -89,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
 
    private fun setListener(){
       arrowButton!!.setOnClickListener {
+         arrowButton!!.isEnabled = false
          setFields()
          setUpAccount()
       }
