@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="com.diturrizaga.easypay">
+          package="com.diturrizaga.easypay"
+          android:versionCode="1"
+          android:versionName="1.0">
 
     <dist:module dist:instant="true"/>
 
@@ -15,6 +17,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme2">
+        <activity android:name=".rabbitMQTest.RabbitMQActivity">
+        </activity>
         <activity android:name=".ui.SuccessfulOperationActivity">
         </activity>
         <activity android:name=".ui.ProfileActivity">

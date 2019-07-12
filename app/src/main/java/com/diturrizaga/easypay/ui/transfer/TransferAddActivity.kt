@@ -26,10 +26,11 @@ import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.Status
 import com.google.android.material.button.MaterialButton
+import com.rabbitmq.client.ConnectionFactory
 
 class TransferAddActivity : AppCompatActivity() {
 
-
+   private val QUEUE_NAME = "hello"
    private val TAG = "TransferAddActivity"
    private val CLASS = "transaction"
 
@@ -86,8 +87,9 @@ class TransferAddActivity : AppCompatActivity() {
 
    private fun setListener() {
       continueButton!!.setOnClickListener {
-         postTransactionOnBackendless()
-         showAlertDialog()
+         //postTransactionOnBackendless()
+         sendDataToRabbitMQ()
+         //showAlertDialog()
       }
    }
 
@@ -132,7 +134,7 @@ class TransferAddActivity : AppCompatActivity() {
       builder.setPositiveButton("Yes"){dialog, which ->
          // Do something when user press the positive button
          setRelationOnBackendless(payerCurrentAccount!!, currentTransaction!! )
-         setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
+         //setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
          Toast.makeText(applicationContext,"Ok, we're sending your transaction",Toast.LENGTH_SHORT).show()
       }
       // Display a negative button on alert dialog
@@ -279,5 +281,28 @@ class TransferAddActivity : AppCompatActivity() {
       currentTransaction!!.ownerId = null
       currentTransaction!!.___class = CLASS
       creditorCurrentTransaction = currentTransaction
+   }
+
+   private fun sendDataToRabbitMQ() {
+      val factory = ConnectionFactory()
+      factory.username = "fisi"
+      factory.password = "fisi"
+      factory.host = "192.168.5.12"
+      factory.port = 5672
+      val message = "El monto de la transacción es : ${currentTransaction!!.amount}"
+      try {
+         factory.newConnection().use { connection ->
+            connection.createChannel().use { channel ->
+               channel.queueDeclare(QUEUE_NAME, false, false, false, null)
+
+               channel.basicPublish("", QUEUE_NAME, null, message.toByteArray(charset("UTF-8")))
+               println(" [x] Sent '$message'")
+            }
+         }
+      } catch (e: Exception) {
+         println("[f] $message")
+         throw e
+      }
+
    }
 }

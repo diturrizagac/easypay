@@ -10,4 +10,6 @@
     <color name="background">#FFEA00</color>
     <color name="background2">#FFFF8D</color>
     <color name="background3">#FFED99</color>
+    <color name="purple_background">#7535AD</color>
+
 </resources>

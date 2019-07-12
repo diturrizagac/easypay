@@ -7,11 +7,9 @@
             android:id="@+id/home_logo"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="#7535AD"
             android:src="@drawable/logo_easy_pay"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/account_list"
-            android:background="#7535AD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/home_logo"
