@@ -1,5 +1,6 @@
 package com.diturrizaga.easypay.rabbitMQTest;
 
+import android.app.Activity;
 import android.util.Log;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -8,12 +9,15 @@ import com.rabbitmq.client.DeliverCallback;
 
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 public class RabbitMQApi {
 
    private static String AUTHENTICATION_QUEUE = "auth";
-   private static String AUTHENTICATION_QUEUE_SUCCESSFUL = "auth";
+   private static String AUTHENTICATION_QUEUE_SUCCESSFUL = "auth_success";
+   private static String TRANSFER_QUEUE = "transfer";
    private static String TAG = "SendAndReceive";
    //private static String HOST = "ec2-13-58-133-94.us-east-2.compute.amazonaws.com";
    private static String HOST = "ec2-18-221-252-55.us-east-2.compute.amazonaws.com";
@@ -49,7 +53,7 @@ public class RabbitMQApi {
             }
             //String message = "HOLA MUNDO PRUEBA 11:30 AM!";
             try {
-               channel.basicPublish("", AUTHENTICATION_QUEUE, null, messageToSend.getBytes("UTF-8"));
+               channel.basicPublish("", AUTHENTICATION_QUEUE, null, messageToSend.getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
                e.printStackTrace();
             }
@@ -87,7 +91,10 @@ public class RabbitMQApi {
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                //String message22 = new String(delivery.getBody(), "UTF-8");
 
-               String messageToReceive = new String(delivery.getBody(), "UTF-8");
+               String messageToReceive = new String(delivery.getBody(), StandardCharsets.UTF_8);
+               if (messageToReceive.equals(DEFAULT_MESSAGE)) {
+
+               }
                messageReceived[0] = messageToReceive;
                Log.v(TAG,"----> [x] Received  " + messageToReceive );
             };

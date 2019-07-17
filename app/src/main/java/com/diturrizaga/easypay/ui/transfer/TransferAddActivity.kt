@@ -32,6 +32,7 @@ import com.diturrizaga.easypay.util.NavigationTo.goTo
 import com.google.android.material.button.MaterialButton
 import com.rabbitmq.client.ConnectionFactory
 import java.io.IOException
+import java.nio.charset.StandardCharsets
 
 class TransferAddActivity : AppCompatActivity() {
 
@@ -97,14 +98,21 @@ class TransferAddActivity : AppCompatActivity() {
       payerUserId = intent.extras!!.getString("userId")
    }
 
+   /**
+    * listener in button CONTINUE to RabbitMQ
+    *
+    *
+    *
+    *
+    */
+
    private fun setListener() {
       continueButton!!.setOnClickListener {
-         postTransactionOnBackendless()
-         showAlertDialog()
-
+         //postTransactionOnBackendless()
+         //showAlertDialog()
          //rabbitMQApi.sendMessage(transferAmount!!.text.toString())
-
-         rabbitMQApi.sendMessage()
+         val message = loadJsonFromAssets("card1.json")
+         rabbitMQApi.sendMessage(message)
          val response = rabbitMQApi.receiveMessage()
          Toast.makeText(applicationContext,"El mensaje recibido es $response", Toast.LENGTH_LONG).show()
       }
@@ -339,16 +347,25 @@ class TransferAddActivity : AppCompatActivity() {
       creditorCurrentTransaction = currentTransaction
    }
 
-   private fun loadJsonFromAssets(): String {
+   /**
+    * method get Json from assets
+    *
+    *
+    *
+    *
+    */
+
+   private fun loadJsonFromAssets(fileName: String): String {
       var json : String? = null
       try {
-         val inputStream = assets.open("data_to_send.json")
+         //val inputStream = assets.open("card_to_send.json")
+         val inputStream = assets.open(fileName)
          val size = inputStream.available()
          val buffer = ByteArray(size)
          inputStream.read(buffer)
          inputStream.close()
 
-         json = String(buffer, (
+         json = String(buffer,StandardCharsets.UTF_8)
       } catch (ex: IOException) {
          ex.printStackTrace()
          return ""
