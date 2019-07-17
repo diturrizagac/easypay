@@ -17,6 +17,10 @@ class TransactionUtil {
          return filtered
       }
 
+      fun isSum(fromAccount : String): Boolean {
+         return true
+      }
+
       fun updateAdittionAmount(total: Double, amount: Double): Double {
          return total + amount
       }

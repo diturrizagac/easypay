@@ -25,6 +25,7 @@ import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.Status
+import com.diturrizaga.easypay.ui.withdrawal.WithdrawalGenerateQrActivity.Companion.getWithdrawalGenerateQrActivity
 import com.diturrizaga.easypay.ui.withdrawal.WithdrawalScanQrActivity.Companion.getWithdrawalScanQrActivity
 import com.google.android.material.button.MaterialButton
 import kotlin.collections.ArrayList
@@ -39,7 +40,7 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
    var ccaToAccount : AppCompatEditText? = null
 
    var continueMDButton : MaterialButton? = null
-   var continueButton : Button? = null
+   var scanButton : Button? = null
    var generateButton : Button? = null
 
    private var accountRepository = AccountRepository.getInstance()
@@ -64,7 +65,6 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       retrieveData()
       setListener()
       getAccounts()
-
    }
 
    private fun retrieveData() {
@@ -75,7 +75,7 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       ccaAccountTitle = findViewById(R.id.transaction_cca_account)
       ccaSpinner = findViewById(R.id.accounts_spinner)
       ccaAmount = findViewById(R.id.transaction_cca_amount)
-      continueButton = findViewById(R.id.scan_button)
+      scanButton = findViewById(R.id.scan_button)
       generateButton = findViewById(R.id.generate_button)
    }
 
@@ -106,7 +106,6 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       }
    }
 
-
    private fun getCurrentAccount(name : String) : Account{
       var account : Account? = null
       val iterator = userAccounts!!.iterator()
@@ -122,13 +121,15 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
    }
 
    private fun setListener(){
-      continueButton!!.setOnClickListener {
-         startActivity(getWithdrawalScanQrActivity(this,currentAccount!!))
+      scanButton!!.setOnClickListener {
+         startActivity(getWithdrawalScanQrActivity(this,currentAccount!!,currentTransaction!!))
       }
 
       generateButton!!.setOnClickListener {
-         postBackeless()
-         showAlertDialog()
+         populateTransaction()
+         startActivity(getWithdrawalGenerateQrActivity(this, currentAccount!!, currentTransaction!!))
+         //postBackeless()
+         //showAlertDialog()
          //startActivity(getWithdrawalGenerateQrActivity(this, currentAccount!!, currentTransaction!!))
       }
       /*ccaAmount!!.addTextChangedListener(object : TextWatcher{
@@ -230,8 +231,6 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
       )
    }
 
-
-
    @SuppressLint("LongLogTag")
    private fun setCurrentAccounts(names : List<Account>) {
       val item = names.iterator()
@@ -241,9 +240,6 @@ class WithdrawalSelectAmountActivity : AppCompatActivity() {
          Log.v(TAG,accountName)
       }
    }
-
-
-
 
    /**
     * By REST API

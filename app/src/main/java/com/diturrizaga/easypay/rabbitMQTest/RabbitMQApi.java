@@ -12,25 +12,28 @@ import java.util.concurrent.TimeoutException;
 
 public class RabbitMQApi {
 
-   private static String QUEUE_NAME = "hello";
+   private static String AUTHENTICATION_QUEUE = "auth";
+   private static String AUTHENTICATION_QUEUE_SUCCESSFUL = "auth";
    private static String TAG = "SendAndReceive";
-   private static String HOST = "ec2-13-58-133-94.us-east-2.compute.amazonaws.com";
+   //private static String HOST = "ec2-13-58-133-94.us-east-2.compute.amazonaws.com";
+   private static String HOST = "ec2-18-221-252-55.us-east-2.compute.amazonaws.com";
    private static int PORT = 5672;
    private static String USER = "fisi";
+   private static String PASS = "fisi";
    private static String DEFAULT_MESSAGE = "Mensaje no recibido";
 
    /**
     * rabbitMQ send and receive methods
     */
 
-   public void sendMessage(String messageToSend) {
+   public void sendMessage(final String messageToSend) {
       Thread send;
       send = new Thread(new Runnable() {
          @Override
          public void run() {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setUsername(USER);
-            factory.setPassword(USER);
+            factory.setPassword(PASS);
             factory.setHost(HOST);
             factory.setPort(PORT);
             Connection connection;
@@ -38,7 +41,7 @@ public class RabbitMQApi {
             try {
                connection = factory.newConnection();
                channel = connection.createChannel();
-               channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+               channel.queueDeclare(AUTHENTICATION_QUEUE, false, false, false, null);
             } catch (IOException e) {
                e.printStackTrace();
             } catch (TimeoutException e) {
@@ -46,7 +49,7 @@ public class RabbitMQApi {
             }
             //String message = "HOLA MUNDO PRUEBA 11:30 AM!";
             try {
-               channel.basicPublish("", QUEUE_NAME, null, messageToSend.getBytes("UTF-8"));
+               channel.basicPublish("", AUTHENTICATION_QUEUE, null, messageToSend.getBytes("UTF-8"));
             } catch (IOException e) {
                e.printStackTrace();
             }
@@ -64,7 +67,7 @@ public class RabbitMQApi {
          public void run() {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setUsername(USER);
-            factory.setPassword(USER);
+            factory.setPassword(PASS);
             factory.setHost(HOST);
             factory.setPort(PORT);
             Connection connection;
@@ -72,7 +75,7 @@ public class RabbitMQApi {
             try {
                connection = factory.newConnection();
                channel = connection.createChannel();
-               channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+               channel.queueDeclare(AUTHENTICATION_QUEUE_SUCCESSFUL, false, false, false, null);
             } catch (IOException e) {
                e.printStackTrace();
             } catch (TimeoutException e) {
@@ -90,14 +93,13 @@ public class RabbitMQApi {
             };
 
             try {
-               channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
+               channel.basicConsume(AUTHENTICATION_QUEUE_SUCCESSFUL, true, deliverCallback, consumerTag -> { });
             } catch (IOException e) {
                e.printStackTrace();
             }
          }
       });
       receive.start();
-
       return messageReceived[0];
    }
 }

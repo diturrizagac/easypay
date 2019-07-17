@@ -40,10 +40,11 @@ class WithdrawalScannedActivity : AppCompatActivity() {
             .putExtra(SCANNED_STRING, encryptedString)
       }
 
-      fun getScannedActivity(callingClassContext: Context, encryptedString: String, account : Account): Intent {
+      fun getScannedActivity(callingClassContext: Context, encryptedString: String, account : Account, transaction : Transaction): Intent {
          return Intent(callingClassContext, WithdrawalScannedActivity::class.java)
             .putExtra(SCANNED_STRING, encryptedString)
             .putExtra("account", account)
+            .putExtra("transaction", transaction)
       }
    }
 
@@ -64,7 +65,6 @@ class WithdrawalScannedActivity : AppCompatActivity() {
    private fun retrieveData() {
       if (intent.getSerializableExtra(SCANNED_STRING) == null)
          throw RuntimeException("No encrypted String found in intent")
-
       /**
        * recently implemented
        */
@@ -73,6 +73,7 @@ class WithdrawalScannedActivity : AppCompatActivity() {
          throw RuntimeException("No encrypted String found in intent")
       }
       currentAccount = intent.extras!!.getSerializable("account") as Account
+      currentTransaction = intent.extras!!.getSerializable("transaction") as Transaction
    }
 
    /**
@@ -100,15 +101,15 @@ class WithdrawalScannedActivity : AppCompatActivity() {
       val decryptedString = EncryptionHelper.getInstance().getDecryptionString(valueScanned)
       currentTransaction = Gson().fromJson(decryptedString, Transaction::class.java)
 
-
       scannedAccountName!!.text = currentTransaction!!.from_account
       scannedAmountName!!.text = currentTransaction!!.amount.toString()
+      scannedBalanceName!!.text = currentAccount!!.balance.toString()
       //scannedBalanceName!!.text = transaction.
 
 
       val userObject = Gson().fromJson(decryptedString, UserObject::class.java)
-      scannedFullNameTextView!!.text = userObject.fullName
-      scannedAgeTextView!!.text = userObject.age.toString()
+      //scannedFullNameTextView!!.text = userObject.fullName
+      //scannedAgeTextView!!.text = userObject.age.toString()
    }
 
    private fun initializeUI() {

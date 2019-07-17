@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import com.diturrizaga.easypay.R
+import com.diturrizaga.easypay.Type
 import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.qrUtil.EncryptionHelper
@@ -20,12 +21,14 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
 class WithdrawalGenerateQrActivity : AppCompatActivity() {
 
+   private val CLASS = "transaction"
    var generateQrButton : Button? = null
    var nameEditText : AppCompatEditText? = null
    var ageEditText : AppCompatEditText? = null
    var qrImageView : ImageView? = null
    var account : Account? = null
    var transaction : Transaction? = null
+   private var currentTransaction : Transaction? = null
 
    companion object {
       fun getWithdrawalGenerateQrActivity(context: Context) = Intent(context, WithdrawalGenerateQrActivity::class.java)
@@ -71,8 +74,6 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
              * fill transaction object
              */
             val transaction = Transaction()
-
-
             val serializeString = Gson().toJson(transaction)
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
             setImageBitmap(encryptedString)
@@ -135,7 +136,18 @@ class WithdrawalGenerateQrActivity : AppCompatActivity() {
       }
    }
 
-
-
-
+   private fun populateTransaction() {
+      currentTransaction = Transaction()
+      currentTransaction!!.created = null
+      currentTransaction!!.from_account = "Savings-1303"
+      currentTransaction!!.activity_date = null
+      currentTransaction!!.updated = null
+      currentTransaction!!.status = "Done"
+      currentTransaction!!.amount = 113.90
+      currentTransaction!!.objectId = ""
+      currentTransaction!!.to_account = "Current Balance-1502"
+      currentTransaction!!.type = Type.WITHDRAWAL.name
+      currentTransaction!!.ownerId = null
+      currentTransaction!!.___class = CLASS
+   }
 }
