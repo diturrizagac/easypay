@@ -98,23 +98,16 @@ class TransferAddActivity : AppCompatActivity() {
       payerUserId = intent.extras!!.getString("userId")
    }
 
-   /**
-    * listener in button CONTINUE to RabbitMQ
-    *
-    *
-    *
-    *
-    */
 
    private fun setListener() {
       continueButton!!.setOnClickListener {
-         //postTransactionOnBackendless()
-         //showAlertDialog()
+         postTransactionOnBackendless()
+         showAlertDialog()
          //rabbitMQApi.sendMessage(transferAmount!!.text.toString())
-         val message = loadJsonFromAssets("card1.json")
-         rabbitMQApi.sendMessage(message)
-         val response = rabbitMQApi.receiveMessage()
-         Toast.makeText(applicationContext,"El mensaje recibido es $response", Toast.LENGTH_LONG).show()
+         //val message = loadJsonFromAssets("card1.json")
+         //rabbitMQApi.sendMessage(message)
+         //val response = rabbitMQApi.receiveMessage()
+         //Toast.makeText(applicationContext,"El mensaje recibido es $response", Toast.LENGTH_LONG).show()
       }
    }
 

@@ -8,44 +8,64 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         cardview:cardCornerRadius="13dp">
-    <RelativeLayout
-            android:orientation="vertical"
-            android:gravity="center_vertical"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <TextView
-                android:id="@+id/account_name"
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            android:orientation="horizontal">
+        <RelativeLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:textSize="16sp"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_marginStart="30dp"
-                android:text="@string/account_name_3"/>
-        <TextView
-                android:id="@+id/account_balance"
+                android:layout_weight="9">
+            <TextView
+                    android:id="@+id/account_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="16sp"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/account_name_3"
+                    />
+            <TextView
+                    android:id="@+id/account_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/account_name"
+                    android:layout_alignLeft="@+id/account_name"
+                    android:textSize="14sp"
+                    android:layout_alignStart="@+id/account_name"
+                    android:text="@string/balance_value_3"/>
+            <TextView
+                    android:id="@+id/account_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/account_balance"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_alignLeft="@+id/account_balance"
+                    android:layout_alignStart="@+id/account_balance"
+                    android:text="@string/account_type_3"/>
+
+
+        </RelativeLayout>
+        <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/account_name"
-                android:layout_alignLeft="@+id/account_name"
-                android:textSize="14sp"
-                android:layout_alignStart="@+id/account_name"
-                android:text="@string/balance_value_3"/>
-        <TextView
-                android:id="@+id/account_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/account_balance"
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_alignLeft="@+id/account_balance"
-                android:layout_alignStart="@+id/account_balance"
-                android:text="@string/account_type_3"/>
-        <ImageView
-                android:id="@+id/image_arrow"
-                android:src="@drawable/icon_arrow_18dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"/>
-    </RelativeLayout>
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+            <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/item_arrow"
+                    android:src="@drawable/item_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
 </com.google.android.material.card.MaterialCardView>

@@ -40,7 +40,7 @@ class AccountAdapter(private val accounts: List<Account>, private val mContext: 
       private var accountName = itemView.findViewById<TextView>(R.id.account_name)
       private var accountBalance = itemView.findViewById<TextView>(R.id.account_balance)
       private var accountType = itemView.findViewById<TextView>(R.id.account_type)
-      private var imageArrow = itemView.findViewById<ImageView>(R.id.image_arrow)
+      private var imageArrow = itemView.findViewById<ImageView>(R.id.item_arrow)
 
       init {
          itemView.tag = this
