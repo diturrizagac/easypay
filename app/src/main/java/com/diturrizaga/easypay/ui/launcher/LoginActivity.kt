@@ -1,5 +1,7 @@
 package com.diturrizaga.easypay.ui.launcher
 
+import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +20,8 @@ import com.diturrizaga.easypay.api.Api.APP_ID
 import com.diturrizaga.easypay.model.response.UserAux
 import com.diturrizaga.easypay.ui.home.HomeActivity
 import com.diturrizaga.easypay.ui.view.viewmodel.LogInViewModel
+
+
 
 class LoginActivity : AppCompatActivity() {
 
