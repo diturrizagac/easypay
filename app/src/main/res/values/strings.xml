@@ -23,7 +23,7 @@
     <string name="creditor2">Gas</string>
     <string name="creditor3">Electricity</string>
     <string name="action_continue">CONTINUE</string>
-    <string name="action_cancel">CANCEL</string>
+    <string name="action_back">BACK</string>
 
 
     <string name="full_name">Full name</string>

@@ -36,11 +36,15 @@ class LoginActivity : AppCompatActivity() {
 
    private var viewModel : LogInViewModel? = null
 
-
+   @SuppressLint("WrongConstant")
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       //setContentView(R.layout.activity_login)
       setContentView(R.layout.activity_main2)
+
+      this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+      supportActionBar!!.setCustomView(R.layout.custom_action_bar)
+
       Backendless.initApp(this, APP_ID, API_KEY)
       viewModel = ViewModelProviders.of(this).get(LogInViewModel::class.java)
       initializeUI()

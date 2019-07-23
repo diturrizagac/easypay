@@ -1,49 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              xmlns:app = "http://schemas.android.com/apk/res-auto"
               android:layout_width = "match_parent"
               android:layout_height = "wrap_content"
-              android:gravity = "center_horizontal"
-              android:padding = "10dp"
-              android:weightSum = "8">
+              android:background="@color/black"
+              android:weightSum = "9">
         <LinearLayout
-                android:layout_width = "wrap_content"
+                android:layout_width = "match_parent"
                 android:layout_height = "match_parent"
-                android:layout_weight = "1.5">
-                <ImageView
+                android:gravity="left"
+                android:layout_weight = "3">
+                <ImageButton
                         android:id = "@+id/action_cancel_image"
                         android:layout_width = "wrap_content"
-                        android:layout_height = "match_parent"
-                        android:src="@drawable/icon_back_arrow"/>
+                        android:layout_height = "wrap_content"
 
-                <TextView
+                        android:background="@color/black"
+                        android:src="@drawable/back_icon"/>
+
+                <!--TextView
                         android:id = "@+id/action_cancel_text"
                         android:layout_width = "match_parent"
                         android:layout_height = "match_parent"
-                        android:textAlignment="center"
-                        android:text = "@string/action_cancel"/>
+                        android:textAlignment="viewStart"
+                        android:text = "@string/action_back"/-->
         </LinearLayout>
         <LinearLayout
-                android:layout_width = "wrap_content"
+                android:layout_width = "match_parent"
                 android:layout_height = "match_parent"
-                android:layout_weight = "4.5">
+                android:layout_weight = "3">
                 <TextView
                         android:id = "@+id/feature_title"
                         android:layout_width = "match_parent"
                         android:layout_height = "wrap_content"
                         android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/white"
                         android:text = "@string/app_name"/>
         </LinearLayout>
         <LinearLayout
-                android:layout_width = "wrap_content"
+                android:layout_width = "match_parent"
                 android:layout_height = "match_parent"
-                android:layout_weight = "2">
-                <TextView
+                android:gravity="right"
+                android:layout_weight = "3">
+                <ImageButton
+                        android:id="@+id/imagen1"
+                        android:layout_width="wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:background="@color/black"
+                        android:src="@drawable/next_icon"/>
+                <!--TextView
                         android:id = "@+id/action_continue"
                         android:layout_width = "match_parent"
                         android:layout_height = "wrap_content"
-                        android:textAlignment="center"
-                        android:text = "@string/action_continue"/>
+                        android:textAlignment="viewEnd"
+                        android:text = "@string/action_continue"/-->
         </LinearLayout>
 
 
