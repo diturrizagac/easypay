@@ -90,5 +90,4 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       finish()
       return true
    }
-
 }

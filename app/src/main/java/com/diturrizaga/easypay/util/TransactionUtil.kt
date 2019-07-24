@@ -4,17 +4,17 @@ import com.diturrizaga.easypay.model.response.Transaction
 
 class TransactionUtil {
    companion object {
-      fun filterBy(items : List<Transaction>, filter : String ) : List<Transaction>{
+      fun filterBy(items : List<Transaction>, filterCriteria : String ) : List<Transaction>{
          val item = items.iterator()
-         val filtered = ArrayList<Transaction>()
+         val filteredList = ArrayList<Transaction>()
          
          while(item.hasNext()){
-            val property = item.next()
-            if (property.type == filter) {
-               filtered.add(property)
+            val transaction = item.next()
+            if (transaction.type == filterCriteria) {
+               filteredList.add(transaction)
             }
          }
-         return filtered
+         return filteredList
       }
 
       fun isSum(fromAccount : String): Boolean {

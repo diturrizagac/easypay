@@ -28,7 +28,7 @@ class AccountListFragment : Fragment(){
    private var accounts : List<Account>? = null
    private lateinit var accountRvAdapter : AccountAdapter
 
-   var adapterListener = object : View.OnClickListener{
+   private var adapterListener = object : View.OnClickListener{
       override fun onClick(view: View?) {
          val viewHolder = view!!.tag as RecyclerView.ViewHolder
          val position = viewHolder.adapterPosition
@@ -50,10 +50,6 @@ class AccountListFragment : Fragment(){
       showAccounts()
       return rootView
    }
-
-   /**
-    *
-    */
 
    private fun showAccounts() {
       accountRepository.getAccounts(
