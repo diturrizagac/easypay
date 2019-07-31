@@ -66,11 +66,6 @@ class AccountRepository : Repository {
                   val userResponse = response.body()
                   if (userResponse != null) {
                      callback.onSuccess(userResponse.accounts!!)
-                     /*if (userResponse.accounts!!.size == 1) {
-
-                     } else {
-                        callback.onSuccess(userResponse.accounts!!)
-                     }*/
                   } else {
                      callback.onError()
                   }
@@ -106,7 +101,6 @@ class AccountRepository : Repository {
          }
       )
    }
-
 
    fun getAccount(callback: OnGetItemsCallback<Account>, id : String){
       val user = Api.getRestProvider().getUser(id)
