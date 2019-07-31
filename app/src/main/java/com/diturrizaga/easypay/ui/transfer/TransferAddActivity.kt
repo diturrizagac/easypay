@@ -152,10 +152,20 @@ class TransferAddActivity : AppCompatActivity() {
       populateCurrentTransaction()
       payerCurrentAccount!!.balance = generatePayerTransaction(payerCurrentAccount!!.balance!!, transferAmount!!.text.toString().toDouble())
       creditorCurrentAccount!!.balance = generateCreditorTransaction(creditorCurrentAccount!!.balance!!, transferAmount!!.text.toString().toDouble())
+      updatePayerAccount()
+      updateCreditorAccount()
       createTransaction()
       createCreditorTransaction()
    }
 
+   private fun updateCreditorAccount() {
+
+   }
+
+   private fun updatePayerAccount() {
+
+   }
+   
    private fun showAlertDialog() {
       // Initialize a new instance of
       val builder = AlertDialog.Builder(this)
@@ -254,8 +264,10 @@ class TransferAddActivity : AppCompatActivity() {
             accountNameFrom = parent!!.selectedItem as String
             //Toast.makeText(applicationContext,"$accountName selected", Toast.LENGTH_LONG).show()
             payerCurrentAccount = getCurrentAccount(accountNameFrom!!, payerUserAccounts!!)
+
+            Log.v(TAG,"----->PAYER<-----")
             Log.v(TAG,"${payerCurrentAccount!!.account_name} selected")
-            Toast.makeText(applicationContext,"${payerCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext,"${payerCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
          }
       }
 
@@ -270,9 +282,11 @@ class TransferAddActivity : AppCompatActivity() {
             //Thread.sleep(2000)
             creditorCurrentAccount = getCurrentAccount(accountNameTo!!, creditorUserAccounts!!)
             creditorUserId = creditorCurrentAccount!!.ownerId
+
+            Log.v(TAG,"----->CREDITOR<-----")
             Log.v(TAG,"${creditorCurrentAccount!!.account_name} selected")
             Log.v(TAG,"${creditorCurrentAccount!!.ownerId} owner ID")
-            Toast.makeText(applicationContext,"${creditorCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext,"${creditorCurrentAccount!!.objectId} selected", Toast.LENGTH_LONG).show()
          }
       }
    }
@@ -295,10 +309,12 @@ class TransferAddActivity : AppCompatActivity() {
    @SuppressLint("LongLogTag")
    private fun setCurrentAccounts(names : List<Account>, spinnerArray : ArrayList<String>) {
       val item = names.iterator()
+      Log.v(TAG, "ACCOUNTS")
       while (item.hasNext()){
          val accountName = item.next().account_name
          spinnerArray.add(accountName!!)
          //payerNameAccountsSpinner.add(accountName!!)
+
          Log.v(TAG,accountName)
       }
    }
@@ -335,9 +351,21 @@ class TransferAddActivity : AppCompatActivity() {
       currentTransaction!!.to_account = creditorCurrentAccount!!.account_name
       //currentTransaction!!.to_account = transferToAccount!!.text.toString()
       currentTransaction!!.type = Type.TRANSFER.name
-      currentTransaction!!.ownerId = null
+      currentTransaction!!.ownerId = payerUserId
       currentTransaction!!.___class = CLASS
-      creditorCurrentTransaction = currentTransaction
+
+      creditorCurrentTransaction = Transaction()
+      creditorCurrentTransaction!!.created = null
+      creditorCurrentTransaction!!.from_account = payerCurrentAccount!!.account_name
+      creditorCurrentTransaction!!.activity_date = null
+      creditorCurrentTransaction!!.updated = null
+      creditorCurrentTransaction!!.status = Status.DONE.name
+      creditorCurrentTransaction!!.amount = transferAmount!!.text.toString().toDouble()
+      creditorCurrentTransaction!!.objectId = ""
+      creditorCurrentTransaction!!.to_account = creditorCurrentAccount!!.account_name
+      creditorCurrentTransaction!!.type = Type.TRANSFER.name
+      creditorCurrentTransaction!!.ownerId = creditorUserId
+      creditorCurrentTransaction!!.___class = CLASS
    }
 
    /**

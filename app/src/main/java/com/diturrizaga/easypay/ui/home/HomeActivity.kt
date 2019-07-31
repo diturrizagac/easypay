@@ -79,7 +79,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    /**
     * Method to send Id of current user from HomeActivity to Fragment
     */
-   @Deprecated("unnecesary method, it's been deprecated")
+   @Deprecated("unnecessary method, it's been deprecated")
    private fun sendIdToFragment(id:String){
       accountListFragment.getIdFromHomeActivity(id)
       addTransactionFragment.getIdFromHomeActivity(id)

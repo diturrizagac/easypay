@@ -40,7 +40,7 @@ class AccountDetailActivity : AppCompatActivity() {
       setupRecycler()
       retrieveData()
       showDetails()
-      showTransactions()
+      showAccountTransactions()
    }
 
    private fun retrieveData() {
@@ -59,8 +59,8 @@ class AccountDetailActivity : AppCompatActivity() {
       accountType!!.text = account!!.type
    }
 
-   private fun showTransactions() {
-      transactionRepository.getTransactions(
+   private fun showAccountTransactions() {
+      transactionRepository.getAccountTransactions(
          accountId!!,
          object : OnGetItemsCallback<Transaction> {
             override fun onSuccess(items: List<Transaction>) {

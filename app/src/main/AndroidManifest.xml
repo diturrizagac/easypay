@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="com.diturrizaga.easypay"
-          android:versionCode="1"
-          android:versionName="1.0">
+          package="com.diturrizaga.easypay">
 
     <dist:module dist:instant="true"/>
 
@@ -65,5 +63,4 @@
         <activity android:name=".ui.MainActivity">
         </activity>
     </application>
-
 </manifest>

@@ -29,6 +29,13 @@ class AccountRepository : Repository {
          return repository as AccountRepository
       }
    }
+
+   fun getAccount(objectId: String, callback: OnGetItemsCallback<Account>) {
+      val account = Api.getRestProvider().getAccount(APP_ID, API_KEY,objectId)
+      Log.i(TAG, "GET---> ${account.request().url()}")
+      requestAccount(account, callback)
+   }
+
    fun getAccounts(userId: String, callback: OnGetItemsCallback<Account>){
       val accounts = Api.getRestProvider().getUserAccounts(APP_ID,API_KEY,userId, "accounts")
       Log.i(TAG, "GET---> ${accounts.request().url()}")
@@ -40,6 +47,10 @@ class AccountRepository : Repository {
       val accounts = Api.getRestProvider().getAllAccounts(APP_ID, API_KEY)
       Log.i(TAG,"GET---> ${accounts.request().url()}")
       requestAllAccounts(accounts,callback)
+   }
+
+   private fun requestAccount(call: Call<Account>, callback: OnGetItemsCallback<Account>) {
+
    }
 
    private fun requestAccounts(call: Call<UserResponse>, callback: OnGetItemsCallback<Account>) {
@@ -55,6 +66,11 @@ class AccountRepository : Repository {
                   val userResponse = response.body()
                   if (userResponse != null) {
                      callback.onSuccess(userResponse.accounts!!)
+                     /*if (userResponse.accounts!!.size == 1) {
+
+                     } else {
+                        callback.onSuccess(userResponse.accounts!!)
+                     }*/
                   } else {
                      callback.onError()
                   }

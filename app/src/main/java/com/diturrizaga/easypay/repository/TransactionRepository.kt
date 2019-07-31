@@ -31,10 +31,16 @@ class TransactionRepository : Repository {
       }
    }
 
-   fun getTransactions(id: String, callback: OnGetItemsCallback<Transaction>) {
+   fun getAccountTransactions(id: String, callback: OnGetItemsCallback<Transaction>) {
       val transactions = Api.getRestProvider().getAccountTransactions(APP_ID,API_KEY,id,"transaction")
       Log.i("GET--->", transactions.request().url().toString())
       requestTransactions(transactions,callback)
+   }
+
+   fun getTransactions(callback: OnGetItemsCallback<Transaction>) {
+      val transactions = Api.getRestProvider().getTransactions(APP_ID, API_KEY,100)
+      Log.i("GET--->", transactions.request().url().toString())
+      requestTransaction(transactions, callback)
    }
 
    fun updateTransaction() {
@@ -59,18 +65,51 @@ class TransactionRepository : Repository {
       requestTransaction(currentTransaction)
    }
 
-   private fun requestTransaction(call:Call<Transaction>) {
+   private fun requestTransactions(call: Call<Account>, callback: OnGetItemsCallback<Transaction>){
       call.enqueue(
-         object : Callback<Transaction> {
-            override fun onFailure(call: Call<Transaction>, t: Throwable) {
-               Log.e(TAG, " -------> Unable to submit post to API.")
+         object : Callback<Account> {
+            override fun onFailure(call: Call<Account>, t: Throwable) {
+               callback.onError()
+               Log.e(TAG,t.toString())
             }
 
-            override fun onResponse(call: Call<Transaction>, response: Response<Transaction>) {
+            override fun onResponse(call: Call<Account>, response: Response<Account>) {
                if (response.isSuccessful) {
-                  Log.i(TAG, "post submitted to API." + response.body().toString());
+                  val accountResponse = response.body()
+                  if (accountResponse != null) {
+                     callback.onSuccess(accountResponse.transactions!!)
+                  } else {
+                     callback.onError()
+                  }
+               } else {
+                  callback.onError()
                }
             }
+         }
+      )
+   }
+
+   private fun requestTransaction(call: Call<List<Transaction>>, callback: OnGetItemsCallback<Transaction>) {
+      call.enqueue(
+         object : Callback<List<Transaction>> {
+            override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
+               callback.onError()
+               Log.e(TAG,t.toString())
+            }
+
+            override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
+               if (response.isSuccessful) {
+                  val listTransactionResponse = response.body()
+                  if (listTransactionResponse != null) {
+                     callback.onSuccess(listTransactionResponse)
+                  } else {
+                     callback.onError()
+                  }
+               } else {
+                  callback.onError()
+               }
+            }
+
          }
       )
    }
@@ -102,27 +141,20 @@ class TransactionRepository : Repository {
       )
    }
 
-   private fun requestTransactions(call: Call<Account>, callback: OnGetItemsCallback<Transaction>){
+   private fun requestTransaction(call:Call<Transaction>) {
       call.enqueue(
-         object : Callback<Account> {
-            override fun onFailure(call: Call<Account>, t: Throwable) {
-               callback.onError()
-               Log.e(TAG,t.toString())
+         object : Callback<Transaction> {
+            override fun onFailure(call: Call<Transaction>, t: Throwable) {
+               Log.e(TAG, " -------> Unable to submit post to API.")
             }
 
-            override fun onResponse(call: Call<Account>, response: Response<Account>) {
+            override fun onResponse(call: Call<Transaction>, response: Response<Transaction>) {
                if (response.isSuccessful) {
-                  val accountResponse = response.body()
-                  if (accountResponse != null) {
-                     callback.onSuccess(accountResponse.transactions!!)
-                  } else {
-                     callback.onError()
-                  }
-               } else {
-                  callback.onError()
+                  Log.i(TAG, "post submitted to API." + response.body().toString());
                }
             }
          }
       )
    }
+
 }

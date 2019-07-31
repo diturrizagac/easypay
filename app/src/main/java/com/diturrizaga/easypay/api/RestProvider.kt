@@ -53,6 +53,13 @@ interface RestProvider {
       //account
    ) : Call<UserResponse>
 
+   @GET("{bl_key}/{api_key}/Account/{objectId}")
+   fun getAccount(
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String,
+      @Path("objectId") objectId: String
+   ) : Call<Account>
+
    @PUT("data/User/{id_user}")
    fun updateUserAccounts(
       @Query("loadRelations") loadRelations: String
@@ -77,6 +84,13 @@ interface RestProvider {
       @Query("loadRelations") loadRelations: String
       //account.transaction
    ) : Call<Account>
+
+   @GET("{bl_key}/{api_key}/data/Transaction")
+   fun getTransactions(
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String,
+      @Query("pageSize") size: Int
+   ) : Call<List<Transaction>>
 
    @PUT("data/User/{id_user}")
    fun updateUserTransaction(

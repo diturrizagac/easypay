@@ -13,6 +13,9 @@ import com.diturrizaga.easypay.util.UtilFormatter
 
 class TransactionAdapter(private val transactions: List<Transaction>, private val context: Context) :
    RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
+
+   var mOnItemClickListener : View.OnClickListener? = null
+
    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_transaction,parent,false)
       return TransactionViewHolder(view)
@@ -27,11 +30,20 @@ class TransactionAdapter(private val transactions: List<Transaction>, private va
       holder.bind(transaction)
    }
 
+   fun setOnItemClickListener(itemClickListener: View.OnClickListener) {
+      mOnItemClickListener = itemClickListener
+   }
+
    inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
       private var transactionCreditor = itemView.findViewById<TextView>(R.id.transaction_creditor)
       private var transactionDate = itemView.findViewById<TextView>(R.id.transaction_date)
       private var transactionAmount = itemView.findViewById<TextView>(R.id.transaction_amount)
       private var transactionStatus = itemView.findViewById<TextView>(R.id.transaction_status)
+
+      init {
+         itemView.tag = this
+         itemView.setOnClickListener(mOnItemClickListener)
+      }
 
       fun bind(transaction : Transaction) {
          transactionCreditor.text = transaction.to_account

@@ -10,7 +10,8 @@ class TransactionUtil {
          
          while(item.hasNext()){
             val transaction = item.next()
-            if (transaction.type == filterCriteria) {
+            if (transaction.type.equals(filterCriteria,true)) {
+            //if (transaction.type == filterCriteria) {
                filteredList.add(transaction)
             }
          }

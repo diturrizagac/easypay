@@ -20,13 +20,14 @@ import com.diturrizaga.easypay.ui.AccountDetailActivity
 class AccountListFragment : Fragment(){
 
    private lateinit var accountRecyclerView: RecyclerView
+   private lateinit var accountRvAdapter : AccountAdapter
    private lateinit var layoutManager: RecyclerView.LayoutManager
    private var accountRepository = AccountRepository.getInstance()
    private val TAG = "AccountListFragment"
    private var userId: String? = null
    private var accountSelected : Account? = null
    private var accounts : List<Account>? = null
-   private lateinit var accountRvAdapter : AccountAdapter
+
 
    private var adapterListener = object : View.OnClickListener{
       override fun onClick(view: View?) {

@@ -15,21 +15,25 @@ import com.diturrizaga.easypay.util.NavigationTo
 class RecentListFragment : Fragment() {
 
    private var userId: String? = null
-   private var addTransfer : CardView? = null
-   private var addPayment : CardView? = null
-   private var addWithdrawal : CardView? = null
-
-   override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-
-   }
+   private var recentTransferButton : CardView? = null
+   private var recentPaymentButton : CardView? = null
+   private var recentWithdrawalButton : CardView? = null
 
    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?
    ): View? {
       // Inflate the layout for this fragment
-      return inflater.inflate(R.layout.fragment_recent_list, container, false)
+      val rootView = inflater.inflate(R.layout.fragment_recent_list, container, false)
+      initializeUI(rootView)
+      setListener()
+      return rootView
+   }
+
+   fun initializeUI(view: View) {
+      recentTransferButton = view.findViewById(R.id.transfer_recent)
+      recentPaymentButton = view.findViewById(R.id.payment_recent)
+      recentWithdrawalButton = view.findViewById(R.id.withdrawal_recent)
    }
 
    fun getIdFromHomeActivity(id: String) {
@@ -37,18 +41,16 @@ class RecentListFragment : Fragment() {
    }
 
    private fun setListener() {
-      addTransfer!!.setOnClickListener {
+      recentTransferButton!!.setOnClickListener {
          NavigationTo.goTo(TransferRecentActivity::class.java, context!!, userId!!)
       }
 
-      addPayment!!.setOnClickListener {
+      recentPaymentButton!!.setOnClickListener {
          NavigationTo.goTo(PaymentRecentActivity::class.java, context!!, userId!!)
       }
 
-      addWithdrawal!!.setOnClickListener {
+      recentWithdrawalButton!!.setOnClickListener {
          NavigationTo.goTo(WithdrawalRecentActivity::class.java, context!!, userId!!)
       }
    }
-
-
 }
