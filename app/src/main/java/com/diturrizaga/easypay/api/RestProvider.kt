@@ -92,11 +92,13 @@ interface RestProvider {
       @Query("pageSize") size: Int
    ) : Call<List<Transaction>>
 
-   @PUT("data/User/{id_user}")
-   fun updateUserTransaction(
-      @Query("loadRelations") loadRelations: String
-      //account.transaction
-   ) : Call<Transaction>
+   @PUT("{bl_key}/{api_key}/data/Account/{id_account}")
+   fun updateUserAccount(
+      @Path("bl_key") bl_key : String,
+      @Path("api_key") api_key : String,
+      @Path("id_account") id_user : String,
+      @Body account : Account
+   ) : Call<Account>
 
    //@POST("data/user/{id_user}")
    @POST("{bl_key}/{api_key}/data/Transaction")

@@ -3,6 +3,7 @@ package com.diturrizaga.easypay.repository
 import android.util.Log
 import com.diturrizaga.easypay.OnGetItemsCallback
 import com.diturrizaga.easypay.OnPostItemCallback
+import com.diturrizaga.easypay.OnPutItemCallback
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.api.Api.API_KEY
 import com.diturrizaga.easypay.api.Api.APP_ID
@@ -43,14 +44,10 @@ class TransactionRepository : Repository {
       requestTransaction(transactions, callback)
    }
 
-   fun updateTransaction() {
-      val transaction = Api.getRestProvider().updateUserTransaction("transaction")
-      Log.i("PUT--->", transaction.request().url().toString())
-   }
-
-   fun cancelTransaction() {
-      val transaction = Api.getRestProvider().cancelUserTransaction("transaction")
-      Log.i("DELETE--->", transaction.request().url().toString())
+   fun updateUserAccount(id: String, account: Account, callback: OnPutItemCallback<Account>) {
+      val account = Api.getRestProvider().updateUserAccount(APP_ID, API_KEY,id, account)
+      Log.i("PUT--->", account.request().url().toString())
+      requestUpdateAccount(account, callback)
    }
 
    fun createTransaction(transaction: Transaction, callback : OnPostItemCallback<Transaction>) {
@@ -63,6 +60,65 @@ class TransactionRepository : Repository {
       val currentTransaction = Api.getRestProvider().createUserTransaction(APP_ID, API_KEY,transaction)
       Log.i("POST--->", currentTransaction.request().url().toString())
       requestTransaction(currentTransaction)
+   }
+
+   fun cancelTransaction() {
+      val transaction = Api.getRestProvider().cancelUserTransaction("transaction")
+      Log.i("DELETE--->", transaction.request().url().toString())
+   }
+
+   private fun requestUpdateAccount(call: Call<Account>, callback: OnPutItemCallback<Account>) {
+      call.enqueue(
+         object : Callback<Account> {
+            override fun onFailure(call: Call<Account>, t: Throwable) {
+               callback.onError()
+               Log.e(TAG,t.toString())
+               Log.e(TAG, " -------> Unable to submit post to API.")
+            }
+
+            override fun onResponse(call: Call<Account>, response: Response<Account>) {
+               if (response.isSuccessful) {
+                  val accountResponse = response.body()
+                  if (accountResponse != null) {
+                     callback.onSuccess(accountResponse)
+                  } else {
+                     callback.onError()
+                     Log.i(TAG, "post submitted to API." + response.body().toString())
+                  }
+               } else {
+                  callback.onError()
+                  Log.i(TAG, "post submitted to API." + response.body().toString())
+               }
+            }
+         }
+      )
+   }
+
+   private fun requestTransaction(call:Call<Transaction>, callback: OnPostItemCallback<Transaction>) {
+      call.enqueue(
+         object : Callback<Transaction> {
+            override fun onFailure(call: Call<Transaction>, t: Throwable) {
+               callback.onError()
+               Log.e(TAG,t.toString())
+               Log.e(TAG, " -------> Unable to submit post to API.")
+            }
+
+            override fun onResponse(call: Call<Transaction>, response: Response<Transaction>) {
+               if (response.isSuccessful) {
+                  val transactionResponse = response.body()
+                  if (transactionResponse != null) {
+                     callback.onSuccess(transactionResponse)
+                  } else {
+                     callback.onError()
+                     Log.i(TAG, "post submitted to API." + response.body().toString())
+                  }
+               } else {
+                  callback.onError()
+                  Log.i(TAG, "post submitted to API." + response.body().toString())
+               }
+            }
+         }
+      )
    }
 
    private fun requestTransactions(call: Call<Account>, callback: OnGetItemsCallback<Transaction>){
@@ -114,32 +170,7 @@ class TransactionRepository : Repository {
       )
    }
 
-   private fun requestTransaction(call:Call<Transaction>, callback: OnPostItemCallback<Transaction>) {
-      call.enqueue(
-         object : Callback<Transaction> {
-            override fun onFailure(call: Call<Transaction>, t: Throwable) {
-               callback.onError()
-               Log.e(TAG,t.toString())
-               Log.e(TAG, " -------> Unable to submit post to API.")
-            }
 
-            override fun onResponse(call: Call<Transaction>, response: Response<Transaction>) {
-               if (response.isSuccessful) {
-                  val transactionResponse = response.body()
-                  if (transactionResponse != null) {
-                     callback.onSuccess(transactionResponse)
-                  } else {
-                     callback.onError()
-                     Log.i(TAG, "post submitted to API." + response.body().toString())
-                  }
-               } else {
-                  callback.onError()
-                  Log.i(TAG, "post submitted to API." + response.body().toString())
-               }
-            }
-         }
-      )
-   }
 
    private fun requestTransaction(call:Call<Transaction>) {
       call.enqueue(

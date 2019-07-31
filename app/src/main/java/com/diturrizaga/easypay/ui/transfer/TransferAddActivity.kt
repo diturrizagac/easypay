@@ -152,20 +152,10 @@ class TransferAddActivity : AppCompatActivity() {
       populateCurrentTransaction()
       payerCurrentAccount!!.balance = generatePayerTransaction(payerCurrentAccount!!.balance!!, transferAmount!!.text.toString().toDouble())
       creditorCurrentAccount!!.balance = generateCreditorTransaction(creditorCurrentAccount!!.balance!!, transferAmount!!.text.toString().toDouble())
-      updatePayerAccount()
-      updateCreditorAccount()
       createTransaction()
       createCreditorTransaction()
    }
 
-   private fun updateCreditorAccount() {
-
-   }
-
-   private fun updatePayerAccount() {
-
-   }
-   
    private fun showAlertDialog() {
       // Initialize a new instance of
       val builder = AlertDialog.Builder(this)
@@ -178,8 +168,9 @@ class TransferAddActivity : AppCompatActivity() {
          // Do something when user press the positive button
          setRelationOnBackendless(payerCurrentAccount!!, currentTransaction!! )
          setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
+         updateCreditorAccount()
          Toast.makeText(applicationContext,"Ok, we're sending your transaction",Toast.LENGTH_SHORT).show()
-         goTo(SuccessfulOperationActivity::class.java, this,payerUserId!!, currentTransaction!!, payerCurrentAccount!!.balance!!)
+         //goTo(SuccessfulOperationActivity::class.java, this,payerUserId!!, currentTransaction!!, payerCurrentAccount!!.balance!!)
       }
       // Display a negative button on alert dialog
       builder.setNegativeButton("No"){dialog,which ->
@@ -201,6 +192,45 @@ class TransferAddActivity : AppCompatActivity() {
 
    private fun generateCreditorTransaction(balance: Double, amount: Double): Double{
       return balance + amount
+   }
+
+   private fun updateCreditorAccount() {
+      transactionRepository.updateUserAccount(
+         creditorCurrentAccount!!.objectId!!,
+         creditorCurrentAccount!!,
+         object : OnPutItemCallback<Account> {
+            override fun onSuccess(item: Account) {
+               creditorCurrentAccount = item
+               updatePayerAccount()
+               Log.v(TAG, "Data Creditor updated")
+            }
+
+            override fun onError() {
+               Log.v(TAG, "Couldn't bring data from URL of creditor")
+            }
+
+         }
+      )
+   }
+
+   private fun updatePayerAccount() {
+      transactionRepository.updateUserAccount(
+         payerCurrentAccount!!.objectId!!,
+         payerCurrentAccount!!,
+         object : OnPutItemCallback<Account> {
+            override fun onSuccess(item: Account) {
+               payerCurrentAccount = item
+               Log.v(TAG, "Data Payer updated")
+               goTo(SuccessfulOperationActivity::class.java, this@TransferAddActivity,
+                  payerUserId!!, currentTransaction!!, payerCurrentAccount!!.balance!!)
+            }
+
+            override fun onError() {
+               Log.v(TAG, "Couldn't bring data from URL of payer")
+            }
+
+         }
+      )
    }
 
    private fun createCreditorTransaction() {
