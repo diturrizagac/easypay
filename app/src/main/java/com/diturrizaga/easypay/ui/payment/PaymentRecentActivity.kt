@@ -13,6 +13,7 @@ import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.view.adapter.TransactionAdapter
 import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterBy
+import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterTransactions
 
 class PaymentRecentActivity : AppCompatActivity() {
 
@@ -49,7 +50,7 @@ class PaymentRecentActivity : AppCompatActivity() {
       transactionRepository.getTransactions(
          object : OnGetItemsCallback<Transaction> {
             override fun onSuccess(items: List<Transaction>) {
-               payments = filterBy(items, Type.PAYMENT.name)
+               payments = filterTransactions(items, Type.PAYMENT.name)
                paymentRvAdapter = TransactionAdapter(payments!!, this@PaymentRecentActivity)
                setAdapter(paymentRvAdapter)
                setListener()

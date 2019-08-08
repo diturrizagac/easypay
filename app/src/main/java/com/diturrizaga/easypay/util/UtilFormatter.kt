@@ -1,10 +1,12 @@
 package com.diturrizaga.easypay.util
 
+import android.annotation.SuppressLint
 import java.util.*
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
+import java.text.SimpleDateFormat
 import kotlin.math.round
 
 
@@ -23,7 +25,11 @@ class UtilFormatter {
          return round(this * multiplier) / multiplier
       }
 
-
+      @SuppressLint("SimpleDateFormat")
+      fun dateFormatter(date: Long): String {
+         val dateFormatted = SimpleDateFormat("dd/MM/yyyy -- HH:mm:ss")
+         return dateFormatted.format(Date(date))
+      }
    }
 
 

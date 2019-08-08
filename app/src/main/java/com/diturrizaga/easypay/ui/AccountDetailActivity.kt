@@ -46,9 +46,7 @@ class AccountDetailActivity : AppCompatActivity() {
    private fun retrieveData() {
       account = intent.extras!!.getSerializable("account") as Account
       userId = intent.extras!!.getString("userId")
-
       accountId = account!!.objectId
-
       viewModel!!.accountId = accountId
       viewModel!!.userId = userId
    }

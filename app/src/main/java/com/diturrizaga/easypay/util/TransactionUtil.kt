@@ -1,10 +1,11 @@
 package com.diturrizaga.easypay.util
 
+import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
 
 class TransactionUtil {
    companion object {
-      fun filterBy(items : List<Transaction>, filterCriteria : String ) : List<Transaction>{
+      fun filterTransactions(items : List<Transaction>, filterCriteria : String ) : List<Transaction>{
          val item = items.iterator()
          val filteredList = ArrayList<Transaction>()
          
@@ -13,6 +14,19 @@ class TransactionUtil {
             if (transaction.type.equals(filterCriteria,true)) {
             //if (transaction.type == filterCriteria) {
                filteredList.add(transaction)
+            }
+         }
+         return filteredList
+      }
+
+      fun filterAccounts(items : List<Account>, filterCriteria : String, type : String ) : List<Account>{
+         val item = items.iterator()
+         val filteredList = ArrayList<Account>()
+
+         while(item.hasNext()){
+            val account = item.next()
+            if (type.equals(filterCriteria,true)) {
+               filteredList.add(account)
             }
          }
          return filteredList

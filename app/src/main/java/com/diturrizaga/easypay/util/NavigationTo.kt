@@ -12,12 +12,13 @@ object NavigationTo {
       context.startActivity(intent)
    }
 
-   fun goTo(activity: Class<*>, context: Context,payerUserId: String, transaction : Transaction, balance: Double) {
+   fun goTo(activity: Class<*>, context: Context,currentUserId: String, transaction : Transaction, balance: Double) {
       val intent = Intent(context, activity)
-      intent.putExtra("userId",payerUserId)
-      intent.putExtra("from_account",transaction.from_account)
+      intent.putExtra("userId",currentUserId)
+      intent.putExtra("transaction", transaction)
+      /*intent.putExtra("from_account",transaction.from_account)
       intent.putExtra("to_account",transaction.to_account)
-      intent.putExtra("amount",transaction.amount)
+      intent.putExtra("amount",transaction.amount)*/
       intent.putExtra("balance",balance)
       context.startActivity(intent)
    }

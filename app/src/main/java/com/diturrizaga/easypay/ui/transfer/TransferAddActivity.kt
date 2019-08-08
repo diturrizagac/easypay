@@ -1,7 +1,6 @@
 package com.diturrizaga.easypay.ui.transfer
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +22,12 @@ import com.diturrizaga.easypay.*
 import com.diturrizaga.easypay.api.Api
 import com.diturrizaga.easypay.model.response.Account
 import com.diturrizaga.easypay.model.response.Transaction
-import com.diturrizaga.easypay.rabbitMQTest.RabbitMQApi
 import com.diturrizaga.easypay.repository.AccountRepository
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.Status
 import com.diturrizaga.easypay.ui.SuccessfulOperationActivity
 import com.diturrizaga.easypay.util.NavigationTo.goTo
 import com.google.android.material.button.MaterialButton
-import com.rabbitmq.client.ConnectionFactory
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
@@ -51,8 +48,6 @@ class TransferAddActivity : AppCompatActivity() {
    private var continueMDButton: MaterialButton? = null
    private var continueButton: Button? = null
 
-   private var isSum: Boolean? = null
-
    private var payerUserId: String? = null
    private var payerUserAccounts: List<Account>? = null
    private var accountNameFrom: String? = null
@@ -68,7 +63,6 @@ class TransferAddActivity : AppCompatActivity() {
 
    private var currentTransaction: Transaction? = null
    private var creditorCurrentTransaction: Transaction? = null
-   private var rabbitMQApi = RabbitMQApi()
 
    companion object {
       fun getTransferAddActivity(context: Context) = Intent(context, TransferAddActivity::class.java)
@@ -103,11 +97,6 @@ class TransferAddActivity : AppCompatActivity() {
       continueButton!!.setOnClickListener {
          postTransactionOnBackendless()
          showAlertDialog()
-         //rabbitMQApi.sendMessage(transferAmount!!.text.toString())
-         //val message = loadJsonFromAssets("card1.json")
-         //rabbitMQApi.sendMessage(message)
-         //val response = rabbitMQApi.receiveMessage()
-         //Toast.makeText(applicationContext,"El mensaje recibido es $response", Toast.LENGTH_LONG).show()
       }
    }
 
@@ -148,7 +137,6 @@ class TransferAddActivity : AppCompatActivity() {
 
    private fun postTransactionOnBackendless() {
       Backendless.initApp(this, Api.APP_ID, Api.API_KEY)
-      //populateTransaction()
       populateCurrentTransaction()
       payerCurrentAccount!!.balance = generatePayerTransaction(payerCurrentAccount!!.balance!!, transferAmount!!.text.toString().toDouble())
       creditorCurrentAccount!!.balance = generateCreditorTransaction(creditorCurrentAccount!!.balance!!, transferAmount!!.text.toString().toDouble())
@@ -379,7 +367,6 @@ class TransferAddActivity : AppCompatActivity() {
       currentTransaction!!.amount = transferAmount!!.text.toString().toDouble()
       currentTransaction!!.objectId = ""
       currentTransaction!!.to_account = creditorCurrentAccount!!.account_name
-      //currentTransaction!!.to_account = transferToAccount!!.text.toString()
       currentTransaction!!.type = Type.TRANSFER.name
       currentTransaction!!.ownerId = payerUserId
       currentTransaction!!.___class = CLASS

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.diturrizaga.easypay.R
+import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.ui.home.HomeActivity
 import com.diturrizaga.easypay.util.NavigationTo.goTo
 
@@ -15,6 +16,7 @@ class SuccessfulOperationActivity : AppCompatActivity() {
    private var amount : Double? = null
    private var balance : Double? = null
    private var userId : String? = null
+   private var transaction : Transaction? = null
 
    private var fromAccountTextView : TextView? = null
    private var toAccountTextView : TextView? = null
@@ -49,10 +51,14 @@ class SuccessfulOperationActivity : AppCompatActivity() {
 
    private fun retrieveDataFromIntent() {
       userId = intent.extras!!.getString("userId")
-      fromAccount = intent.extras!!.getString("from_account")
-      toAccount = intent.extras!!.getString("to_account")
-      amount = intent.extras!!.getDouble("amount")
+      transaction = intent.extras!!.get("transaction") as Transaction
       balance = intent.extras!!.getDouble("balance")
+      fromAccount = transaction!!.from_account
+      toAccount = transaction!!.to_account
+      amount = transaction!!.amount
+      /*fromAccount = intent.extras!!.getString("from_account")
+      toAccount = intent.extras!!.getString("to_account")
+      amount = intent.extras!!.getDouble("amount")*/
    }
 
    private fun setListener() {

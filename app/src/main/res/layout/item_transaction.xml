@@ -22,7 +22,6 @@
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textSize="16sp"
-                android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:text="@string/creditor3"/>
         <TextView
@@ -30,7 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/transaction_creditor"
-                android:layout_alignLeft="@+id/transaction_creditor"
                 android:layout_alignStart="@+id/transaction_creditor"
                 android:text="@string/date2"/>
 
@@ -38,12 +36,8 @@
                 android:id="@+id/transaction_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="40dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginStart="50dp"
+                android:layout_alignBaseline="@id/transaction_creditor"
+                android:layout_marginStart="300dp"
                 android:textSize="16sp"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:text="@string/balance_value_3"/>
@@ -52,9 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/transaction_amount"
-                android:layout_alignLeft="@+id/transaction_amount"
                 android:layout_alignStart="@+id/transaction_amount"
-                android:text="@string/transaction_status_2"
+                android:text="@string/transaction_status_1"
                 />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

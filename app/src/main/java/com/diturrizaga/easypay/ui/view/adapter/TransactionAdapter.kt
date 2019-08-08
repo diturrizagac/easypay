@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diturrizaga.easypay.R
 import com.diturrizaga.easypay.model.response.Transaction
-import com.diturrizaga.easypay.util.UtilFormatter
+import com.diturrizaga.easypay.util.UtilFormatter.Companion.amountToMoneyFormat
+import com.diturrizaga.easypay.util.UtilFormatter.Companion.dateFormatter
 
 
 class TransactionAdapter(private val transactions: List<Transaction>, private val context: Context) :
@@ -47,8 +48,8 @@ class TransactionAdapter(private val transactions: List<Transaction>, private va
 
       fun bind(transaction : Transaction) {
          transactionCreditor.text = transaction.to_account
-         transactionDate.text = transaction.activity_date.toString()
-         transactionAmount.text = UtilFormatter.amountToMoneyFormat(transaction.amount!!)
+         transactionDate.text = dateFormatter(transaction.created!!)
+         transactionAmount.text = amountToMoneyFormat(transaction.amount!!)
          transactionStatus.text = transaction.status
       }
    }

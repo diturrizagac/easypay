@@ -13,6 +13,7 @@ import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.view.adapter.TransactionAdapter
 import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterBy
+import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterTransactions
 
 class TransferRecentActivity : AppCompatActivity() {
 
@@ -46,7 +47,7 @@ class TransferRecentActivity : AppCompatActivity() {
       transactionRepository.getTransactions(
          object : OnGetItemsCallback<Transaction> {
             override fun onSuccess(items: List<Transaction>) {
-               transfers = filterBy(items, Type.TRANSFER.name)
+               transfers = filterTransactions(items, Type.TRANSFER.name)
 
             }
 
