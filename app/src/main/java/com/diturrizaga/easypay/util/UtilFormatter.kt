@@ -14,7 +14,13 @@ class UtilFormatter {
 
    companion object {
       fun amountToMoneyFormat(number : Double) : String{
-         return "$ $number"
+         return String.format("%.2f", number)
+      }
+
+      @SuppressLint("SimpleDateFormat")
+      fun dateFormatter(date: Long): String {
+         val dateFormatted = SimpleDateFormat("dd/MM/yyyy -- HH:mm:ss")
+         return dateFormatted.format(Date(date))
       }
 
       fun Double.round(decimals: Int) : Double {
@@ -23,12 +29,6 @@ class UtilFormatter {
             multiplier *= 10
          }
          return round(this * multiplier) / multiplier
-      }
-
-      @SuppressLint("SimpleDateFormat")
-      fun dateFormatter(date: Long): String {
-         val dateFormatted = SimpleDateFormat("dd/MM/yyyy -- HH:mm:ss")
-         return dateFormatted.format(Date(date))
       }
    }
 

@@ -15,8 +15,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".rabbitMQTest.RabbitMQActivity">
-        </activity>
         <activity android:name=".ui.SuccessfulOperationActivity">
         </activity>
         <activity android:name=".ui.ProfileActivity">

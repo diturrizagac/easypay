@@ -152,7 +152,7 @@ class TransferAddActivity : AppCompatActivity() {
       // Display a message on alert dialog
       builder.setMessage("Do you want to confirm this transaction?")
       // Set a positive button and its click listener on alert dialog
-      builder.setPositiveButton("Yes"){dialog, which ->
+      builder.setPositiveButton("Yes"){_,_ ->
          // Do something when user press the positive button
          setRelationOnBackendless(payerCurrentAccount!!, currentTransaction!! )
          setRelationOnBackendless(creditorCurrentAccount!!,creditorCurrentTransaction!!)
@@ -161,7 +161,7 @@ class TransferAddActivity : AppCompatActivity() {
          //goTo(SuccessfulOperationActivity::class.java, this,payerUserId!!, currentTransaction!!, payerCurrentAccount!!.balance!!)
       }
       // Display a negative button on alert dialog
-      builder.setNegativeButton("No"){dialog,which ->
+      builder.setNegativeButton("No"){_,_ ->
          Toast.makeText(applicationContext,"You canceled this operation",Toast.LENGTH_SHORT).show()
       }
       // Display a neutral button on alert dialog

@@ -12,8 +12,8 @@ import com.diturrizaga.easypay.Type
 import com.diturrizaga.easypay.model.response.Transaction
 import com.diturrizaga.easypay.repository.TransactionRepository
 import com.diturrizaga.easypay.ui.view.adapter.TransactionAdapter
-import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterBy
-import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterTransactions
+import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterTransactionsByType
+import com.diturrizaga.easypay.util.TransactionUtil.Companion.filterTransactionsByUser
 
 class PaymentRecentActivity : AppCompatActivity() {
 
@@ -30,13 +30,13 @@ class PaymentRecentActivity : AppCompatActivity() {
       override fun onClick(v: View?) {
 
       }
-
    }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_payment_recent)
       initializeUI()
+      retrieveData()
       showPayments()
    }
 
@@ -46,11 +46,16 @@ class PaymentRecentActivity : AppCompatActivity() {
       paymentRecyclerView.layoutManager = layoutManager
    }
 
+   private fun retrieveData() {
+      userId = intent.extras!!.getString("userId") as String
+   }
+
    private fun showPayments() {
       transactionRepository.getTransactions(
          object : OnGetItemsCallback<Transaction> {
             override fun onSuccess(items: List<Transaction>) {
-               payments = filterTransactions(items, Type.PAYMENT.name)
+               val allPayments = filterTransactionsByType(items, Type.PAYMENT.name)
+               payments = filterTransactionsByUser(allPayments, userId!!)
                paymentRvAdapter = TransactionAdapter(payments!!, this@PaymentRecentActivity)
                setAdapter(paymentRvAdapter)
                setListener()
@@ -70,4 +75,5 @@ class PaymentRecentActivity : AppCompatActivity() {
    private fun setAdapter(adapter: TransactionAdapter) {
       paymentRecyclerView.adapter = adapter
    }
+
 }

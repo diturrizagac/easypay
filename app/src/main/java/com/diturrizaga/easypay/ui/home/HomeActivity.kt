@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.diturrizaga.easypay.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.internal.NavigationMenu
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -21,8 +22,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
       setContentView(R.layout.activity_home)
       loadFragment(accountListFragment)
       retrieveData()
-      val navigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
-      navigationView.setOnNavigationItemSelectedListener(this)
+      setBottomBar()
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -73,7 +73,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    private fun retrieveData(){
       userId = intent.extras!!.getString("userId") as String
       accountListFragment.getIdFromHomeActivity(userId)
-      //sendIdToFragment(userId)
    }
 
    /**
@@ -89,5 +88,14 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
    override fun onSupportNavigateUp(): Boolean {
       finish()
       return true
+   }
+
+   private fun setTopBar() {
+
+   }
+
+   private fun setBottomBar() {
+      val navigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
+      navigationView.setOnNavigationItemSelectedListener(this)
    }
 }

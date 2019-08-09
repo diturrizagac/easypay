@@ -55,13 +55,4 @@ class AddTransactionFragment : Fragment() {
    fun getIdFromHomeActivity(id: String) {
       userId = id
    }
-
-
-   @Deprecated("Use goTo method from NavigationTo object in util package")
-   private fun goTo(activity: Class<*>) {
-      val intent = Intent(context,activity)
-      intent.putExtra("userId", userId)
-      context!!.startActivity(intent)
-   }
-
 }

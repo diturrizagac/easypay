@@ -52,6 +52,15 @@ class AccountListFragment : Fragment(){
       return rootView
    }
 
+   /**
+   * Initializing recyclerView and layout manager
+   */
+   private fun setupRecycler(view: View) {
+      layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager
+      accountRecyclerView = view.findViewById(R.id.account_list)
+      accountRecyclerView.layoutManager = layoutManager
+   }
+
    private fun showAccounts() {
       accountRepository.getAccounts(
          userId!!,
@@ -70,24 +79,15 @@ class AccountListFragment : Fragment(){
       )
    }
 
-   private fun setListener() {
-      accountRvAdapter.setOnItemClickListener(adapterListener)
-   }
-
-   /**
-    * Initializing recyclerView and layout manager
-    */
-   private fun setupRecycler(view: View) {
-      layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager
-      accountRecyclerView = view.findViewById(R.id.account_list)
-      accountRecyclerView.layoutManager = layoutManager
-   }
-
    /**
     * Set recyclerView adapter with AccountAdapterClass to draw on recyclerView
     */
    fun setAdapter(adapter: AccountAdapter) {
       accountRecyclerView.adapter = adapter
+   }
+
+   private fun setListener() {
+      accountRvAdapter.setOnItemClickListener(adapterListener)
    }
 
    /**

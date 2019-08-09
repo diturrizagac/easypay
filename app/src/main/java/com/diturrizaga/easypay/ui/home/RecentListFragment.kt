@@ -30,14 +30,10 @@ class RecentListFragment : Fragment() {
       return rootView
    }
 
-   fun initializeUI(view: View) {
+   private fun initializeUI(view: View) {
       recentTransferButton = view.findViewById(R.id.transfer_recent)
       recentPaymentButton = view.findViewById(R.id.payment_recent)
       recentWithdrawalButton = view.findViewById(R.id.withdrawal_recent)
-   }
-
-   fun getIdFromHomeActivity(id: String) {
-      userId = id
    }
 
    private fun setListener() {
@@ -53,4 +49,9 @@ class RecentListFragment : Fragment() {
          NavigationTo.goTo(WithdrawalRecentActivity::class.java, context!!, userId!!)
       }
    }
+
+   fun getIdFromHomeActivity(id: String) {
+      userId = id
+   }
+
 }

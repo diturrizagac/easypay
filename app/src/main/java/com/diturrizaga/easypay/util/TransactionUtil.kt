@@ -5,14 +5,28 @@ import com.diturrizaga.easypay.model.response.Transaction
 
 class TransactionUtil {
    companion object {
-      fun filterTransactions(items : List<Transaction>, filterCriteria : String ) : List<Transaction>{
+      fun filterTransactionsByUser(items : List<Transaction>, filterCriteria : String ) : List<Transaction>{
          val item = items.iterator()
          val filteredList = ArrayList<Transaction>()
          
          while(item.hasNext()){
             val transaction = item.next()
-            if (transaction.type.equals(filterCriteria,true)) {
+            if (transaction.ownerId.equals(filterCriteria,true)) {
             //if (transaction.type == filterCriteria) {
+               filteredList.add(transaction)
+            }
+         }
+         return filteredList
+      }
+
+      fun filterTransactionsByType(items : List<Transaction>, filterCriteria : String ) : List<Transaction>{
+         val item = items.iterator()
+         val filteredList = ArrayList<Transaction>()
+
+         while(item.hasNext()){
+            val transaction = item.next()
+            if (transaction.type.equals(filterCriteria,true)) {
+               //if (transaction.type == filterCriteria) {
                filteredList.add(transaction)
             }
          }
