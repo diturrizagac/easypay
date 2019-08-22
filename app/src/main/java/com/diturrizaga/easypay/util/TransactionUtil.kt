@@ -12,7 +12,6 @@ class TransactionUtil {
          while(item.hasNext()){
             val transaction = item.next()
             if (transaction.ownerId.equals(filterCriteria,true)) {
-            //if (transaction.type == filterCriteria) {
                filteredList.add(transaction)
             }
          }
